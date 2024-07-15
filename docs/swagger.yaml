@@ -1,0 +1,1179 @@
+definitions:
+  api.BroadcastRequest:
+    properties:
+      message:
+        type: string
+    type: object
+  api.EmptyResponse:
+    type: object
+  api.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  api.LoginInfo:
+    properties:
+      password:
+        type: string
+    type: object
+  api.MessageResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  api.SendRconCommandRequest:
+    properties:
+      content:
+        type: string
+      uuid:
+        type: string
+    type: object
+  api.ServerInfo:
+    properties:
+      name:
+        type: string
+      version:
+        type: string
+    type: object
+  api.ServerMetrics:
+    properties:
+      current_player_num:
+        type: integer
+      max_player_num:
+        type: integer
+      server_fps:
+        type: integer
+      server_frame_time:
+        type: number
+      uptime:
+        type: integer
+    type: object
+  api.ServerToolResponse:
+    properties:
+      latest:
+        type: string
+      version:
+        type: string
+    type: object
+  api.ShutdownRequest:
+    properties:
+      message:
+        type: string
+      seconds:
+        type: integer
+    type: object
+  api.SuccessResponse:
+    properties:
+      success:
+        type: boolean
+    type: object
+  database.Backup:
+    properties:
+      backup_id:
+        type: string
+      path:
+        type: string
+      save_time:
+        type: string
+    type: object
+  database.Guild:
+    properties:
+      admin_player_uid:
+        type: string
+      base_camp_level:
+        type: integer
+      base_ids:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+      players:
+        items:
+          $ref: '#/definitions/database.GuildPlayer'
+        type: array
+    type: object
+  database.GuildPlayer:
+    properties:
+      nickname:
+        type: string
+      player_uid:
+        type: string
+    type: object
+  database.Item:
+    properties:
+      ItemId:
+        type: string
+      SlotIndex:
+        type: integer
+      StackCount:
+        type: integer
+    type: object
+  database.Items:
+    properties:
+      CommonContainerId:
+        items:
+          $ref: '#/definitions/database.Item'
+        type: array
+      DropSlotContainerId:
+        items:
+          $ref: '#/definitions/database.Item'
+        type: array
+      EssentialContainerId:
+        items:
+          $ref: '#/definitions/database.Item'
+        type: array
+      FoodEquipContainerId:
+        items:
+          $ref: '#/definitions/database.Item'
+        type: array
+      PlayerEquipArmorContainerId:
+        items:
+          $ref: '#/definitions/database.Item'
+        type: array
+      WeaponLoadOutContainerId:
+        items:
+          $ref: '#/definitions/database.Item'
+        type: array
+    type: object
+  database.OnlinePlayer:
+    properties:
+      ip:
+        type: string
+      last_online:
+        type: string
+      level:
+        type: integer
+      location_x:
+        type: number
+      location_y:
+        type: number
+      nickname:
+        type: string
+      ping:
+        type: number
+      player_uid:
+        type: string
+      steam_id:
+        type: string
+    type: object
+  database.Pal:
+    properties:
+      defense:
+        type: integer
+      exp:
+        type: integer
+      gender:
+        type: string
+      hp:
+        type: integer
+      is_boss:
+        type: boolean
+      is_lucky:
+        type: boolean
+      is_tower:
+        type: boolean
+      level:
+        type: integer
+      max_hp:
+        type: integer
+      melee:
+        type: integer
+      ranged:
+        type: integer
+      rank:
+        type: integer
+      skills:
+        items:
+          type: string
+        type: array
+      type:
+        type: string
+      workspeed:
+        type: integer
+    type: object
+  database.Player:
+    properties:
+      exp:
+        type: integer
+      full_stomach:
+        type: number
+      hp:
+        type: integer
+      ip:
+        type: string
+      items:
+        $ref: '#/definitions/database.Items'
+      last_online:
+        type: string
+      level:
+        type: integer
+      location_x:
+        type: number
+      location_y:
+        type: number
+      max_hp:
+        type: integer
+      max_status_point:
+        type: integer
+      nickname:
+        type: string
+      pals:
+        items:
+          $ref: '#/definitions/database.Pal'
+        type: array
+      ping:
+        type: number
+      player_uid:
+        type: string
+      save_last_online:
+        type: string
+      shield_hp:
+        type: integer
+      shield_max_hp:
+        type: integer
+      status_point:
+        additionalProperties:
+          type: integer
+        type: object
+      steam_id:
+        type: string
+    type: object
+  database.PlayerW:
+    properties:
+      name:
+        type: string
+      player_uid:
+        type: string
+      steam_id:
+        type: string
+    type: object
+  database.RconCommand:
+    properties:
+      command:
+        type: string
+      placeholder:
+        type: string
+      remark:
+        type: string
+    type: object
+  database.RconCommandList:
+    properties:
+      command:
+        type: string
+      placeholder:
+        type: string
+      remark:
+        type: string
+      uuid:
+        type: string
+    type: object
+  database.TersePlayer:
+    properties:
+      exp:
+        type: integer
+      full_stomach:
+        type: number
+      hp:
+        type: integer
+      ip:
+        type: string
+      last_online:
+        type: string
+      level:
+        type: integer
+      location_x:
+        type: number
+      location_y:
+        type: number
+      max_hp:
+        type: integer
+      max_status_point:
+        type: integer
+      nickname:
+        type: string
+      ping:
+        type: number
+      player_uid:
+        type: string
+      save_last_online:
+        type: string
+      shield_hp:
+        type: integer
+      shield_max_hp:
+        type: integer
+      status_point:
+        additionalProperties:
+          type: integer
+        type: object
+      steam_id:
+        type: string
+    type: object
+info:
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+paths:
+  /api/backup:
+    get:
+      consumes:
+      - application/json
+      description: List all backups or backups within a specific time range.
+      parameters:
+      - description: Start time of the backup range in timestamp
+        in: query
+        name: startTime
+        type: integer
+      - description: End time of the backup range in timestamp
+        in: query
+        name: endTime
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/database.Backup'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List backups within a specified time range
+      tags:
+      - backup
+  /api/backup/{backup_id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a backup
+      parameters:
+      - description: Backup ID
+        in: path
+        name: backup_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Backup
+      tags:
+      - backup
+    get:
+      consumes:
+      - application/json
+      description: Download a backup
+      parameters:
+      - description: Backup ID
+        in: path
+        name: backup_id
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: Backupfile
+          schema:
+            type: file
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Download Backup
+      tags:
+      - backup
+  /api/guild:
+    get:
+      consumes:
+      - application/json
+      description: List Guilds
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/database.Guild'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: List Guilds
+      tags:
+      - Guild
+    put:
+      consumes:
+      - application/json
+      description: Put Guilds Only For SavSync
+      parameters:
+      - description: Guilds
+        in: body
+        name: guilds
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/database.Guild'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Put Guilds
+      tags:
+      - Guild
+  /api/guild/{admin_player_uid}:
+    get:
+      consumes:
+      - application/json
+      description: Get Guild
+      parameters:
+      - description: Admin Player UID
+        in: path
+        name: admin_player_uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/database.Guild'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.EmptyResponse'
+      summary: Get Guild
+      tags:
+      - Guild
+  /api/login:
+    post:
+      consumes:
+      - application/json
+      description: Login
+      parameters:
+      - description: Login Info
+        in: body
+        name: login_info
+        required: true
+        schema:
+          $ref: '#/definitions/api.LoginInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Login
+      tags:
+      - Auth
+  /api/online_player:
+    get:
+      consumes:
+      - application/json
+      description: List Online Players
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/database.OnlinePlayer'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: List Online Players
+      tags:
+      - Player
+  /api/player:
+    get:
+      consumes:
+      - application/json
+      description: List Players
+      parameters:
+      - description: order by field
+        enum:
+        - last_online
+        - level
+        in: query
+        name: order_by
+        type: string
+      - description: order by desc
+        in: query
+        name: desc
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/database.TersePlayer'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: List Players
+      tags:
+      - Player
+    put:
+      consumes:
+      - application/json
+      description: Put Players Only For SavSync,PlayerSync
+      parameters:
+      - description: Players
+        in: body
+        name: players
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/database.Player'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Put Players
+      tags:
+      - Player
+  /api/player/{player_uid}:
+    get:
+      consumes:
+      - application/json
+      description: Get Player
+      parameters:
+      - description: Player UID
+        in: path
+        name: player_uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/database.Player'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.EmptyResponse'
+      summary: Get Player
+      tags:
+      - Player
+  /api/player/{player_uid}/ban:
+    post:
+      consumes:
+      - application/json
+      description: Ban Player
+      parameters:
+      - description: Player UID
+        in: path
+        name: player_uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Ban Player
+      tags:
+      - Player
+  /api/player/{player_uid}/kick:
+    post:
+      consumes:
+      - application/json
+      description: Kick Player
+      parameters:
+      - description: Player UID
+        in: path
+        name: player_uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Kick Player
+      tags:
+      - Player
+  /api/player/{player_uid}/unban:
+    post:
+      consumes:
+      - application/json
+      description: Unban Player
+      parameters:
+      - description: Player UID
+        in: path
+        name: player_uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Unban Player
+      tags:
+      - Player
+  /api/rcon:
+    get:
+      consumes:
+      - application/json
+      description: List Rcon Commands
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/database.RconCommandList'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: List Rcon Commands
+      tags:
+      - Rcon
+    post:
+      consumes:
+      - application/json
+      description: Add Rcon Command
+      parameters:
+      - description: Rcon Command
+        in: body
+        name: command
+        required: true
+        schema:
+          $ref: '#/definitions/database.RconCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Add Rcon Command
+      tags:
+      - Rcon
+  /api/rcon/{uuid}:
+    delete:
+      consumes:
+      - application/json
+      description: Remove Rcon Command
+      parameters:
+      - description: UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Remove Rcon Command
+      tags:
+      - Rcon
+    put:
+      consumes:
+      - application/json
+      description: Put Rcon Command
+      parameters:
+      - description: UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      - description: Rcon Command
+        in: body
+        name: command
+        required: true
+        schema:
+          $ref: '#/definitions/database.RconCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Put Rcon Command
+      tags:
+      - Rcon
+  /api/rcon/import:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Import Rcon Commands from a TXT file
+      parameters:
+      - description: Upload txt file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Import Rcon Commands
+      tags:
+      - Rcon
+  /api/rcon/send:
+    post:
+      consumes:
+      - application/json
+      description: Send Rcon Command
+      parameters:
+      - description: Rcon Command
+        in: body
+        name: command
+        required: true
+        schema:
+          $ref: '#/definitions/api.SendRconCommandRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.MessageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Send Rcon Command
+      tags:
+      - Rcon
+  /api/server:
+    get:
+      consumes:
+      - application/json
+      description: Get Server Info
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ServerInfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Get Server Info
+      tags:
+      - Server
+  /api/server/broadcast:
+    post:
+      consumes:
+      - application/json
+      description: Publish Broadcast
+      parameters:
+      - description: Broadcast
+        in: body
+        name: broadcast
+        required: true
+        schema:
+          $ref: '#/definitions/api.BroadcastRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Publish Broadcast
+      tags:
+      - Server
+  /api/server/metrics:
+    get:
+      consumes:
+      - application/json
+      description: Get Server Metrics
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ServerMetrics'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Get Server Metrics
+      tags:
+      - Server
+  /api/server/shutdown:
+    post:
+      consumes:
+      - application/json
+      description: Shutdown Server
+      parameters:
+      - description: Shutdown
+        in: body
+        name: shutdown
+        required: true
+        schema:
+          $ref: '#/definitions/api.ShutdownRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Shutdown Server
+      tags:
+      - Server
+  /api/server/tool:
+    get:
+      consumes:
+      - application/json
+      description: Get PalWorld Server Tool
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ServerToolResponse'
+      summary: Get PalWorld Server Tool
+      tags:
+      - Server
+  /api/sync:
+    post:
+      consumes:
+      - application/json
+      description: Sync Data
+      parameters:
+      - description: from
+        enum:
+        - rest
+        - sav
+        in: query
+        name: from
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Sync Data
+      tags:
+      - Sync
+  /api/whitelist:
+    delete:
+      consumes:
+      - application/json
+      description: Remove White List
+      parameters:
+      - description: Player UID
+        in: path
+        name: player_uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Remove White List
+      tags:
+      - Player
+    get:
+      consumes:
+      - application/json
+      description: List White List
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/database.PlayerW'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: List White List
+      tags:
+      - Player
+    post:
+      consumes:
+      - application/json
+      description: Add White List
+      parameters:
+      - description: Player UID
+        in: path
+        name: player_uid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Add White List
+      tags:
+      - Player
+    put:
+      consumes:
+      - application/json
+      description: Put White List
+      parameters:
+      - description: Players
+        in: body
+        name: players
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/database.PlayerW'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Put White List
+      tags:
+      - Player
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
