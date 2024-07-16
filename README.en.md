@@ -50,7 +50,7 @@ Due to limited maintenance and development staff, we welcome front-end, back-end
 
 ## Function screenshot
 
-https://github.com/zaigie/palworld-server-tool/assets/17232619/49abcd34-0752-487e-8588-b6d1834f07d5
+https://github.com/zaigie/palworld-server-tool/assets/17232619/afdf485c-4b34-491d-9c1f-1eb82e8060a1
 
 ### Desktop
 
@@ -70,7 +70,7 @@ https://github.com/zaigie/palworld-server-tool/assets/17232619/49abcd34-0752-487
 
 In this project, the REST API function of the server must be enabled for normal use, and the custom RCON function depends on the RCON function.
 
-If your private service tutorial is better written, if not, please close the server first, then modify the `PalWorldSettings.ini` file or `WorldOption.sav` file at [Pal-Conf](https://pal-conf.bluefissure.com/) and place it in the appropriate location to enable the server.
+If your private service tutorial is better written, if not, please close the server first, then modify the `PalWorldSettings.ini` file or `WorldOption.sav` file at [Pal-Conf](https://pal-conf.apiqy.cn/) and place it in the appropriate location to enable the server.
 
 First set **Administrator password**
 

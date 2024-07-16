@@ -57,7 +57,7 @@
 
 ## 功能截图
 
-https://github.com/qycnet/palworld-server-tool-main/assets/17232619/afdf485c-4b34-491d-9c1f-1eb82e8060a1
+https://github.com/zaigie/palworld-server-tool/assets/17232619/afdf485c-4b34-491d-9c1f-1eb82e8060a1
 
 ### 桌面端
 
@@ -77,7 +77,7 @@ https://github.com/qycnet/palworld-server-tool-main/assets/17232619/afdf485c-4b3
 
 本项目必需开启服务器的 REST API 功能才能正常使用，而自定义 RCON 功能则依赖于 RCON 功能。
 
-如果你的私服教程有写更好，没有的话，请先关闭服务端，然后在 [Pal-Conf](https://pal-conf.bluefissure.com/) 修改 `PalWorldSettings.ini` 文件或者 `WorldOption.sav` 文件并放到相应位置，启用服务端。
+如果你的私服教程有写更好，没有的话，请先关闭服务端，然后在 [Pal-Conf](https://pal-conf.apiqy.cn/) 修改 `PalWorldSettings.ini` 文件或者 `WorldOption.sav` 文件并放到相应位置，启用服务端。
 
 先设置 **管理员密码**
 

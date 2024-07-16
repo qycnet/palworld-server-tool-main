@@ -50,7 +50,7 @@
 
 ## 機能スクリーンショット
 
-https://github.com/qycnet/palworld-server-tool-main/assets/17232619/afdf485c-4b34-491d-9c1f-1eb82e8060a1
+https://github.com/zaigie/palworld-server-tool/assets/17232619/afdf485c-4b34-491d-9c1f-1eb82e8060a1
 
 ### デスクトップ
 
@@ -70,7 +70,7 @@ https://github.com/qycnet/palworld-server-tool-main/assets/17232619/afdf485c-4b3
 
 このプロジェクトでは、サーバーの REST API 機能を通常の使用のために有効にする必要があり、カスタム RCON 機能は RCON 関数に依存します。
 
-マニュアルがある方が良いですが、ない場合は、最初にサービス側を閉じて、 [Pal-Conf](https://pal-conf.bluefissure.com/) `PalWorldSettings.ini` ファイルや`WorldOption.sav` ファイルをパルコンフで修正して、サービス側を有効にします。
+マニュアルがある方が良いですが、ない場合は、最初にサービス側を閉じて、 [Pal-Conf](https://pal-conf.apiqy.cn/) `PalWorldSettings.ini` ファイルや`WorldOption.sav` ファイルをパルコンフで修正して、サービス側を有効にします。
 
 最初に**管理者パスワード**を設定します
 
