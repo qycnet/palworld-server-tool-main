@@ -5,7 +5,7 @@ on:
     tags:
       - "v*.*.*"
 env:
-  IMAGE_NAME: palworld-server-tool-agent
+  IMAGE_NAME: palworld-server-tool-main-agent
   DOCKER_REGISTRY: jokerwho
 jobs:
   build-image:
