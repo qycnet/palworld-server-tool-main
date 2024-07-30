@@ -20,7 +20,7 @@ import ReactCountryFlag from "react-country-flag";
 
 // App Components
 import { TextInput } from "./components/textInput";
-import { DeathPenaltyDropDown } from "./components/deathPenaltyDropdown";
+import { DropDown } from "./components/dropdown";
 import { SliderInput } from "./components/sliderInput";
 import { SwitchInput } from "./components/switchInput";
 import { Input } from "./components/ui/input";
@@ -36,7 +36,7 @@ import { AdvancedSettings, InGameSettings, ServerSettings } from "./consts/setti
 
 // Types
 import { Gvas } from "./types/gvas";
-import { DeathPenaltyLabel } from "./components/deathPenaltyDropdown";
+import { LabelValue } from "./components/dropdown";
 
 interface ChangeEvent<T> {
   target: {
@@ -129,9 +129,9 @@ function App() {
         const newEntries = { ...entries };
         optionSettingsList.forEach((optionSetting) => {
           // console.log(optionSetting)
-          const optionSettingList = optionSetting.split("=");
-          const optionSettingName = optionSettingList[0];
-          let optionSettingValue = optionSettingList[1];
+          const equalSignIndex = optionSetting.indexOf("=");
+          const optionSettingName = optionSetting.slice(0, equalSignIndex);
+          let optionSettingValue = optionSetting.slice(equalSignIndex + 1);
           const entry = ENTRIES[optionSettingName];
           if (entry) {
             if (entry.type === "string" && optionSettingValue.startsWith('"') && optionSettingValue.endsWith('"')) {
@@ -201,6 +201,20 @@ function App() {
             Enum: {
               value: `EPalOptionWorldDifficulty::Custom`,
               enum_type: "EPalOptionWorldDifficulty",
+            },
+          };
+        } else if (entry.id === "AllowConnectPlatform") {
+          dictValue = {
+            Enum: {
+              value: `EPalOptionWorldAllowConnectPlatform::${entryValue}`,
+              enum_type: "EPalOptionWorldAllowConnectPlatform",
+            },
+          };
+        } else if (entry.id === "LogFormatType") {
+          dictValue = {
+            Enum: {
+              value: `EPalOptionWorldLogFormatType::${entryValue}`,
+              enum_type: "EPalOptionWorldLogFormatType",
             },
           };
         }
@@ -373,13 +387,13 @@ function App() {
     }
     const entryName = t(`entry.name.${entry.id}`);
     const entryValue = entries[entry.id] ?? entry.defaultValue;
-    if (entry.id === "DeathPenalty") {
+    if (entry.type === "select") {
       return (
-        <DeathPenaltyDropDown
-          key={id}
-          label={entryValue as DeathPenaltyLabel}
+        <DropDown
+          dKey={entry.id as "DeathPenalty" | "AllowConnectPlatform" | "LogFormatType"}
+          label={entryValue as LabelValue}
           onLabelChange={(labelName: string) => {
-            onStateChanged("DeathPenalty")({
+            onStateChanged(entry.id)({
               target: { value: labelName },
             });
           }}
@@ -694,7 +708,7 @@ function App() {
         <div className="w-full max-w-3xl flex justify-center pt-2">
           2024 @Bluefissure{" "}
           <a
-            href="https://pal-conf.apiqy.cn/?lng=zh_CN"
+            href="https://pal-conf.apiqy.cn/"
             className="pl-2 font-medium text-primary underline underline-offset-4 top-2"
             target="_blank"
             rel="noreferrer"

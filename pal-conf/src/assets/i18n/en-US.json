@@ -88,6 +88,9 @@
         "GuildPlayerMaxNum": "Guild Player Max Num",
         "PalEggDefaultHatchingTime": "Pal Egg Default Hatching Time",
         "WorkSpeedRate": "Work Speed Rate",
+        "AutoSaveSpan": "Auto Save Span",
+        "AllowConnectPlatform": "Allow Connect Platform",
+        "LogFormatType": "Log Format Type",
         "bIsMultiplay": "Is Multiplay",
         "bIsPvP": "Is PvP",
         "bCanPickupOtherGuildDeathPenaltyDrop": "Can Pickup Other Guild Death Penalty Drop",
@@ -112,7 +115,9 @@
         "bIsUseBackupSaveData": "Is Use Backup Save Data",
         "Region": "Region",
         "bUseAuth": "Use Auth",
-        "BanListURL": "Ban List URL"
+        "BanListURL": "Ban List URL",
+        "SupplyDropSpan":"Interval for supply drop or meteorite (minutes)"
+
       },
       "description": {
         "DeathPenalty": {
@@ -120,6 +125,14 @@
           "Item": "Lost item without equipment",
           "ItemAndEquipment": "Lost item and equipment",
           "All": "Lost All item, equipment, pal (in inventory)"
+        },
+        "AllowConnectPlatform": {
+          "Steam": "Only allow Steam to connect",
+          "Xbox": "Only allow Xbox to connect"
+        },
+        "LogFormatType": {
+          "Text": "Use Text format to log",
+          "Json": "Use Json format to log"
         }
       }
     }

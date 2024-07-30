@@ -7,6 +7,9 @@ export const ServerSettings = [
   "PublicPort",
   "ServerPlayerMaxNum",
   "bIsUseBackupSaveData",
+  "AutoSaveSpan",
+  "AllowConnectPlatform",
+  "LogFormatType"
 ];
 
 export const InGameSettings = [
@@ -40,6 +43,7 @@ export const InGameSettings = [
   "GuildPlayerMaxNum",
   "BaseCampMaxNumInGuild",
   "BaseCampWorkerMaxNum",
+  "SupplyDropSpan",
 ];
 
 export const AdvancedSettings = [

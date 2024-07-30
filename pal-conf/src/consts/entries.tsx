@@ -52,6 +52,7 @@ AutoResetGuildTimeNoOnlinePlayers=72.000000,
 GuildPlayerMaxNum=20,
 PalEggDefaultHatchingTime=72.000000,
 WorkSpeedRate=1.000000,
+AutoSaveSpan=30.000000,
 bIsMultiplay=False,
 bIsPvP=False,
 bCanPickupOtherGuildDeathPenaltyDrop=False,
@@ -73,7 +74,8 @@ RCONEnabled=False,
 RCONPort=25575,
 Region="",
 bUseAuth=True,
-BanListURL="https://api.palworldgame.com/api/banlist.txt"
+BanListURL="https://api.palworldgame.com/api/banlist.txt",
+SupplyDropSpan=180
 */
 
 export const ENTRIES: Record<string, Entry> = {
@@ -404,6 +406,30 @@ export const ENTRIES: Record<string, Entry> = {
     desc: "Work speed rate",
     difficultyType: "decreasing",
   },
+  AutoSaveSpan: {
+    name: "Auto Save Span",
+    id: "AutoSaveSpan",
+    defaultValue: "30",
+    type: "integer",
+    range: [30, 3600],
+    desc: "Auto save span",
+  },
+  AllowConnectPlatform: {
+    name: "Allow Connect Platform",
+    id: "AllowConnectPlatform",
+    defaultValue: "Steam",
+    type: "select",
+    options: ["Steam", "Xbox"],
+    desc: "Allow connect platform",
+  },
+  LogFormatType: {
+    name: "Log Format Type",
+    id: "LogFormatType",
+    defaultValue: "Text",
+    type: "select",
+    options: ["Text", "Json"],
+    desc: "Log format type",
+  },
   bIsMultiplay: {
     name: "Is Multiplay",
     id: "bIsMultiplay",
@@ -580,5 +606,13 @@ export const ENTRIES: Record<string, Entry> = {
     defaultValue: "https://api.palworldgame.com/api/banlist.txt",
     type: "string",
     desc: "Ban list URL",
+  },
+  SupplyDropSpan:{
+    name: "Supply Drop Span",
+    id: "SupplyDropSpan",
+    defaultValue: "180",
+    type: "integer",
+    range: [0, 1000],
+    desc: "Interval for supply drop and meteorite (minutes)",
   },
 };
