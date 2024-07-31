@@ -3,7 +3,7 @@ name: PST Docker Image CI
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "v0.7.4"
 env:
   IMAGE_NAME: palworld-server-tool-main
   DOCKER_REGISTRY: jokerwho

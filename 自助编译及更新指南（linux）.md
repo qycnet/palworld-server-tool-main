@@ -14,7 +14,7 @@
 
 ## 1.下载源码文件
 
-`git clone https://github.com/zaigie/palworld-server-tool.git`
+`git clone https://github.com/qycnet/palworld-server-tool-main.git`
 
 ## 2.编译sav_cli
 
