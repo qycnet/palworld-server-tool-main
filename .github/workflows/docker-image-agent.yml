@@ -3,7 +3,7 @@ name: PST-Agent Docker Image CI
 on:
   push:
     tags:
-      - "v0.7.4"
+      - "v0.7.5"
 env:
   IMAGE_NAME: palworld-server-tool-main-agent
   DOCKER_REGISTRY: yesterday
