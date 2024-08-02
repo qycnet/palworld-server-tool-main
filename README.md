@@ -133,7 +133,7 @@ https://github.com/zaigie/palworld-server-tool/assets/17232619/afdf485c-4b34-491
 
 ```bash
 # 下载 pst_{version}_{platform}_{arch}.tar.gz 文件并解压到 pst 目录
-mkdir -p pst && tar -xzf pst_v0.7.1_linux_x86_64.tar.gz -C pst
+mkdir -p pst && tar -xzf pst_v0.7.4_linux_x86_64.tar.gz -C pst
 ```
 
 ##### 配置
