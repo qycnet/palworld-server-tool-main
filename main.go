@@ -22,7 +22,7 @@ import (
 )
 
 var (
-	version string = "0.7.5"
+	version string = "0.7.4"
 	cfgFile string
 	conf    config.Config
 )
