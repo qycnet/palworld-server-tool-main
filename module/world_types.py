@@ -52,10 +52,14 @@ class Player:
         )
         self.full_stomach = round(full_stomach, 2)
         self.pals = []
-        self.items = (
-            data["Items"]
-            if data["Items"] is not None
-            else {
+
+        if data["Items"] is not None:
+            self.items = data["Items"]
+            self.location_x = data["Items"]["LastTransform"]["x"]
+            self.location_y = data["Items"]["LastTransform"]["y"]
+            data["Items"].pop("LastTransform")
+        else:
+            self.items = {
                 "CommonContainerId": [],
                 "DropSlotContainerId": [],
                 "EssentialContainerId": [],
@@ -63,7 +67,8 @@ class Player:
                 "PlayerEquipArmorContainerId": [],
                 "WeaponLoadOutContainerId": [],
             }
-        )
+            self.location_x = None
+            self.location_y = None
 
         self.__order = [
             "player_uid",
@@ -77,6 +82,8 @@ class Player:
             "max_status_point",
             "status_point",
             "full_stomach",
+            "location_x",
+            "location_y",
             "pals",
             "items",
         ]
@@ -184,13 +191,18 @@ class Guild:
             }
             for player in data["players"]
         ]
-        self.base_ids = [str(x) for x in data["base_ids"]]
+        self.base_camp = [{
+            "id": str(x["id"]),
+            "area": x["area_range"],
+            "location_x": x["transform"]["translation"]["x"],
+            "location_y": x["transform"]["translation"]["y"],
+        } for x in data["base"]]
         self.__order = [
             "name",
             "base_camp_level",
             "admin_player_uid",
             "players",
-            "base_ids",
+            "base_camp",
         ]
 
     def to_dict(self):

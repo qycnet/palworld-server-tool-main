@@ -9,6 +9,9 @@ class ApiService extends Service {
   async getServerToolInfo() {
     return this.fetch(`/api/server/tool`).get().json();
   }
+  async getServerToolConfig() {
+    return this.fetch(`/api/server/tool_config`).get().json();
+  }
   async getServerInfo() {
     return this.fetch(`/api/server`).get().json();
   }

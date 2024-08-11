@@ -10,7 +10,7 @@
 </p>
 
 <p align='center'>
-<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zaigie/palworld-server-tool?style=for-the-badge">&nbsp;&nbsp;
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/qycnet/palworld-server-tool-main?style=for-the-badge">&nbsp;&nbsp;
 <img alt="Go" src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white">&nbsp;&nbsp;
 <img alt="Python" src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue">&nbsp;&nbsp;
 <img alt="Vue" src="https://img.shields.io/badge/Vue%20js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D">
@@ -50,7 +50,7 @@
 
 ## 機能スクリーンショット
 
-https://github.com/zaigie/palworld-server-tool/assets/17232619/afdf485c-4b34-491d-9c1f-1eb82e8060a1
+https://github.com/qycnet/palworld-server-tool-main/assets/17232619/afdf485c-4b34-491d-9c1f-1eb82e8060a1
 
 ### デスクトップ
 
@@ -202,10 +202,10 @@ mkdir -p pst && tar -xzf pst_v0.7.1_linux_x86_64.tar.gz -C pst
 ```
 
 ```log
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:75 | Starting PalWorld Server Tool...
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:76 | Version: Develop
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.1.66:8080
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:75 | Starting PalWorld Server Tool...
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:76 | Version: Develop
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.1.66:8080
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
 ```
 
 SSH ウィンドウを閉じても実行を続ける場合は以下のようにします。
@@ -336,10 +336,10 @@ Windows で実行するには 2 つの
    ```
 
 ```log
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:75 | Starting PalWorld Server Tool...
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:76 | Version: Develop
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.31.214:8080
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:75 | Starting PalWorld Server Tool...
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:76 | Version: Develop
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.31.214:8080
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
 ```
 
 上記の画面が表示されたら、正常に実行されています。ウィンドウを開いたままにしてください。
@@ -375,7 +375,7 @@ docker run -d --name pst \
 -e REST__PASSWORD="your admin password" \
 -e SAVE__PATH="/game" \
 -e SAVE__SYNC_INTERVAL=120 \
-jokerwho/palworld-server-tool:latest
+jokerwho/palworld-server-tool-main:latest
 ```
 
 最も重要なのは、ゲームの存档ファイル（Level.sav）があるディレクトリを-v オプションでコンテナ内の/game ディレクトリにマッピングすることです。
@@ -427,7 +427,7 @@ touch pst.db
 
 #### Agent デプロイメント
 
-`palworld-server-tool`と`palworld-server-tool-agent`の 2 つのコンテナが必要です。
+`palworld-server-tool-main`と`palworld-server-tool-main-agent`の 2 つのコンテナが必要です。
 
 適用可能なシナリオ：
 
@@ -444,7 +444,7 @@ docker run -d --name pst-agent \
 -p 8081:8081 \
 -v /path/to/your/Pal/Saved:/game \
 -e SAVED_DIR="/game" \
-jokerwho/palworld-server-tool-agent:latest
+jokerwho/palworld-server-tool-main-agent:latest
 ```
 
 ゲームの存档ファイル（Level.sav）があるディレクトリを-v オプションでコンテナ内の/game ディレクトリにマッピングする必要があります。
@@ -466,7 +466,7 @@ docker run -d --name pst \
 -e REST__PASSWORD="your admin password" \
 -e SAVE__PATH="http://{GameServerIP}:{AgentPort}/sync" \
 -e SAVE__SYNC_INTERVAL=120 \
-jokerwho/palworld-server-tool:latest
+jokerwho/palworld-server-tool-main:latest
 ```
 
 ##### 永続化
@@ -601,7 +601,7 @@ SAVE__PATH="docker://04b0a9af4288:/palworld/Pal/Saved"
 ## 謝辞
 
 - [palworld-save-tools](https://github.com/cheahjs/palworld-save-tools) は存档解析ツールの実装を提供しました
-- [palworld-server-toolkit](https://github.com/magicbear/palworld-server-toolkit) は存档の高性能解析の一部を提供しました
+- [palworld-server-tool-mainkit](https://github.com/magicbear/palworld-server-tool-mainkit) は存档の高性能解析の一部を提供しました
 - [pal-conf](https://github.com/Bluefissure/pal-conf) 構成生成器ページを提供します
 - [PalEdit](https://github.com/EternalWraith/PalEdit) は最初のデータ化思考とロジックを提供しました
 - [gorcon](https://github.com/gorcon/rcon) は RCON リクエスト/レシーブの基本能力を提供しました

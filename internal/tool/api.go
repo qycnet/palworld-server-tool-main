@@ -13,7 +13,7 @@ type Tag struct {
 }
 
 func GetLatestTag() (string, error) {
-	url := "https://api.github.com/repos/zaigie/palworld-server-tool/tags"
+	url := "https://api.github.com/repos/qycnet/palworld-server-tool-main/tags"
 	client := &http.Client{
 		Timeout: 10 * time.Second,
 	}
@@ -42,7 +42,7 @@ func GetLatestTag() (string, error) {
 }
 
 func GetLatestTagFromGitee() (string, error) {
-	url := "https://gitee.com/api/v5/repos/zaigie/palworld-server-tool/tags"
+	url := "https://gitee.com/api/v5/repos/qycnet/palworld-server-tool-main/tags"
 	resp, err := http.Get(url)
 	if err != nil {
 		return "", err

@@ -5,6 +5,8 @@ web:
   cert_path: ""
   key_path: ""
   public_url: ""
+  map_tiles_path: "./map"
+  map_tiles_url: "http://127.0.0.1:8080/map/tiles/{z}/{x}/{y}.png"
 task:
   sync_interval: 60
   player_logging: false

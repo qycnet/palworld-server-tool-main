@@ -10,7 +10,7 @@
 </p>
 
 <p align='center'>
-<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zaigie/palworld-server-tool?style=for-the-badge">&nbsp;&nbsp;
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/qycnet/palworld-server-tool-main?style=for-the-badge">&nbsp;&nbsp;
 <img alt="Go" src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white">&nbsp;&nbsp;
 <img alt="Python" src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue">&nbsp;&nbsp;
 <img alt="Vue" src="https://img.shields.io/badge/Vue%20js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D">
@@ -50,7 +50,7 @@ Due to limited maintenance and development staff, we welcome front-end, back-end
 
 ## Function screenshot
 
-https://github.com/zaigie/palworld-server-tool/assets/17232619/afdf485c-4b34-491d-9c1f-1eb82e8060a1
+https://github.com/qycnet/palworld-server-tool-main/assets/17232619/afdf485c-4b34-491d-9c1f-1eb82e8060a1
 
 ### Desktop
 
@@ -202,10 +202,10 @@ mkdir -p pst && tar -xzf pst_v0.7.4_linux_x86_64.tar.gz -C pst
 ```
 
 ```log
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:75 | Starting PalWorld Server Tool...
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:76 | Version: Develop
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.1.66:8080
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:75 | Starting PalWorld Server Tool...
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:76 | Version: Develop
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.1.66:8080
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
 ```
 
 For background operation (running after SSH window is closed):
@@ -334,10 +334,10 @@ Two ways to run on Windows:
    ```
 
 ```log
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:75 | Starting PalWorld Server Tool...
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:76 | Version: Develop
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.31.214:8080
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:75 | Starting PalWorld Server Tool...
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:76 | Version: Develop
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.31.214:8080
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
 ```
 
 If you see the preceding interface, it indicates that the operation is successful. Keep the window open.
@@ -371,7 +371,7 @@ docker run -d --name pst \
 -e REST__PASSWORD="your admin password" \
 -e SAVE__PATH="/game" \
 -e SAVE__SYNC_INTERVAL=120 \
-jokerwho/palworld-server-tool:latest
+jokerwho/palworld-server-tool-main:latest
 ```
 
 Most importantly, use `-v` to map the game's save file (Level.sav) directory to the container's `/game` directory.
@@ -421,7 +421,7 @@ Set various environment variables, similar to those in [`config.yaml`](#configur
 
 #### Agent Deployment
 
-Two containers are required: `palworld-server-tool` and `palworld-server-tool-agent`.
+Two containers are required: `palworld-server-tool-main` and `palworld-server-tool-main-agent`.
 
 Applicable for:
 
@@ -436,7 +436,7 @@ docker run -d --name pst-agent \
 -p 8081:8081 \
 -v /path/to/your/Pal/Saved:/game \
 -e SAVED_DIR="/game" \
-jokerwho/palworld-server-tool-agent:latest
+jokerwho/palworld-server-tool-main-agent:latest
 ```
 
 You need to `-v` to the directory where the game save file (Level.sav) is located, mapping it to the `/game` directory in the container.
@@ -458,7 +458,7 @@ docker run -d --name pst \
 -e REST__PASSWORD="your admin password" \
 -e SAVE__PATH="http://{GameServerIP}:{AgentPort}/sync" \
 -e SAVE__SYNC_INTERVAL=120 \
-jokerwho/palworld-server-tool:latest
+jokerwho/palworld-server-tool-main:latest
 ```
 
 ##### Persistence
@@ -591,7 +591,7 @@ SAVE__PATH="docker://04b0a9af4288:/palworld/Pal/Saved"
 ## Acknowledgements
 
 - [palworld-save-tools](https://github.com/cheahjs/palworld-save-tools) for providing save file parsing tool implementation
-- [palworld-server-toolkit](https://github.com/magicbear/palworld-server-toolkit) for providing high performance save file parsing
+- [palworld-server-tool-mainkit](https://github.com/magicbear/palworld-server-tool-mainkit) for providing high performance save file parsing
 - [pal-conf](https://github.com/Bluefissure/pal-conf) provides the generator configuration page
 - [PalEdit](https://github.com/EternalWraith/PalEdit) for providing the initial conceptualization and logic for data processing
 - [gorcon](https://github.com/gorcon/rcon) for providing the basic ability to send/receive RCON requests

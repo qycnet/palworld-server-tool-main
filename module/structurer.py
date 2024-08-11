@@ -385,18 +385,31 @@ def getPlayerItems(player_uid, dir_path):
                 for item in item_container["value"]["Slots"]["value"]["values"]
                 if item["ItemId"]["value"]["StaticId"]["value"].lower() != "none"
             ]
+    containers_data["LastTransform"] = player_gvas["LastTransform"]["value"]["Translation"]["value"]
     return containers_data
 
 
 def structure_guild(filetime: int = -1):
     log("Structuring guilds...")
+
+    if not wsd.get("BaseCampSaveData"):
+        return []
+    baseCamps = {}
+    for b in wsd["BaseCampSaveData"]["value"]:
+        baseCamps[b['key']] = b["value"]["RawData"]["value"]
+
     if not wsd.get("GroupSaveDataMap"):
         return []
-    groups = (
-        g["value"]["RawData"]["value"]
-        for g in wsd["GroupSaveDataMap"]["value"]
-        if g["value"]["GroupType"]["value"]["value"] == "EPalGroupType::Guild"
-    )
+    groups = []
+    for g in wsd["GroupSaveDataMap"]["value"]:
+        if g["value"]["GroupType"]["value"]["value"] == "EPalGroupType::Guild":
+            tmp = g["value"]["RawData"]["value"]
+            tmp['base'] = (
+                baseCamps[i]
+                for i in tmp['base_ids']
+            )
+            groups.append(tmp)
+
     Ticks = wsd["GameTimeSaveData"]["value"]["RealDateTimeTicks"]["value"]
     guilds_generator = (Guild(g, Ticks, filetime).to_dict() for g in groups)
     sorted_guilds = sorted(

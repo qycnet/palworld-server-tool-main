@@ -75,7 +75,7 @@ kill $(ps aux | grep 'pst-agent' | awk '{print $2}') | head -n 1
 
 ```powershell
 # .\pst-agent.exe --port 访问端口 -d 存档文件 Level.sav 所在位置
-.\pst-agent.exe --port 8081 -d C:\Users\ZaiGie\...\Pal\Saved
+.\pst-agent.exe --port 8081 -d C:\Users\qycnet\...\Pal\Saved
 ```
 
 成功运行后请保持窗口打开

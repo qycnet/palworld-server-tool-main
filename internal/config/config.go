@@ -9,12 +9,14 @@ import (
 
 type Config struct {
 	Web struct {
-		Password  string `mapstructure:"password"`
-		Port      int    `mapstructure:"port"`
-		Tls       bool   `mapstructure:"tls"`
-		CertPath  string `mapstructure:"cert_path"`
-		KeyPath   string `mapstructure:"key_path"`
-		PublicUrl string `mapstructure:"public_url"`
+		Password     string `mapstructure:"password"`
+		Port         int    `mapstructure:"port"`
+		Tls          bool   `mapstructure:"tls"`
+		CertPath     string `mapstructure:"cert_path"`
+		KeyPath      string `mapstructure:"key_path"`
+		PublicUrl    string `mapstructure:"public_url"`
+		MapTilesPath string `mapstructure:"map_tiles_path"`
+		MapTilesUrl  string `mapstructure:"map_tiles_url"`
 	} `mapstructure:"web"`
 	Task struct {
 		SyncInterval        int    `mapstructure:"sync_interval"`

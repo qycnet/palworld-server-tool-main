@@ -10,7 +10,7 @@
 </p>
 
 <p align='center'>
-<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/zaigie/palworld-server-tool?style=for-the-badge">&nbsp;&nbsp;
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/qycnet/palworld-server-tool-main?style=for-the-badge">&nbsp;&nbsp;
 <img alt="Go" src="https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white">&nbsp;&nbsp;
 <img alt="Python" src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue">&nbsp;&nbsp;
 <img alt="Vue" src="https://img.shields.io/badge/Vue%20js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D">
@@ -57,7 +57,7 @@
 
 ## 功能截图
 
-https://github.com/zaigie/palworld-server-tool/assets/17232619/afdf485c-4b34-491d-9c1f-1eb82e8060a1
+https://github.com/qycnet/palworld-server-tool-main/assets/17232619/afdf485c-4b34-491d-9c1f-1eb82e8060a1
 
 ### 桌面端
 
@@ -117,7 +117,7 @@ https://github.com/zaigie/palworld-server-tool/assets/17232619/afdf485c-4b34-491
 
 [![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://hzh.sealos.run/?uid=1b856tuu)
 
-然后点击以下按钮一键部署 palworld-server-tool：
+然后点击以下按钮一键部署 palworld-server-tool-main：
 
 [![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://hzh.sealos.run/?openapp=system-template%3FtemplateName%3Dpalworld-management)
 
@@ -222,10 +222,10 @@ mkdir -p pst && tar -xzf pst_v0.7.4_linux_x86_64.tar.gz -C pst
 ```
 
 ```log
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:75 | Starting PalWorld Server Tool...
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:76 | Version: Develop
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.1.66:8080
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:75 | Starting PalWorld Server Tool...
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:76 | Version: Develop
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.1.66:8080
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
 ```
 
 若需要后台运行（关闭 ssh 窗口后仍运行）
@@ -354,10 +354,10 @@ manage:
    ```
 
 ```log
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:75 | Starting PalWorld Server Tool...
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:76 | Version: Develop
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.31.214:8080
-2024/01/31 - 22:39:20 | INFO | palworld-server-tool/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:75 | Starting PalWorld Server Tool...
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:76 | Version: Develop
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:77 | Listening on http://127.0.0.1:8080 or http://192.168.31.214:8080
+2024/01/31 - 22:39:20 | INFO | palworld-server-tool-main/main.go:78 | Swagger on http://127.0.0.1:8080/swagger/index.html
 ```
 
 看到上述界面表示成功运行，请保持窗口打开
@@ -391,7 +391,7 @@ docker run -d --name pst \
 -e REST__PASSWORD="your admin password" \
 -e SAVE__PATH="/game" \
 -e SAVE__SYNC_INTERVAL=120 \
-jokerwho/palworld-server-tool:latest
+jokerwho/palworld-server-tool-main:latest
 ```
 
 最重要的是需要 -v 到游戏存档文件（Level.sav）所在目录，将其映射到容器内的 /game 目录
@@ -441,7 +441,7 @@ touch pst.db
 
 #### Agent 部署
 
-需要两个容器，分别是 `palworld-server-tool` 和 `palworld-server-tool-agent`
+需要两个容器，分别是 `palworld-server-tool-main` 和 `palworld-server-tool-main-agent`
 
 适用于：
 
@@ -458,7 +458,7 @@ docker run -d --name pst-agent \
 -p 8081:8081 \
 -v /path/to/your/Pal/Saved:/game \
 -e SAVED_DIR="/game" \
-jokerwho/palworld-server-tool-agent:latest
+jokerwho/palworld-server-tool-main-agent:latest
 ```
 
 需要 -v 到游戏存档文件（Level.sav）所在目录，将其映射到容器内的 /game 目录
@@ -480,7 +480,7 @@ docker run -d --name pst \
 -e REST__PASSWORD="your admin password" \
 -e SAVE__PATH="http://游戏服务器IP:Agent端口/sync" \
 -e SAVE__SYNC_INTERVAL=120 \
-jokerwho/palworld-server-tool:latest
+jokerwho/palworld-server-tool-main:latest
 ```
 
 ##### 持久化
@@ -614,7 +614,7 @@ SAVE__PATH="docker://04b0a9af4288:/palworld/Pal/Saved"
 ## 感谢
 
 - [palworld-save-tools](https://github.com/cheahjs/palworld-save-tools) 提供了存档解析工具实现
-- [palworld-server-toolkit](https://github.com/magicbear/palworld-server-toolkit) 提供了存档高性能解析部份实现
+- [palworld-server-tool-mainkit](https://github.com/magicbear/palworld-server-tool-mainkit) 提供了存档高性能解析部份实现
 - [pal-conf](https://github.com/Bluefissure/pal-conf) 提供了配置生成器页面
 - [PalEdit](https://github.com/EternalWraith/PalEdit) 提供了最初的数据化思路及逻辑
 - [gorcon](https://github.com/gorcon/rcon) 提供的 RCON 请求/接收基础能力

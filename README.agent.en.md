@@ -75,7 +75,7 @@ Press `Win + R`, type `powershell` to open Powershell, use the `cd` command to n
 
 ```powershell
 # .\pst-agent.exe --port Access Port -d Save file Level.sav location
-.\pst-agent.exe --port 8081 -d C:\Users\ZaiGie\...\Pal\Saved
+.\pst-agent.exe --port 8081 -d C:\Users\qycnet\...\Pal\Saved
 ```
 
 After successful operation, please keep the window open

@@ -22,7 +22,7 @@ import (
 )
 
 var (
-	version string = "0.7.4"
+	version string = "Develop"
 	cfgFile string
 	conf    config.Config
 )
@@ -70,6 +70,15 @@ func main() {
 
 	assetsFS, _ := fs.Sub(assets, "assets")
 	router.StaticFS("/assets", http.FS(assetsFS))
+
+	tilesPath := viper.GetString("web.map_tiles_path")
+	if tilesPath != "" {
+		exist, _ := system.CheckIsDir(tilesPath)
+		if exist {
+			router.Static("/map/tiles", tilesPath)
+		}
+	}
+
 	router.GET("/", func(c *gin.Context) {
 		c.Writer.WriteHeader(http.StatusOK)
 		file, _ := indexHTML.ReadFile("index.html")

@@ -2,6 +2,7 @@ package api
 
 import (
 	"errors"
+	"github.com/spf13/viper"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -36,6 +37,10 @@ type ServerToolResponse struct {
 	Latest  string `json:"latest"`
 }
 
+type ServerToolConfigResponse struct {
+	MapTilesUrl string `json:"map_tiles_url"`
+}
+
 // getServerTool godoc
 //
 //	@Summary		Get PalWorld Server Tool
@@ -61,6 +66,22 @@ func getServerTool(c *gin.Context) {
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{"version": version, "latest": latest})
+}
+
+// getServerToolConfig godoc
+//
+//	@Summary		Get PalWorld Server Tool Config
+//	@Description	Get PalWorld Server Tool Config
+//	@Tags			Server
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{object}	ServerToolResponse
+//	@Router			/api/server/config [get]
+func getServerToolConfig(c *gin.Context) {
+	url := viper.GetString("web.map_tiles_url")
+	c.JSON(http.StatusOK, &ServerToolConfigResponse{
+		MapTilesUrl: url,
+	})
 }
 
 // getServer godoc
