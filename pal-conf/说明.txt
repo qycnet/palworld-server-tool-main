@@ -1,0 +1,10 @@
+设为官方默认镜像：`pnpm config set registry https://registry.npmjs.org`
+
+
+pnpm install
+
+pnpm dev --host
+
+pnpm build
+
+pnpm lint

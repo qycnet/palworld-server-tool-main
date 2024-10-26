@@ -1,0 +1,10 @@
+依赖打包 无palworld_save_tools文件夹
+build.sh
+pip install -r requirements.txt
+
+
+整体打包 有palworld_save_tools文件夹
+pyinstaller --exclude-module=tkinter --onefile sav_cli.py -n sav_cli.exe
+pyinstaller --onefile sav_cli.py -n sav_cli1.exe
+或者 1.ps1
+

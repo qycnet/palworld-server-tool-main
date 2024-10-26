@@ -1,0 +1,13 @@
+go build main.go
+
+
+go build main.go
+
+go build -ldflags="-s -w"
+
+
+更换国内源
+set GOPROXY=https://goproxy.cn
+
+
+main.go    Develop版本号

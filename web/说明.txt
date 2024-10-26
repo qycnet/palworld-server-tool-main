@@ -1,0 +1,11 @@
+pnpm install
+
+pnpm dev --host
+
+pnpm build
+
+pnpm lint
+
+配置PNPM镜像源（可选，提高下载速度）
+若要切换至国内镜像源，如cnpm或其它国内快速源：
+pnpm config set registry https://registry.npmmirror.com
