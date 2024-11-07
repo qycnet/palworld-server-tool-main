@@ -1,0 +1,1836 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "paths": {
+        "/api/backup": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "List all backups or backups within a specific time range.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "backup"
+                ],
+                "summary": "List backups within a specified time range",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Start time of the backup range in timestamp",
+                        "name": "startTime",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "End time of the backup range in timestamp",
+                        "name": "endTime",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/database.Backup"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/backup/{backup_id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Download a backup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "backup"
+                ],
+                "summary": "Download Backup",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Backup ID",
+                        "name": "backup_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Backupfile",
+                        "schema": {
+                            "type": "file"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Delete a backup",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "backup"
+                ],
+                "summary": "Delete Backup",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Backup ID",
+                        "name": "backup_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/guild": {
+            "get": {
+                "description": "List Guilds",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Guild"
+                ],
+                "summary": "List Guilds",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/database.Guild"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Put Guilds Only For SavSync",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Guild"
+                ],
+                "summary": "Put Guilds",
+                "parameters": [
+                    {
+                        "description": "Guilds",
+                        "name": "guilds",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/database.Guild"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/guild/{admin_player_uid}": {
+            "get": {
+                "description": "Get Guild",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Guild"
+                ],
+                "summary": "Get Guild",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Admin Player UID",
+                        "name": "admin_player_uid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/database.Guild"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.EmptyResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "description": "Login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "parameters": [
+                    {
+                        "description": "Login Info",
+                        "name": "login_info",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.LoginInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/online_player": {
+            "get": {
+                "description": "List Online Players",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "List Online Players",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/database.OnlinePlayer"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/player": {
+            "get": {
+                "description": "List Players",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "List Players",
+                "parameters": [
+                    {
+                        "enum": [
+                            "last_online",
+                            "level"
+                        ],
+                        "type": "string",
+                        "description": "order by field",
+                        "name": "order_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "order by desc",
+                        "name": "desc",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/database.TersePlayer"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Put Players Only For SavSync,PlayerSync",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Put Players",
+                "parameters": [
+                    {
+                        "description": "Players",
+                        "name": "players",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/database.Player"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/player/{player_uid}": {
+            "get": {
+                "description": "Get Player",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Get Player",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Player UID",
+                        "name": "player_uid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/database.Player"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.EmptyResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/player/{player_uid}/ban": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Ban Player",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Ban Player",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Player UID",
+                        "name": "player_uid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/player/{player_uid}/kick": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Kick Player",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Kick Player",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Player UID",
+                        "name": "player_uid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/player/{player_uid}/unban": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Unban Player",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Unban Player",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Player UID",
+                        "name": "player_uid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/rcon": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "List Rcon Commands",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rcon"
+                ],
+                "summary": "List Rcon Commands",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/database.RconCommandList"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Add Rcon Command",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rcon"
+                ],
+                "summary": "Add Rcon Command",
+                "parameters": [
+                    {
+                        "description": "Rcon Command",
+                        "name": "command",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/database.RconCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/rcon/import": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Import Rcon Commands from a TXT file",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rcon"
+                ],
+                "summary": "Import Rcon Commands",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "Upload txt file",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/rcon/send": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Send Rcon Command",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rcon"
+                ],
+                "summary": "Send Rcon Command",
+                "parameters": [
+                    {
+                        "description": "Rcon Command",
+                        "name": "command",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.SendRconCommandRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.MessageResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/rcon/{uuid}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Put Rcon Command",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rcon"
+                ],
+                "summary": "Put Rcon Command",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Rcon Command",
+                        "name": "command",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/database.RconCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Remove Rcon Command",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Rcon"
+                ],
+                "summary": "Remove Rcon Command",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "UUID",
+                        "name": "uuid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/server": {
+            "get": {
+                "description": "Get Server Info",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Server"
+                ],
+                "summary": "Get Server Info",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ServerInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/server/broadcast": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Publish Broadcast",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Server"
+                ],
+                "summary": "Publish Broadcast",
+                "parameters": [
+                    {
+                        "description": "Broadcast",
+                        "name": "broadcast",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.BroadcastRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/server/metrics": {
+            "get": {
+                "description": "Get Server Metrics",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Server"
+                ],
+                "summary": "Get Server Metrics",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ServerMetrics"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/server/shutdown": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Shutdown Server",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Server"
+                ],
+                "summary": "Shutdown Server",
+                "parameters": [
+                    {
+                        "description": "Shutdown",
+                        "name": "shutdown",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ShutdownRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/server/tool": {
+            "get": {
+                "description": "Get PalWorld Server Tool",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Server"
+                ],
+                "summary": "Get PalWorld Server Tool",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.ServerToolResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sync": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Sync Data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sync"
+                ],
+                "summary": "Sync Data",
+                "parameters": [
+                    {
+                        "enum": [
+                            "rest",
+                            "sav"
+                        ],
+                        "type": "string",
+                        "description": "from",
+                        "name": "from",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/whitelist": {
+            "get": {
+                "description": "List White List",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "List White List",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/database.PlayerW"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Put White List",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Put White List",
+                "parameters": [
+                    {
+                        "description": "Players",
+                        "name": "players",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/database.PlayerW"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Add White List",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Add White List",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Player UID",
+                        "name": "player_uid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Remove White List",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Remove White List",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Player UID",
+                        "name": "player_uid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/api.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/api.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "api.BroadcastRequest": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.EmptyResponse": {
+            "type": "object"
+        },
+        "api.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.LoginInfo": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.MessageResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.SendRconCommandRequest": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ServerInfo": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ServerMetrics": {
+            "type": "object",
+            "properties": {
+                "current_player_num": {
+                    "type": "integer"
+                },
+                "max_player_num": {
+                    "type": "integer"
+                },
+                "server_fps": {
+                    "type": "integer"
+                },
+                "server_frame_time": {
+                    "type": "number"
+                },
+                "uptime": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ServerToolResponse": {
+            "type": "object",
+            "properties": {
+                "latest": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ShutdownRequest": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "seconds": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "database.Backup": {
+            "type": "object",
+            "properties": {
+                "backup_id": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "save_time": {
+                    "type": "string"
+                }
+            }
+        },
+        "database.Guild": {
+            "type": "object",
+            "properties": {
+                "admin_player_uid": {
+                    "type": "string"
+                },
+                "base_camp_level": {
+                    "type": "integer"
+                },
+                "base_ids": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "players": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/database.GuildPlayer"
+                    }
+                }
+            }
+        },
+        "database.GuildPlayer": {
+            "type": "object",
+            "properties": {
+                "nickname": {
+                    "type": "string"
+                },
+                "player_uid": {
+                    "type": "string"
+                }
+            }
+        },
+        "database.Item": {
+            "type": "object",
+            "properties": {
+                "ItemId": {
+                    "type": "string"
+                },
+                "SlotIndex": {
+                    "type": "integer"
+                },
+                "StackCount": {
+                    "type": "integer"
+                }
+            }
+        },
+        "database.Items": {
+            "type": "object",
+            "properties": {
+                "CommonContainerId": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/database.Item"
+                    }
+                },
+                "DropSlotContainerId": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/database.Item"
+                    }
+                },
+                "EssentialContainerId": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/database.Item"
+                    }
+                },
+                "FoodEquipContainerId": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/database.Item"
+                    }
+                },
+                "PlayerEquipArmorContainerId": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/database.Item"
+                    }
+                },
+                "WeaponLoadOutContainerId": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/database.Item"
+                    }
+                }
+            }
+        },
+        "database.OnlinePlayer": {
+            "type": "object",
+            "properties": {
+                "ip": {
+                    "type": "string"
+                },
+                "last_online": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "integer"
+                },
+                "location_x": {
+                    "type": "number"
+                },
+                "location_y": {
+                    "type": "number"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "ping": {
+                    "type": "number"
+                },
+                "player_uid": {
+                    "type": "string"
+                },
+                "steam_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "database.Pal": {
+            "type": "object",
+            "properties": {
+                "defense": {
+                    "type": "integer"
+                },
+                "exp": {
+                    "type": "integer"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "hp": {
+                    "type": "integer"
+                },
+                "is_boss": {
+                    "type": "boolean"
+                },
+                "is_lucky": {
+                    "type": "boolean"
+                },
+                "is_tower": {
+                    "type": "boolean"
+                },
+                "level": {
+                    "type": "integer"
+                },
+                "max_hp": {
+                    "type": "integer"
+                },
+                "melee": {
+                    "type": "integer"
+                },
+                "ranged": {
+                    "type": "integer"
+                },
+                "rank": {
+                    "type": "integer"
+                },
+                "skills": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "type": {
+                    "type": "string"
+                },
+                "workspeed": {
+                    "type": "integer"
+                }
+            }
+        },
+        "database.Player": {
+            "type": "object",
+            "properties": {
+                "exp": {
+                    "type": "integer"
+                },
+                "full_stomach": {
+                    "type": "number"
+                },
+                "hp": {
+                    "type": "integer"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "items": {
+                    "$ref": "#/definitions/database.Items"
+                },
+                "last_online": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "integer"
+                },
+                "location_x": {
+                    "type": "number"
+                },
+                "location_y": {
+                    "type": "number"
+                },
+                "max_hp": {
+                    "type": "integer"
+                },
+                "max_status_point": {
+                    "type": "integer"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "pals": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/database.Pal"
+                    }
+                },
+                "ping": {
+                    "type": "number"
+                },
+                "player_uid": {
+                    "type": "string"
+                },
+                "save_last_online": {
+                    "type": "string"
+                },
+                "shield_hp": {
+                    "type": "integer"
+                },
+                "shield_max_hp": {
+                    "type": "integer"
+                },
+                "status_point": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "steam_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "database.PlayerW": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "player_uid": {
+                    "type": "string"
+                },
+                "steam_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "database.RconCommand": {
+            "type": "object",
+            "properties": {
+                "command": {
+                    "type": "string"
+                },
+                "placeholder": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                }
+            }
+        },
+        "database.RconCommandList": {
+            "type": "object",
+            "properties": {
+                "command": {
+                    "type": "string"
+                },
+                "placeholder": {
+                    "type": "string"
+                },
+                "remark": {
+                    "type": "string"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "database.TersePlayer": {
+            "type": "object",
+            "properties": {
+                "exp": {
+                    "type": "integer"
+                },
+                "full_stomach": {
+                    "type": "number"
+                },
+                "hp": {
+                    "type": "integer"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "last_online": {
+                    "type": "string"
+                },
+                "level": {
+                    "type": "integer"
+                },
+                "location_x": {
+                    "type": "number"
+                },
+                "location_y": {
+                    "type": "number"
+                },
+                "max_hp": {
+                    "type": "integer"
+                },
+                "max_status_point": {
+                    "type": "integer"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "ping": {
+                    "type": "number"
+                },
+                "player_uid": {
+                    "type": "string"
+                },
+                "save_last_online": {
+                    "type": "string"
+                },
+                "shield_hp": {
+                    "type": "integer"
+                },
+                "shield_max_hp": {
+                    "type": "integer"
+                },
+                "status_point": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "steam_id": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}
