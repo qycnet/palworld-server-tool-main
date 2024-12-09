@@ -657,6 +657,138 @@
         "TemperatureResist_Cold3": {
             "name": "耐寒Lv3",
             "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_1": {
+            "name": "最大库存重量_伙伴技能Lv1",
+            "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_2": {
+            "name": "最大库存重量_伙伴技能Lv2",
+            "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_3": {
+            "name": "最大库存重量_伙伴技能Lv3",
+            "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_4": {
+            "name": "最大库存重量_伙伴技能Lv4",
+            "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_5": {
+            "name": "最大库存重量_伙伴技能Lv5",
+            "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_6": {
+            "name": "最大库存重量_伙伴技能Lv6",
+            "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_7": {
+            "name": "最大库存重量_伙伴技能Lv7",
+            "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_8": {
+            "name": "最大库存重量_伙伴技能Lv8",
+            "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_9": {
+            "name": "最大库存重量_伙伴技能Lv9",
+            "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_10": {
+            "name": "最大库存重量_伙伴技能Lv10",
+            "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_11": {
+            "name": "最大库存重量_伙伴技能Lv11",
+            "desc": ""
+        },
+		"MaxInventoryWeight_up_Partnerskill_12": {
+            "name": "最大库存重量_伙伴技能Lv12",
+            "desc": ""
+        },
+		"TrainerATK_UP_PartnerSkill_1": {
+            "name": "玩家攻击力提升_伙伴技能Lv1",
+            "desc": "攻击力 +10%"
+        },
+		"TrainerATK_UP_PartnerSkill_2": {
+            "name": "玩家攻击力提升_伙伴技能Lv2",
+            "desc": "攻击力 +11%"
+        },
+		"TrainerATK_UP_PartnerSkill_3": {
+            "name": "玩家攻击力提升_伙伴技能Lv3",
+            "desc": "攻击力 +13%"
+        },
+		"TrainerATK_UP_PartnerSkill_4": {
+            "name": "玩家攻击力提升_伙伴技能Lv4",
+            "desc": "攻击力 +16%"
+        },
+		"TrainerATK_UP_PartnerSkill_5": {
+            "name": "玩家攻击力提升_伙伴技能Lv5",
+            "desc": "攻击力 +20%"
+        },
+		"TrainerDEF_UP_PartnerSkill_1": {
+            "name": "玩家防御力提升_伙伴技能Lv1",
+            "desc": "防御 +5%"
+        },
+		"TrainerDEF_UP_PartnerSkill_2": {
+            "name": "玩家防御力提升_伙伴技能Lv2",
+            "desc": "防御 +6%"
+        },
+		"TrainerDEF_UP_PartnerSkill_3": {
+            "name": "玩家防御力提升_伙伴技能Lv3",
+            "desc": "防御 +7%"
+        },
+		"TrainerDEF_UP_PartnerSkill_4": {
+            "name": "玩家防御力提升_伙伴技能Lv4",
+            "desc": "防御 +8%"
+        },
+		"TrainerDEF_UP_PartnerSkill_5": {
+            "name": "玩家防御力提升_伙伴技能Lv5",
+            "desc": "防御 +10%"
+        },
+		"TrainerDEF_UP_PartnerSkill_6": {
+            "name": "玩家防御力提升_伙伴技能Lv6",
+            "desc": "防御 +12%"
+        },
+		"TrainerDEF_UP_PartnerSkill_7": {
+            "name": "玩家防御力提升_伙伴技能Lv7",
+            "desc": "防御 +14%"
+        },
+		"MoveSpeed_up_PartnerSkill_1": {
+            "name": "玩家移动速度提升_伙伴技能Lv1",
+            "desc": ""
+        },
+		"MoveSpeed_up_PartnerSkill_2": {
+            "name": "玩家移动速度提升_伙伴技能Lv2",
+            "desc": ""
+        },
+		"MoveSpeed_up_PartnerSkill_3": {
+            "name": "玩家移动速度提升_伙伴技能Lv3",
+            "desc": ""
+        },
+		"MoveSpeed_up_PartnerSkill_4": {
+            "name": "玩家移动速度提升_伙伴技能Lv4",
+            "desc": ""
+        },
+		"MoveSpeed_up_PartnerSkill_5": {
+            "name": "玩家移动速度提升_伙伴技能Lv5",
+            "desc": ""
+        },
+		"ATK_up_PartnerSkill_1": {
+            "name": "攻击力提升_伙伴技能Lv1",
+            "desc": "攻击力 +5%"
+        },
+		"ATK_up_PartnerSkill_2": {
+            "name": "攻击力提升_伙伴技能Lv2",
+            "desc": "攻击力 +6%"
+        },
+		"ATK_up_PartnerSkill_3": {
+            "name": "攻击力提升_伙伴技能Lv3",
+            "desc": "攻击力 +7%"
+        },
+		"ATK_up_PartnerSkill_4": {
+            "name": "攻击力提升_伙伴技能Lv4",
+            "desc": "攻击力 +8%"
         }
     },
     "ja": {
