@@ -38,6 +38,13 @@ export default i18n;
 
 export const I18nStr = key2Path(en_US.translation);
 
+/**
+ * 将嵌套对象转换为扁平化对象，键名由父级键名拼接而成。
+ *
+ * @param obj 需要转换的嵌套对象
+ * @param parentKey 父级键名，默认为空字符串
+ * @returns 扁平化后的对象
+ */
 function key2Path(obj: ResourceLanguage, parentKey = ""): I18nStr {
   const result: ResourceLanguage = {};
   Object.entries(obj).forEach(([key, value]) => {

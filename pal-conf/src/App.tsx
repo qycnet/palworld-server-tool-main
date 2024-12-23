@@ -72,10 +72,21 @@ function App() {
     }
   }, [openedAccordion]);
 
+  /**
+   * 根据id更新状态的回调函数
+   *
+   * @param id 状态的唯一标识
+   * @returns 返回一个函数，该函数接收一个ChangeEvent事件对象作为参数
+   */
   const onStateChanged = (id: string) => (e: ChangeEvent<string>) => {
     setEntries((prevEntries) => ({ ...prevEntries, [id]: `${e.target.value}` }));
   };
 
+  /**
+   * 将ENTRIES对象中的条目序列化为INI格式字符串。
+   *
+   * @returns 序列化后的INI格式字符串。
+   */
   const serializeEntriesToIni = () => {
     const resultList: string[] = [];
     Object.values(ENTRIES).forEach((entry) => {

@@ -30,10 +30,27 @@ type Labels = typeof DeathPenaltyLabels | typeof AllowConnectPlatformLabels | ty
 export type LabelValue = Labels[number]['name'];
 type Key =  'DeathPenalty' | 'AllowConnectPlatform' | 'LogFormatType';
 
+/**
+ * 从字典中获取指定键的值，如果键不存在则返回默认值
+ *
+ * @param dict 字典对象，类型为 Record<string, T>
+ * @param key 要获取的键
+ * @param defaultValue 如果键不存在时返回的默认值
+ * @returns 返回指定键的值或默认值
+ */
 function get<T>(dict: Record<string, T>, key: string, defaultValue: T): T {
     return Object.prototype.hasOwnProperty.call(dict, key) ? dict[key] : defaultValue;
 }
 
+/**
+ * 下拉选择组件
+ *
+ * @param props 组件属性
+ * @param props.dKey 键值，用于选择标签的集合
+ * @param props.label 当前选中的标签
+ * @param props.onLabelChange 标签改变时的回调函数
+ * @returns 下拉选择组件
+ */
 export function DropDown(props: {
     dKey: Key;
     label: LabelValue;
