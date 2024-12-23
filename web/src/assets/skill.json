@@ -258,6 +258,14 @@
         }
     },
     "zh": {
+		"CraftSpeed_up3": {
+            "name": "卓绝技艺",
+            "desc": "工作速度+75% (对帕鲁生效)"
+        },
+        "Deffence_up3": {
+            "name": "金刚之躯",
+            "desc": "防御+30% (对帕鲁生效)"
+        },
         "CraftSpeed_up2": {
             "name": "工匠精神",
             "desc": "工作速度+50% (对自己生效)"
@@ -285,6 +293,34 @@
         "PAL_ALLAttack_up2": {
             "name": "凶猛",
             "desc": "攻击+20% (对自己生效)"
+        },
+        "Invader": {
+            "name": "侵略者",
+            "desc": "暗属性攻击伤害增加30%，龙属性攻击伤害增加30%"
+        },
+        "PAL_ALLAttack_up3": {
+            "name": "鬼神",
+            "desc": "攻击+30% (对帕鲁生效)，防御+5% (对帕鲁生效)"
+        },
+        "PAL_FullStomach_Down_3": {
+            "name": "极限绝食",
+            "desc": "减少饱腹度下降速度+20.0%"
+        },
+        "PAL_Sanity_Down_3": {
+            "name": "明镜止水",
+            "desc": "减少SAN值下降速度+20.0%"
+        },
+        "MoveSpeed_up_3": {
+            "name": "神速",
+            "desc": "移动速度提升30%"
+        },
+        "Stamina_Up_3": {
+            "name": "永动机",
+            "desc": "最大耐力+75%，此效果仅对可骑乘的帕鲁有效。"
+        },
+        "Vampire": {
+            "name": "吸血鬼",
+            "desc": "会吸收造成伤害的一部分恢复自身的。即使到夜晚也不会睡觉，可以一直工作。"
         },
         "TrainerATK_UP_1": {
             "name": "突袭指挥官",
