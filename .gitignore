@@ -19,3 +19,32 @@
 
 # Go workspace file
 go.work
+
+*.db
+*.txt
+
+/config.yaml
+/cmd/test
+
+.DS_Store
+
+dist
+
+/assets/
+!web/src/assets/
+/*-assets
+/favicon.ico
+/index.html
+/pal-conf.html
+
+*.sav
+*.sav.json
+structure.json
+
+.pnpm-store
+.vscode
+.idea
+
+backups/
+/map/
+map_data_cn.js
