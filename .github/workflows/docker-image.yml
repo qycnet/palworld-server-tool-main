@@ -6,7 +6,7 @@ on:
       - "v*.*.*"
 env:
   IMAGE_NAME: palworld-server-tool-main
-  DOCKER_REGISTRY: jokerwho
+  DOCKER_REGISTRY: qycnet
 jobs:
   build-image:
     runs-on: ubuntu-latest

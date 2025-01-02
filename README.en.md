@@ -372,7 +372,7 @@ docker run -d --name pst \
 -e REST__PASSWORD="your admin password" \
 -e SAVE__PATH="/game" \
 -e SAVE__SYNC_INTERVAL=120 \
-jokerwho/palworld-server-tool-main:latest
+qycnet/palworld-server-tool-main:latest
 ```
 
 Most importantly, use `-v` to map the game's save file (Level.sav) directory to the container's `/game` directory.
@@ -437,7 +437,7 @@ docker run -d --name pst-agent \
 -p 8081:8081 \
 -v /path/to/your/Pal/Saved:/game \
 -e SAVED_DIR="/game" \
-jokerwho/palworld-server-tool-main-agent:latest
+qycnet/palworld-server-tool-main-agent:latest
 ```
 
 You need to `-v` to the directory where the game save file (Level.sav) is located, mapping it to the `/game` directory in the container.
@@ -459,7 +459,7 @@ docker run -d --name pst \
 -e REST__PASSWORD="your admin password" \
 -e SAVE__PATH="http://{GameServerIP}:{AgentPort}/sync" \
 -e SAVE__SYNC_INTERVAL=120 \
-jokerwho/palworld-server-tool-main:latest
+qycnet/palworld-server-tool-main:latest
 ```
 
 ##### Persistence

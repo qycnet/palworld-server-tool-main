@@ -392,7 +392,7 @@ docker run -d --name pst \
 -e REST__PASSWORD="your admin password" \
 -e SAVE__PATH="/game" \
 -e SAVE__SYNC_INTERVAL=120 \
-jokerwho/palworld-server-tool-main:latest
+qycnet/palworld-server-tool-main:latest
 ```
 
 最重要的是需要 -v 到游戏存档文件（Level.sav）所在目录，将其映射到容器内的 /game 目录
@@ -459,7 +459,7 @@ docker run -d --name pst-agent \
 -p 8081:8081 \
 -v /path/to/your/Pal/Saved:/game \
 -e SAVED_DIR="/game" \
-jokerwho/palworld-server-tool-main-agent:latest
+qycnet/palworld-server-tool-main-agent:latest
 ```
 
 需要 -v 到游戏存档文件（Level.sav）所在目录，将其映射到容器内的 /game 目录
@@ -481,7 +481,7 @@ docker run -d --name pst \
 -e REST__PASSWORD="your admin password" \
 -e SAVE__PATH="http://游戏服务器IP:Agent端口/sync" \
 -e SAVE__SYNC_INTERVAL=120 \
-jokerwho/palworld-server-tool-main:latest
+qycnet/palworld-server-tool-main:latest
 ```
 
 ##### 持久化
