@@ -46,24 +46,30 @@ type Config struct {
 }
 
 func Init(cfgFile string, conf *Config) {
+	// 如果指定了配置文件路径
 	if cfgFile != "" {
 		viper.SetConfigFile(cfgFile)
 		viper.SetConfigType("yaml")
 	} else {
+		// 如果没有指定配置文件路径，则使用默认配置
 		viper.AddConfigPath(".")
 		viper.SetConfigName("config")
 		viper.SetConfigType("yaml")
 	}
 
+	// 读取配置文件
 	err := viper.ReadInConfig()
 	if err != nil {
+		// 如果配置文件未找到，记录警告日志
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
 			logger.Warn("config file not found, try to read from env\n")
 		} else {
+			// 如果配置文件找到但出现其他错误，记录panic日志
 			logger.Panic("config file was found but another error was produced\n")
 		}
 	}
 
+	// 设置默认配置
 	viper.SetDefault("web.port", 8080)
 
 	viper.SetDefault("task.sync_interval", 60)
@@ -77,12 +83,15 @@ func Init(cfgFile string, conf *Config) {
 	viper.SetDefault("save.sync_interval", 600)
 	viper.SetDefault("save.backup_interval", 14400)
 
+	// 设置环境变量前缀和替换器
 	viper.SetEnvPrefix("")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "__"))
 	viper.AutomaticEnv()
 
+	// 将配置解析到结构体中
 	err = viper.Unmarshal(conf)
 	if err != nil {
+		// 如果解析失败，记录panic日志
 		logger.Panicf("Unable to decode config into struct, %s", err)
 	}
 }

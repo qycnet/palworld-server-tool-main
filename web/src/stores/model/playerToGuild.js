@@ -8,16 +8,20 @@ const playerToGuildStore = defineStore(
     const updateStatus = ref("players");
     // Set
     const setCurrentUid = (uid) => {
+      // 设置当前用户ID
       currentUid.value = uid;
     };
     const setUpdateStatus = (status) => {
+      // 更新状态值
       updateStatus.value = status;
     };
     // Get
     const getCurrentUid = () => {
+      // 返回当前用户的UID
       return currentUid.value;
     };
     const getUpdateStatus = () => {
+      // 返回updateStatus.value的值
       return updateStatus.value;
     };
 
