@@ -32,7 +32,7 @@ import { analyzeFile, writeFile } from "./lib/save";
 // Constants
 import { ENTRIES } from "./consts/entries";
 import { DEFAULT_WORLDOPTION, VALID_WORLDOPTION_KEYS } from "./consts/worldoption";
-import { AdvancedSettings, InGameSettings, ServerSettings } from "./consts/settings";
+import { AdvancedSettings, InGameSettings, ServerSettings, EntryIdToEnumName } from "./consts/settings";
 
 // Types
 import { Gvas } from "./types/gvas";
@@ -73,19 +73,19 @@ function App() {
   }, [openedAccordion]);
 
   /**
-   * 根据id更新状态的回调函数
+   * 处理状态变化事件的函数。
    *
-   * @param id 状态的唯一标识
-   * @returns 返回一个函数，该函数接收一个ChangeEvent事件对象作为参数
+   * @param id 状态项的标识
+   * @returns 一个处理状态变化事件的回调函数
    */
   const onStateChanged = (id: string) => (e: ChangeEvent<string>) => {
     setEntries((prevEntries) => ({ ...prevEntries, [id]: `${e.target.value}` }));
   };
 
   /**
-   * 将ENTRIES对象中的条目序列化为INI格式字符串。
+   * 将ENTRIES对象中的条目序列化为INI格式的字符串
    *
-   * @returns 序列化后的INI格式字符串。
+   * @returns 返回序列化后的INI格式字符串
    */
   const serializeEntriesToIni = () => {
     const resultList: string[] = [];
@@ -110,6 +110,12 @@ function App() {
     return resultList.join(",");
   };
 
+  /**
+   * 从给定的设置文本中反序列化条目。
+   *
+   * @param settingsText 包含设置条目的文本字符串。
+   * @returns 无返回值。
+   */
   const deserializeEntriesFromIni = (settingsText: string) => {
     if (!settingsText) {
       toast.error(t(I18nStr.toast.invalid), { description: t(I18nStr.toast.invalidDescription) });
@@ -188,6 +194,11 @@ function App() {
     }
   };
 
+  /**
+   * 将ENTRIES对象中的条目序列化为GVAS JSON格式
+   *
+   * @returns 返回包含序列化条目的GVAS JSON对象
+   */
   const serializeEntriesToGvasJson = () => {
     const gvasJson: Record<string, unknown> = {};
     Object.values(ENTRIES).forEach((entry) => {
@@ -199,36 +210,14 @@ function App() {
       if (entryValue === entry.defaultValue) {
         return;
       }
-      if (entry.type === "select") {
-        if (entry.id === "DeathPenalty") {
-          dictValue = {
-            Enum: {
-              value: `EPalOptionWorldDeathPenalty::${entryValue}`,
-              enum_type: "EPalOptionWorldDeathPenalty",
-            },
-          };
-        } else if (entry.id === "Difficulty") {
-          dictValue = {
-            Enum: {
-              value: `EPalOptionWorldDifficulty::Custom`,
-              enum_type: "EPalOptionWorldDifficulty",
-            },
-          };
-        } else if (entry.id === "AllowConnectPlatform") {
-          dictValue = {
-            Enum: {
-              value: `EPalOptionWorldAllowConnectPlatform::${entryValue}`,
-              enum_type: "EPalOptionWorldAllowConnectPlatform",
-            },
-          };
-        } else if (entry.id === "LogFormatType") {
-          dictValue = {
-            Enum: {
-              value: `EPalOptionWorldLogFormatType::${entryValue}`,
-              enum_type: "EPalOptionWorldLogFormatType",
-            },
-          };
-        }
+      if (entry.type === "select" && entry.id in EntryIdToEnumName) {
+        const enumType = EntryIdToEnumName[entry.id];
+        dictValue = {
+          Enum: {
+            value: `${enumType}::${entryValue}`,
+            enum_type: enumType,
+          },
+        };
       } else if (entry.type === "boolean") {
         dictValue = {
           Bool: {
@@ -265,6 +254,11 @@ function App() {
     return gvasJson;
   };
 
+  /**
+   * 从 GvasJson 反序列化条目
+   *
+   * @param gvas Gvas 对象
+   */
   const deserializeEntriesFromGvasJson = (gvas: Gvas) => {
     if (!gvas) {
       toast.error(t(I18nStr.toast.invalidFile), {
@@ -294,6 +288,12 @@ function App() {
     setEntries(newEntries);
   };
 
+  /**
+   * 打开文件
+   *
+   * @param f 要打开的文件对象
+   * @returns Promise<void>
+   */
   const openFile = async (f: File) => {
     const result = await analyzeFile(f, (e) => {
       console.error(e);
@@ -315,6 +315,9 @@ function App() {
     deserializeEntriesFromGvasJson(gvas);
   };
 
+  /**
+   * 保存文件函数
+   */
   const saveFile = () => {
     const gvasToSave: Gvas = LosslessJSON.parse(LosslessJSON.stringify(DEFAULT_WORLDOPTION.gvas)!) as Gvas;
     gvasToSave.root.properties.OptionWorldData.Struct.value.Struct.Settings.Struct.value.Struct = serializeEntriesToGvasJson();
@@ -338,6 +341,11 @@ function App() {
     );
   };
 
+  /**
+   * 处理文件输入事件
+   *
+   * @param e React的ChangeEvent事件对象，包含HTMLInputElement类型的目标元素
+   */
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
@@ -391,6 +399,13 @@ function App() {
       });
   };
 
+  /**
+   * 生成输入框组件
+   *
+   * @param id 组件的唯一标识符
+   * @param disabled 是否禁用输入框
+   * @returns 返回生成的输入框组件
+   */
   const genInput = (id: string, disabled = false) => {
     const entry = ENTRIES[id];
     if (!entry) {
@@ -480,6 +495,9 @@ function App() {
       ? `[/Script/Pal.PalGameWorldSettings]\nOptionSettings=(${serializeEntriesToIni()})`
       : LosslessJSON.stringify(serializeEntriesToGvasJson(), null, 4) ?? "";
 
+  /**
+   * 将文本复制到剪贴板
+   */
   const copyToClipboard = () => {
     navigator.clipboard
       .writeText(settingsText)
@@ -487,6 +505,9 @@ function App() {
       .catch(() => toast.error(t(I18nStr.toast.copyFailed), { description: t(I18nStr.toast.copyFailedDescription) }));
   };
 
+  /**
+   * 从剪贴板读取文本并反序列化条目
+   */
   const readFromClipboard = () => {
     navigator.clipboard
       .readText()
@@ -717,7 +738,7 @@ function App() {
           <pre className="text-wrap break-all whitespace-pre-wrap text-sm text-gray-800 dark:text-gray-200">{settingsText}</pre>
         </div>
         <div className="w-full max-w-3xl flex justify-center pt-2">
-          2024 @Bluefissure{" "}
+          2024-2025 @Bluefissure{" "}
           <a
             href="http://pal-conf.apiqy.cn"
             className="pl-2 font-medium text-primary underline underline-offset-4 top-2"
