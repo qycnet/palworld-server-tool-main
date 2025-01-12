@@ -9431,6 +9431,60 @@
       "name": "格鲁力斯的讨伐证明",
       "description": "｢金甲战士 格鲁力斯｣的讨伐证明。只要持有此道具，就能永久提升队伍帕鲁的能力值。",
       "key": "BossDefeatReward_HerculesBeetle_Ground"
+    },
+    {
+      "id": "end",
+      "name": "End",
+      "description": "",
+      "key": "End"
+    },
+    {
+      "id": "potato",
+      "name": "土豆",
+      "description": "适应性强、饱腹感好的优质作物。\n不适合生食。",
+      "key": "potato"
+    },
+    {
+      "id": "skillcard_stoneshotgun",
+      "name": "地之技能果实：碎石霰弹",
+      "description": "通过在帕鲁身上使用，\n可以让其学会「碎石霰弹」。",
+      "key": "SkillCard_StoneShotGun"
+    },
+    {
+      "id": "gunpowder2",
+      "name": "火药",
+      "description": "用于发射子弹的「Gunpowder2」。\r\n是制作子弹时必不可少的。",
+      "key": "GunPowder2"
+    },
+    {
+      "id": "bone",
+      "name": "骨头",
+      "description": "可从帕鲁身上获得的「Bone」。\r\n是优质的钙素材。",
+      "key": "bone"
+    },
+    {
+      "id": "cheeseburger_2",
+      "name": "波霸牛芝士汉堡",
+      "description": "",
+      "key": "CheeseBurger_2"
+    },
+    {
+      "id": "skillcard_stoneshotgun",
+      "name": "地之技能果实：碎石霰弹",
+      "description": "通过在帕鲁身上使用，\r\n可以让其学会「碎石霰弹」。",
+      "key": "SkillCard_StoneShotGun"
+    },
+    {
+      "id": "pv_glider_manta",
+      "name": "ITEM_NAME_PV_Glider_Manta",
+      "description": "ITEM_DESC_PV_Glider_Manta",
+      "key": "PV_Glider_Manta"
+    },
+    {
+      "id": "bow_triple",
+      "name": "三连弓",
+      "description": "改良后的弓，可同时发射3支箭。\r\n拥有不可思议的力量，每次射击只消耗1支「箭」。",
+      "key": "Bow_triple"
     }
   ],
   "en": [
@@ -15409,19 +15463,19 @@
     {
       "id": "antibiotic_good",
       "name": "いい抗生剤",
-      "description": "たいていの病気は　治る。\r\nプラシーボかもしれない。",
+      "description": "たいていの病気は\u3000治る。\r\nプラシーボかもしれない。",
       "key": "Antibiotic_Good"
     },
     {
       "id": "antibiotic_normal",
       "name": "抗生剤",
-      "description": "病気が治ったり　治らなかったりする。\r\n首にネギを巻くよりは　マシだ。",
+      "description": "病気が治ったり\u3000治らなかったりする。\r\n首にネギを巻くよりは\u3000マシだ。",
       "key": "Antibiotic_Normal"
     },
     {
       "id": "antibiotic_super",
       "name": "すごい抗生剤",
-      "description": "あらゆる病気が　治ってしまう。\r\nここに不老不死が実現した。",
+      "description": "あらゆる病気が\u3000治ってしまう。\r\nここに不老不死が実現した。",
       "key": "Antibiotic_Super"
     },
     {
@@ -15661,7 +15715,7 @@
     {
       "id": "beer",
       "name": "ビール",
-      "description": "キンキンに　冷えてやがるっ……！\r\nあ…　ありがてえっ……！",
+      "description": "キンキンに\u3000冷えてやがるっ……！\r\nあ…\u3000ありがてえっ……！",
       "key": "Beer"
     },
     {
@@ -16951,7 +17005,7 @@
     {
       "id": "claws",
       "name": "爪",
-      "description": "爪は　切るか研ぐものであって\r\n取るものじゃない。",
+      "description": "爪は\u3000切るか研ぐものであって\r\n取るものじゃない。",
       "key": "Claws"
     },
     {
@@ -17083,7 +17137,7 @@
     {
       "id": "computer",
       "name": "コンピューター",
-      "description": "最近では　採掘に使う人もいるらしい。",
+      "description": "最近では\u3000採掘に使う人もいるらしい。",
       "key": "Computer"
     },
     {
@@ -17227,13 +17281,13 @@
     {
       "id": "cornsoup",
       "name": "トウモロコシのスープ",
-      "description": "じっくり　コトコト　煮込んだスープ。",
+      "description": "じっくり\u3000コトコト\u3000煮込んだスープ。",
       "key": "CornSoup"
     },
     {
       "id": "crudeoil",
       "name": "原油",
-      "description": "たくさん掘り当てると　王になれる。\r\n燃やしすぎると怒られるので　要注意だ。",
+      "description": "たくさん掘り当てると\u3000王になれる。\r\n燃やしすぎると怒られるので\u3000要注意だ。",
       "key": "CrudeOil"
     },
     {
@@ -17461,25 +17515,25 @@
     {
       "id": "fishingrod_good",
       "name": "いい釣り竿",
-      "description": "見た目だけは一丁前の　ただの釣り竿。\r\n釣れるものも　たかが知れている。",
+      "description": "見た目だけは一丁前の\u3000ただの釣り竿。\r\n釣れるものも\u3000たかが知れている。",
       "key": "FishingRod_Good"
     },
     {
       "id": "fishingrod_legendary",
       "name": "伝説の釣り竿",
-      "description": "伝説として語り継がれた　幻の釣り竿。\r\n大陸さえも　釣り上げることができるという。",
+      "description": "伝説として語り継がれた\u3000幻の釣り竿。\r\n大陸さえも\u3000釣り上げることができるという。",
       "key": "FishingRod_Legendary"
     },
     {
       "id": "fishingrod_old",
       "name": "ぼろの釣り竿",
-      "description": "その辺に落ちてた棒切れに　紐をくくりつけた。\r\nこんなんじゃ　釣れるわけがない。",
+      "description": "その辺に落ちてた棒切れに\u3000紐をくくりつけた。\r\nこんなんじゃ\u3000釣れるわけがない。",
       "key": "FishingRod_Old"
     },
     {
       "id": "fishingrod_super",
       "name": "すごい釣り竿",
-      "description": "最先端のパーツを寄せ集めた　最強の釣り竿。\r\n形から入るタイプにピッタリ。",
+      "description": "最先端のパーツを寄せ集めた\u3000最強の釣り竿。\r\n形から入るタイプにピッタリ。",
       "key": "FishingRod_Super"
     },
     {
@@ -17677,7 +17731,7 @@
     {
       "id": "gasmask",
       "name": "ガスマスク",
-      "description": "汚れた空気も　これでへっちゃら。\r\nただし　自分の息が臭い。",
+      "description": "汚れた空気も\u3000これでへっちゃら。\r\nただし\u3000自分の息が臭い。",
       "key": "GasMask"
     },
     {
@@ -17719,7 +17773,7 @@
     {
       "id": "grape",
       "name": "ブドウ",
-      "description": "食べられなかったから　といって\r\n酸っぱくてまずいと　決めつけては　ダメだ。　",
+      "description": "食べられなかったから\u3000といって\r\n酸っぱくてまずいと\u3000決めつけては\u3000ダメだ。\u3000",
       "key": "Grape"
     },
     {
@@ -17749,7 +17803,7 @@
     {
       "id": "grilledfish",
       "name": "焼き魚",
-      "description": "生で食った方が美味いのに　なんてモッタイナイ。",
+      "description": "生で食った方が美味いのに\u3000なんてモッタイナイ。",
       "key": "GrilledFish"
     },
     {
@@ -18637,7 +18691,7 @@
     {
       "id": "lightzhelmet",
       "name": "ライト付きヘルメット",
-      "description": "灯り　ヨシッ！\r\nご安全に！",
+      "description": "灯り\u3000ヨシッ！\r\nご安全に！",
       "key": "LightzHelmet"
     },
     {
@@ -18649,7 +18703,7 @@
     {
       "id": "luxuryomelette",
       "name": "豪華オムレツ",
-      "description": "ふわふわで　とろとろ。\r\n中に何が入っているかは　内緒だ。",
+      "description": "ふわふわで\u3000とろとろ。\r\n中に何が入っているかは\u3000内緒だ。",
       "key": "LuxuryOmelette"
     },
     {
@@ -18853,7 +18907,7 @@
     {
       "id": "nightvisiongoggles",
       "name": "暗視ゴーグル",
-      "description": "暗がりでも　なんでも見えちゃう優れもの。\r\n見えちゃいけないものまで　見えちゃうことも…。",
+      "description": "暗がりでも\u3000なんでも見えちゃう優れもの。\r\n見えちゃいけないものまで\u3000見えちゃうことも…。",
       "key": "NightVisionGoggles"
     },
     {
@@ -19375,7 +19429,7 @@
     {
       "id": "plastic",
       "name": "プラスチック",
-      "description": "こころない人たちが　たくさん捨てたせいで\r\n多くの尊い命が　失われた。",
+      "description": "こころない人たちが\u3000たくさん捨てたせいで\r\n多くの尊い命が\u3000失われた。",
       "key": "Plastic"
     },
     {
@@ -19507,7 +19561,7 @@
     {
       "id": "sandwich",
       "name": "サンドイッチ",
-      "description": "見えるところにしか　具が入っていない。",
+      "description": "見えるところにしか\u3000具が入っていない。",
       "key": "Sandwich"
     },
     {
@@ -19531,7 +19585,7 @@
     {
       "id": "seafoodsoup",
       "name": "魚介スープ",
-      "description": "とりあえず　適当に色々ぶち込んだら\r\nいいダシがとれた。",
+      "description": "とりあえず\u3000適当に色々ぶち込んだら\r\nいいダシがとれた。",
       "key": "SeafoodSoup"
     },
     {
@@ -20617,7 +20671,7 @@
     {
       "id": "stew",
       "name": "シチュー",
-      "description": "人前で食すなら　米と食べてはいけない。\r\n何を言われるか　分かったものではない。",
+      "description": "人前で食すなら\u3000米と食べてはいけない。\r\n何を言われるか\u3000分かったものではない。",
       "key": "Stew"
     },
     {
@@ -20785,7 +20839,7 @@
     {
       "id": "wine",
       "name": "ワイン",
-      "description": "ふくよかなアタックで　厚みのある\r\n奥深い味わい。",
+      "description": "ふくよかなアタックで\u3000厚みのある\r\n奥深い味わい。",
       "key": "Wine"
     },
     {
