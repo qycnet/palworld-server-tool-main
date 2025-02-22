@@ -49,6 +49,7 @@
         "Difficulty": "Dificultad",
         "RandomizerType": "Tipo de Aleatorizador",
         "RandomizerSeed": "Semilla del Aleatorizador",
+		"bIsRandomizerPalLevelRandom": "Aleatorización de niveles PAL",
         "DayTimeSpeedRate": "Ratio de Velocidad del Tiempo de Día",
         "NightTimeSpeedRate": "Ratio de Velocidad del Tiempo de Noche",
         "ExpRate": "Ratio de Experiencia",

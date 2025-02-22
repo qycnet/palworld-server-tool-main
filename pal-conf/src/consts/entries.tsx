@@ -101,6 +101,13 @@ export const ENTRIES: Record<string, Entry> = {
     type: "string",
     desc: "Randomizer seed",
   },
+  bIsRandomizerPalLevelRandom: {
+    name: "Is Use Randomization of PAL grades",
+    id: "bIsRandomizerPalLevelRandom",
+    defaultValue: "False",
+    type: "boolean",
+    desc: "Is use Randomization of PAL grades",
+  },
   DayTimeSpeedRate: {
     name: "Day Time Speed Rate",
     id: "DayTimeSpeedRate",

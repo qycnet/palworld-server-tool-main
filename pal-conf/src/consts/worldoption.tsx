@@ -335,6 +335,11 @@ export const DEFAULT_WORLDOPTION = {
                             value: "",
                           },
                         },
+						bIsRandomizerPalLevelRandom: {
+                          Bool: {
+                            value: false,
+                          },
+                        },
                         DayTimeSpeedRate: {
                           Float: {
                             value: 4.590592,

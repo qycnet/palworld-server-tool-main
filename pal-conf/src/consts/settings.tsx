@@ -12,6 +12,7 @@ export const ServerSettings = [
   "LogFormatType",
   "RandomizerType",
   "RandomizerSeed",
+  "bIsRandomizerPalLevelRandom",
 ];
 
 export const InGameSettings = [

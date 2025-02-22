@@ -49,6 +49,7 @@
         "Difficulty": "難易度",
         "RandomizerType": "ランダマイザータイプ",
         "RandomizerSeed": "ランダマイザーシード",
+		"bIsRandomizerPalLevelRandom": "PALレベルのランダム化",
         "DayTimeSpeedRate": "昼の経過速度",
         "NightTimeSpeedRate": "夜の経過速度",
         "ExpRate": "経験値の入手倍率",

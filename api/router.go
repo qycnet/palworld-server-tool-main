@@ -101,6 +101,16 @@ func RegisterRouter(r *gin.Engine) {
 	authGroup := apiGroup.Group("")
 	authGroup.Use(auth.JWTAuthMiddleware())
 	{
+		// 获取玩家列表
+		//authGroup.GET("/player", listPlayers)
+		// 获取指定玩家的信息
+		//authGroup.GET("/player/:player_uid", getPlayer)
+		// 获取在线玩家列表
+		//authGroup.GET("/online_player", listOnlinePlayers)
+		// 获取公会列表
+		//authGroup.GET("/guild", listGuilds)
+		// 获取指定管理员玩家的公会信息
+		//authGroup.GET("/guild/:admin_player_uid", getGuild)
 		// 发布广播消息
 		authGroup.POST("/server/broadcast", publishBroadcast)
 		// 关闭服务器

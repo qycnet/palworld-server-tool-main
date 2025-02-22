@@ -49,6 +49,7 @@
         "Difficulty": "Schwierigkeit",
         "RandomizerType": "Zufallstyp",
         "RandomizerSeed": "Zufallskeim",
+		"bIsRandomizerPalLevelRandom": "Randomisierung der PAL-Noten",
         "DayTimeSpeedRate": "Zeit Geschwindigkeit am Tag",
         "NightTimeSpeedRate": "Zeit Geschwindigkeit bei Nacht",
         "ExpRate": "Exp Rate",

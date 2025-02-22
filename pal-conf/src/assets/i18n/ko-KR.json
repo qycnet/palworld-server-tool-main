@@ -49,6 +49,7 @@
         "Difficulty": "난이도",
         "RandomizerType": "랜덤화 유형",
         "RandomizerSeed": "랜덤화 시드",
+		"bIsRandomizerPalLevelRandom": "PAL 등급의 무작위화",
         "DayTimeSpeedRate": "낮 시간 속도 배율",
         "NightTimeSpeedRate": "밤 시간 속도 배율",
         "ExpRate": "경험치 배율",
