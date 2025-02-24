@@ -131,7 +131,7 @@ class Pal:
             else 0
         )
         self.rank = int(data["Rank"]["value"]["value"]) if data.get("Rank") else 1
-                self.rank_attack = (
+        self.rank_attack = (
             int(data["Rank_Attack"]["value"]["value"]) if data.get("Rank_Attack") else 0
         )
         self.rank_defence = (
