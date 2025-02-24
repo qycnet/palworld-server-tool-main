@@ -22,27 +22,27 @@ import (
 )
 
 var (
-	ErrPodNotFound    = errors.New("pod not found")
-	ErrContainerEmpty = errors.New("container empty")
-	ErrAddressInvalid = errors.New("invalid save.path, eg: k8s://namespace/podName:filePath")
+	ErrPodNotFound    = errors.New("未找到 Pod")
+	ErrContainerEmpty = errors.New("容器为空")
+	ErrAddressInvalid = errors.New("无效的 save.path, eg: k8s://namespace/podName:filePath")
 )
 
 func CopyFromPod(namespace, podName, container, remotePath, way string) (string, error) {
 	// 记录日志，显示从哪个容器和远程路径复制
-	logger.Infof("copying savDir from %s:%s\n", container, remotePath)
+	logger.Infof("复制 savDir 自 %s:%s\n", container, remotePath)
 
 	// 获取集群内的配置
 	config, err := rest.InClusterConfig()
 	if err != nil {
 		// 如果获取配置失败，返回错误信息
-		return "", errors.New("error getting in-cluster config: " + err.Error())
+		return "", errors.New("获取集群内配置时出错: " + err.Error())
 	}
 
 	// 创建clientset对象
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
 		// 如果创建clientset失败，返回错误信息
-		return "", errors.New("error getting clientset: " + err.Error())
+		return "", errors.New("获取客户端集时出错: " + err.Error())
 	}
 
 	// 如果命名空间为空，则获取当前命名空间
@@ -51,7 +51,7 @@ func CopyFromPod(namespace, podName, container, remotePath, way string) (string,
 		namespace, err = getCurrentNamespace()
 		if err != nil {
 			// 如果获取当前命名空间失败，返回错误信息
-			return "", errors.New("error getting current namespace: " + err.Error())
+			return "", errors.New("获取当前命名空间时出错: " + err.Error())
 		}
 	}
 
@@ -66,16 +66,16 @@ func CopyFromPod(namespace, podName, container, remotePath, way string) (string,
 	savDir, err := execPodCommand(clientset, config, namespace, podName, container, findCmd)
 	if err != nil {
 		// 如果执行查找命令失败，返回错误信息
-		return "", errors.New("error executing find command: " + err.Error())
+		return "", errors.New("执行查找命令时出错: " + err.Error())
 	}
 	// 去除保存目录前后的空白字符
 	savDir = strings.TrimSpace(savDir)
 	// 如果保存目录为空，返回错误信息
 	if savDir == "" {
-		return "", errors.New("directory containing Level.sav not found in Pod")
+		return "", errors.New("包含 Level.sav 的目录在 Pod 中找不到")
 	}
 	// 记录日志，显示保存目录路径
-	logger.Debugf("Directory path: %s\n", savDir)
+	logger.Debugf("目录路径: %s\n", savDir)
 
 	// 构建打包命令
 	tarCmd := []string{"sh", "-c", fmt.Sprintf("cd \"%s\" && tar czf - ./*.sav ./Players/*.sav", savDir)}
@@ -83,7 +83,7 @@ func CopyFromPod(namespace, podName, container, remotePath, way string) (string,
 	tarStream, err := execPodCommandStream(clientset, config, namespace, podName, container, tarCmd)
 	if err != nil {
 		// 如果执行打包命令失败，返回错误信息
-		return "", errors.New("error executing tar command: " + err.Error())
+		return "", errors.New("执行打包命令时出错: " + err.Error())
 	}
 
 	// 生成临时目录
@@ -104,7 +104,7 @@ func CopyFromPod(namespace, podName, container, remotePath, way string) (string,
 	}
 
 	// 记录日志，显示从Pod复制的目录
-	logger.Debugf("Directory copied from pod: %s\n", tempDir)
+	logger.Debugf("从 Pod 复制的目录: %s\n", tempDir)
 
 	// 构建Level.sav文件路径
 	levelFilePath := filepath.Join(tempDir, "Level.sav")
@@ -227,7 +227,7 @@ func ParseK8sAddress(address string) (namespace, pod, container, filePath string
 	parts := strings.SplitN(address, ":", 2)
 	// 如果分割后的数组长度不等于2，则返回错误
 	if len(parts) != 2 {
-		return "", "", "", "", errors.New("invalid address format")
+		return "", "", "", "", errors.New("地址格式无效")
 	}
 
 	// 按斜杠分割第一部分地址
@@ -242,7 +242,7 @@ func ParseK8sAddress(address string) (namespace, pod, container, filePath string
 		namespace, pod, container = pathParts[0], pathParts[1], pathParts[2]
 	default:
 		// 如果路径格式不正确，则返回错误
-		return "", "", "", "", errors.New("invalid path format")
+		return "", "", "", "", errors.New("路径格式无效")
 	}
 
 	// 提取文件路径

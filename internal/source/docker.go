@@ -33,7 +33,7 @@ func getDockerClient() (*client.Client, error) {
 
 func CopyFromContainer(containerID, remotePath, way string) (string, error) {
 	// 记录日志，记录从远程路径复制的操作
-	logger.Infof("copying savDir from %s\n", remotePath)
+	logger.Infof("复制 savDir 自 %s\n", remotePath)
 
 	// 获取Docker客户端
 	cli, err := getDockerClient()
@@ -52,7 +52,7 @@ func CopyFromContainer(containerID, remotePath, way string) (string, error) {
 	// 去除字符串两端的空白字符
 	savDir = strings.TrimSpace(savDir)
 	if savDir == "" {
-		return "", errors.New("directory containing Level.sav not found in container")
+		return "", errors.New("在容器中找不到包含Level.sav的目录")
 	}
 
 	// 压缩
@@ -118,7 +118,7 @@ func execCommandStream(containerID string, command []string, cli *client.Client)
 		defer hr.Close()         // 延迟关闭附加实例
 		_, err = stdcopy.StdCopy(writer, os.Stderr, hr.Reader) // 复制标准输出和标准错误输出到管道
 		if err != nil {
-			logger.Errorf("Stream to docker failed: %v", err) // 记录错误日志
+			logger.Errorf("流式传输到 docker 失败: %v", err) // 记录错误日志
 		}
 	}()
 
@@ -172,7 +172,7 @@ func ParseDockerAddress(address string) (containerID, filePath string, err error
 	// 如果分割后的部分数量不等于2，则返回错误
 	if len(parts) != 2 {
 		// 返回错误信息 "invalid Docker address format"
-		return "", "", errors.New("invalid Docker address format")
+		return "", "", errors.New("无效的 Docker 地址格式")
 	}
 
 	// 将分割后的两部分分别赋值给 containerID 和 filePath

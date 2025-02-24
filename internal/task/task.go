@@ -24,7 +24,7 @@ var s gocron.Scheduler
 
 func BackupTask(db *bbolt.DB) {
 	// 记录日志，提示开始安排备份
-	logger.Info("Scheduling backup...\n")
+	logger.Info("开始备份...\n")
 
 	// 调用备份工具进行备份，并获取备份路径
 	path, err := tool.Backup()
@@ -47,16 +47,25 @@ func BackupTask(db *bbolt.DB) {
 	}
 
 	// 记录日志，提示备份完成并显示备份路径
-	logger.Infof("Auto backup to %s\n", path)
+	logger.Infof("自动备份到backups目录 %s\n", path)
+	
+		keepDays := viper.GetInt("save.backup_keep_days")
+	if keepDays == 0 {
+		keepDays = 7
+	}
+	err = tool.CleanOldBackups(db, keepDays)
+	if err != nil {
+		logger.Errorf("无法清理旧备份: %v\n", err)
+	}
 }
 
 func PlayerSync(db *bbolt.DB) {
-	logger.Info("Scheduling Player sync...\n")
+	logger.Info("玩家信息同步...\n")
 	// 获取在线玩家列表
 	onlinePlayers, err := tool.ShowPlayers()
 	if err != nil {
 		// 如果获取在线玩家列表出错，记录错误日志
-		logger.Errorf("%v\n", err)
+		logger.Errorf("获取在线玩家列表出错 %v\n", err)
 	}
 	// 将在线玩家列表存入数据库
 	err = service.PutPlayersOnline(db, onlinePlayers)
@@ -64,7 +73,7 @@ func PlayerSync(db *bbolt.DB) {
 		// 如果将在线玩家列表存入数据库出错，记录错误日志
 		logger.Errorf("%v\n", err)
 	}
-	logger.Info("Player sync done\n")
+	logger.Info("玩家信息同步完成\n")
 
 	// 获取玩家日志记录的配置项
 	playerLogging := viper.GetBool("task.player_logging")
@@ -148,7 +157,7 @@ func BroadcastVariableMessage(message string, username string, onlineNum int) {
 		err := tool.Broadcast(msg)
 		if err != nil {
 			// 如果广播失败，记录警告日志
-			logger.Warnf("Broadcast fail, %s \n", err)
+			logger.Warnf("广播失败, %s \n", err)
 		}
 		// 连续发送不知道为啥行会错乱, 只能加点延迟
 		// 延迟1秒
@@ -172,7 +181,7 @@ func CheckAndKickPlayers(db *bbolt.DB, players []database.OnlinePlayer) {
 			// 如果SteamId为空
 			if identifier == "" {
 				// 日志记录：踢出失败，SteamId为空
-				logger.Warnf("Kicked %s fail, SteamId is empty \n", player.Nickname)
+				logger.Warnf("踢 %s 失败, SteamId 为空 \n", player.Nickname)
 				continue
 			}
 			// 踢出玩家
@@ -180,20 +189,20 @@ func CheckAndKickPlayers(db *bbolt.DB, players []database.OnlinePlayer) {
 			// 如果踢出失败
 			if err != nil {
 				// 日志记录：踢出失败，记录错误信息
-				logger.Warnf("Kicked %s fail, %s \n", player.Nickname, err)
+				logger.Warnf("踢 %s 失败, %s \n", player.Nickname, err)
 				continue
 			}
 			// 日志记录：踢出成功
-			logger.Warnf("Kicked %s successful \n", player.Nickname)
+			logger.Warnf("踢 %s 成功 \n", player.Nickname)
 		}
 	}
 	// 日志记录：白名单检查完成
-	logger.Info("Check whitelist done\n")
+	logger.Info("检查白名单完成\n")
 }
 
 func SavSync() {
 	// 记录日志：调度Sav同步...
-	logger.Info("Scheduling Sav sync...\n")
+	logger.Info("调度Sav同步...\n")
 
 	// 解码viper配置文件中的保存路径
 	err := tool.Decode(viper.GetString("save.path"))
@@ -203,7 +212,7 @@ func SavSync() {
 	}
 
 	// 记录日志：Sav同步完成
-	logger.Info("Sav sync done\n")
+	logger.Info("Sav同步完成\n")
 }
 
 func Schedule(db *bbolt.DB) {

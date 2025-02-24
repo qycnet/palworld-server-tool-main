@@ -247,13 +247,13 @@ def convert_sav(file):
     # 判断文件是否以".sav.json"结尾
     if file.endswith(".sav.json"):
         # 打印日志，表示正在加载
-        log("Loading...")
+        log("加载...")
         with open(file, "r", encoding="utf-8") as f:
             # 返回文件内容
             return f.read()
 
     # 打印日志，表示正在转换
-    log("Converting...")
+    log("转换...")
     with redirect_stdout_stderr():
         try:
             # 以二进制模式打开文件
@@ -268,7 +268,7 @@ def convert_sav(file):
                 )
         except zlib.error:
             # 打印日志，表示sav文件已损坏，并退出程序
-            log("This .sav file is corrupted. :(", "ERROR")
+            log("此 .sav 文件已损坏. :(", "ERROR")
             sys.exit(1)
 
     # 将gvas文件的内容转换为json字符串并返回（此行代码被注释掉）
@@ -278,9 +278,9 @@ def convert_sav(file):
     wsd = gvas_file.properties["worldSaveData"]["value"]
 
 
-def structure_player(dir_path, data_source=None):
+def structure_player(dir_path, data_source=None, filetime: int = -1):
     # 记录日志，提示正在处理玩家结构
-    log("Structuring players...")
+    log("构建玩家结构...")
     # 声明全局变量 wsd
     global wsd
     # 如果数据源为空，则使用全局变量 wsd 作为数据源
@@ -301,6 +301,7 @@ def structure_player(dir_path, data_source=None):
 
     players = []  # 初始化玩家列表
     pals = []  # 初始化伙伴列表
+    ticks = wsd["GameTimeSaveData"]["value"]["RealDateTimeTicks"]["value"]
     # 遍历 UID 和玩家保存参数的元组
     for uid, c in uid_character:
         # 如果玩家保存参数中包含 "IsPlayer" 键且值为真
@@ -314,7 +315,7 @@ def structure_player(dir_path, data_source=None):
             if not c.get("OwnerPlayerUId"):
                 continue
             # 创建伙伴对象，并转换为字典后添加到伙伴列表中
-            pals.append(Pal(c).to_dict())
+            pals.append(Pal(c, ticks, filetime).to_dict())
 
     unique_players_dict = {}  # 初始化唯一玩家字典
     # 遍历玩家列表，处理重复玩家
@@ -483,7 +484,7 @@ def getPlayerItems(player_uid, dir_path):
             except Exception as e:
                 # 记录错误信息并返回
                 log(
-                    f"Player Sav file is corrupted: {os.path.basename(player_sav_file)}: {str(e)}",
+                    f"玩家 Sav 文件已损坏: {os.path.basename(player_sav_file)}: {str(e)}",
                     "ERROR",
                 )
                 return
@@ -537,7 +538,7 @@ def getPlayerItems(player_uid, dir_path):
 
 def structure_base_camp():
     # 记录日志：正在构建基地营...
-    log("Structuring base camps...")
+    log("构建基地营...")
     # 如果BaseCampSaveData不存在，则返回空列表
     if not wsd.get("BaseCampSaveData"):
         return []
@@ -554,7 +555,7 @@ def structure_base_camp():
 
 def structure_guild(filetime: int = -1):
     # 输出日志信息
-    log("Structuring guilds...")
+    log("构建公会...")
 
     # 检查是否存在"GroupSaveDataMap"
     if not wsd.get("GroupSaveDataMap"):
@@ -608,11 +609,11 @@ if __name__ == "__main__":
     file = "./Level.sav"
     converted = convert_sav(file)
     players = structure_player(converted)
-    log("Saving players...")
+    log("储蓄玩家...")
     with open("players.json", "w", encoding="utf-8") as f:
         json.dump(players, f, indent=4, ensure_ascii=False)
     guilds = structure_guild(converted)
-    log("Saving guilds...")
+    log("储蓄工会...")
     with open("guilds.json", "w", encoding="utf-8") as f:
         json.dump(guilds, f, indent=4, ensure_ascii=False)
-    log(f"Done in {time.time() - start}s")
+    log(f"完成时间 {time.time() - start}s")

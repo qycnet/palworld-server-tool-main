@@ -250,7 +250,7 @@ func GetLevelSavFilePath(path string) (string, error) {
 		if info.Name() == "Level.sav" {
 			// 记录文件路径并返回一个表示文件已找到的错误
 			foundPath = path
-			return errors.New("file found")
+			return errors.New("找到文件")
 		}
 		return nil
 	})
@@ -263,7 +263,7 @@ func GetLevelSavFilePath(path string) (string, error) {
 			return "", err
 		}
 		// 如果文件未找到，则返回相应的错误
-		return "", errors.New("file Level.sav not found")
+		return "", errors.New("找不到文件Level.sav")
 	}
 
 	// 返回找到的文件路径和nil错误
@@ -276,7 +276,7 @@ func LimitCacheZipFiles(cacheDir string, n int) {
 	files, err := os.ReadDir(cacheDir)
 	if err != nil {
 		// 如果读取目录时发生错误，记录错误并返回
-		logger.Errorf("Error reading cache directory: %v\n", err)
+		logger.Errorf("读取缓存目录时出错: %v\n", err)
 		return
 	}
 
@@ -310,7 +310,7 @@ func LimitCacheZipFiles(cacheDir string, n int) {
 		err := os.Remove(path)
 		if err != nil {
 			// 如果删除文件时发生错误，记录错误
-			logger.Errorf("Failed to delete excess zip file: %v\n", err)
+			logger.Errorf("无法删除多余的 zip 文件: %v\n", err)
 		}
 	}
 }
@@ -329,7 +329,7 @@ func LimitCacheDir(cacheDirPrefix string, n int) error {
 	entries, err := os.ReadDir(tempDir)
 	if err != nil {
 		// 如果读取临时目录出错，记录错误并返回
-		logger.Errorf("LimitCacheDir: error reading temp directory: %v\n", err)
+		logger.Errorf("LimitCacheDir: 读取临时目录时出错: %v\n", err)
 		return err
 	}
 
@@ -360,7 +360,7 @@ func LimitCacheDir(cacheDirPrefix string, n int) error {
 			err := os.RemoveAll(dir.path)
 			if err != nil {
 				// 如果删除目录出错，记录错误并返回
-				logger.Errorf("LimitCacheDir: error removing directory: %v\n", err)
+				logger.Errorf("LimitCacheDir: 删除目录时出错: %v\n", err)
 				return err
 			}
 		}

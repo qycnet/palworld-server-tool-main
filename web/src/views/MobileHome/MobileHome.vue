@@ -29,7 +29,7 @@ const PALWORLD_TOKEN = "palworld_token";
 const loading = ref(false);
 const serverInfo = ref({});
 const localeLowerPalMap = ref({});
-const currentDisplay = ref("players");
+const currentDisplay = ref("players"); // 当前显示的内容（players或guilds）
 const isShowDetail = ref(false);
 const playerList = ref([]);
 const onlinePlayerList = ref([]);
@@ -71,47 +71,86 @@ const handleSelectLanguage = (key) => {
   }, 1000);
 };
 
+/**
+ * 获取技能类型列表
+ * @returns {string[]} 技能类型的名称数组
+ */
 const getSkillTypeList = () => {
+  // 检查是否存在当前语言环境的技能映射
   if (skillMap[locale.value]) {
-    return Object.values(skillMap[locale.value]).map((item) => item.name);
+    // 返回技能映射中所有技能项的名称
+	return Object.values(skillMap[locale.value]).map((item) => item.name);
   } else {
-    return [];
+    // 如果没有找到，则返回一个空数组
+	return [];
   }
 };
 
 // get data
 const getServerInfo = async () => {
+  // 通过ApiService获取服务器信息
   const { data } = await new ApiService().getServerInfo();
+  // 将获取到的数据赋值给serverInfo.value
   serverInfo.value = data.value;
 };
+/**
+ * 获取玩家列表
+ * @param {boolean} [is_update_info=true] 是否更新玩家信息
+ */
 const getPlayerList = async (is_update_info = true) => {
+  // 获取在线玩家列表
   getOnlineList();
+  // 通过ApiService获取玩家列表，按最后在线时间降序排列
   const { data } = await new ApiService().getPlayerList({
     order_by: "last_online",
     desc: true,
   });
+  // 将获取到的数据赋值给playerList.value
   playerList.value = data.value;
 };
+/**
+ * 获取公会列表
+ */
 const getGuildList = async () => {
+  // 通过ApiService获取公会列表
   const { data } = await new ApiService().getGuildList();
+  // 将获取到的数据赋值给guildList.value
   guildList.value = data.value;
 };
 
+/**
+ * 获取玩家信息
+ * @param {string} player_uid 玩家UID
+ */
 const getPlayerInfo = async (player_uid) => {
+  // 通过ApiService获取指定玩家的信息
   const { data } = await new ApiService().getPlayer({ playerUid: player_uid });
+  // 将获取到的玩家信息赋值给playerInfo.value
   playerInfo.value = data.value;
+  // 复制玩家的好友列表到playerPalsList.value
   playerPalsList.value = JSON.parse(JSON.stringify(playerInfo.value.pals));
+  // 将当前显示的好友列表限制为pageSize.value的长度
   currentPlayerPalsList.value = playerPalsList.value.slice(0, pageSize.value);
+  // 设置显示详情标志为true
   isShowDetail.value = true;
+  // 将内容区域滚动到顶部
   contentRef.value.scrollTo(0, 0);
 };
 
+/**
+ * 获取公会信息
+ * @param {string} admin_player_uid 公会管理员UID
+ */
 const getGuildInfo = async (admin_player_uid) => {
+  // 通过ApiService获取指定公会的信息
   const { data } = await new ApiService().getGuild({
-    adminPlayerUid: admin_player_uid,
+	adminPlayerUid: admin_player_uid,
   });
+  // 将获取到的公会信息赋值给guildInfo.value
   guildInfo.value = data.value;
+  // 设置显示详情标志为true
   isShowDetail.value = true;
+  // 将内容区域滚动到顶部
   contentRef.value.scrollTo(0, 0);
 };
 
@@ -158,32 +197,42 @@ const clickSearch = (searchValue) => {
   }
 };
 // 滚动加载更多
-const palsLoading = ref(false);
-const currentPage = ref(1);
-const pageSize = ref(10);
-const finished = ref(false);
+const palsLoading = ref(false); // 是否正在加载更多好友列表
+const currentPage = ref(1); // 当前页码
+const pageSize = ref(10); // 每页显示的好友数量
+const finished = ref(false); // 是否已经加载完所有好友列表
+// 加载更多好友列表的函数
 const onLoadPals = () => {
+  // 判断是否已经加载完所有好友列表
   if (playerPalsList.value.length <= currentPage.value * pageSize.value) {
     finished.value = true;
   } else {
-    currentPage.value += 1;
+    // 更新当前页码，并重新计算当前显示的好友列表
+	currentPage.value += 1;
     currentPlayerPalsList.value = playerPalsList.value.slice(
       0,
       pageSize.value * currentPage.value
     );
   }
 };
+// 滚动事件处理函数
 const onContentScroll = () => {
+  // 判断当前显示的内容是否为玩家列表且详情面板是否显示
   if (currentDisplay.value === "players" && isShowDetail.value) {
-    const dom = document.getElementsByClassName("n-layout-scroll-container");
-    if (dom[1].scrollTop + dom[1].clientHeight > dom[1].scrollHeight - 6) {
-      onLoadPals();
+    // 获取滚动容器DOM元素
+	const dom = document.getElementsByClassName("n-layout-scroll-container");
+    // 判断是否滚动到底部
+	if (dom[1].scrollTop + dom[1].clientHeight > dom[1].scrollHeight - 6) {
+      onLoadPals(); // 加载更多好友列表
     }
   }
 };
 
+// 获取在线玩家列表的函数
 const getOnlineList = async () => {
+  // 调用API获取在线玩家列表数据
   const { data } = await new ApiService().getOnlinePlayerList();
+  // 更新在线玩家列表数据
   onlinePlayerList.value = data.value;
 };
 
@@ -264,63 +313,106 @@ const handleShutdown = () => {
     showLoginModal.value = true;
   }
 };
-
+/**
+ * 切换到玩家列表页面
+ */
 const toPlayers = async () => {
+  // 如果当前已经显示玩家列表，则直接返回
   if (currentDisplay.value === "players") {
     return;
   }
+  // 获取玩家列表
   await getPlayerList();
+  // 更新当前显示状态为玩家列表
   currentDisplay.value = "players";
+  // 隐藏详情
   isShowDetail.value = false;
 
+  // 设置加载状态为完成
   palsLoading.value = false;
+  // 设置完成状态为未完成
   finished.value = false;
+  // 重置当前页码为第一页
   currentPage.value = 1;
 
+  // 滚动到内容区域的顶部
   contentRef.value.scrollTo(0, 0);
 };
+/**
+ * 切换到公会列表页面
+ */
 const toGuilds = async () => {
+  // 如果当前已经显示公会列表，则直接返回
   if (currentDisplay.value === "guilds") {
     return;
   }
+  // 获取公会列表
   await getGuildList();
+  // 更新当前显示状态为公会列表
   currentDisplay.value = "guilds";
+  // 隐藏详情
   isShowDetail.value = false;
 
+  // 设置加载状态为完成
   palsLoading.value = false;
+  // 设置完成状态为未完成
   finished.value = false;
+  // 重置当前页码为第一页
   currentPage.value = 1;
 
+  // 滚动到内容区域的顶部
   contentRef.value.scrollTo(0, 0);
 };
+/**
+ * 返回列表页面（无论是玩家列表还是公会列表）
+ */
 const returnList = () => {
+  // 隐藏详情
   isShowDetail.value = false;
 
+  // 设置加载状态为完成
   palsLoading.value = false;
+  // 设置完成状态为未完成
   finished.value = false;
+  // 重置当前页码为第一页
   currentPage.value = 1;
 
+  // 滚动到内容区域的顶部
   contentRef.value.scrollTo(0, 0);
 };
 
 /**
- * check auth token
+ * 检查授权令牌是否有效
  */
 const checkAuthToken = () => {
+  // 从本地存储中获取令牌
   const token = localStorage.getItem(PALWORLD_TOKEN);
+  // 如果令牌存在且不为空
   if (token && token !== "") {
-    if (isTokenExpired(token)) {
-      localStorage.removeItem(PALWORLD_TOKEN);
+    // 检查令牌是否过期
+	if (isTokenExpired(token)) {
+      // 如果过期，则从本地存储中移除令牌
+	  localStorage.removeItem(PALWORLD_TOKEN);
       return false;
     }
+	// 设置登录状态为已登录
     isLogin.value = true;
+	// 设置授权令牌
     authToken.value = token;
     return true;
   }
+  // 如果没有令牌或令牌为空，则返回false
   return false;
 };
+/**
+ * 检查令牌是否过期
+ * @param {string} token - 要检查的令牌
+ * @returns {boolean} - 如果令牌过期，则返回true；否则返回false
+ */
 const isTokenExpired = (token) => {
+  // 解析令牌中的负载
   const payload = JSON.parse(atob(token.split(".")[1]));
+  // 检查令牌的过期时间是否小于当前时间
   return payload.exp < Date.now() / 1000;
 };
 
@@ -521,7 +613,8 @@ onMounted(async () => {
             ref="contentRef"
             @scroll="onContentScroll"
           >
-            <div v-if="!isShowDetail">
+            <!-- 当 isShowDetail 为 false 时显示列表 -->
+			<div v-if="!isShowDetail">
               <!-- list -->
               <player-list
                 v-if="currentDisplay === 'players'"
@@ -536,6 +629,7 @@ onMounted(async () => {
               </guild-list>
             </div>
             <!-- detail -->
+			<!-- 当 isShowDetail 为 true 时显示详情 -->
             <div v-else class="relative">
               <player-detail
                 v-if="currentDisplay === 'players'"

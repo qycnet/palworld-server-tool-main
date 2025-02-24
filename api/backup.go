@@ -41,7 +41,7 @@ func listBackups(c *gin.Context) {
 		startTimestamp, err = strconv.ParseInt(startTimeStr, 10, 64)
 		if err != nil {
 			// 如果转换失败，返回错误响应
-			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid start time"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "无效的开始时间"})
 			return
 		}
 		// 将起始时间整数转换为时间类型
@@ -54,7 +54,7 @@ func listBackups(c *gin.Context) {
 		endTimestamp, err = strconv.ParseInt(endTimeStr, 10, 64)
 		if err != nil {
 			// 如果转换失败，返回错误响应
-			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid end time"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "无效的结束时间"})
 			return
 		}
 		// 将结束时间整数转换为时间类型

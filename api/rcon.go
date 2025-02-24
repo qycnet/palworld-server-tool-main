@@ -45,7 +45,7 @@ func sendRconCommand(c *gin.Context) {
 	if err != nil {
 		// 如果命令不存在，返回404错误响应
 		if err == service.ErrNoRecord {
-			c.JSON(http.StatusNotFound, gin.H{"error": "Rcon command not found"})
+			c.JSON(http.StatusNotFound, gin.H{"error": "未找到 Rcon 命令"})
 			return
 		}
 		// 如果获取命令失败，返回错误响应
@@ -84,7 +84,7 @@ func importRconCommands(c *gin.Context) {
 	file, _, err := c.Request.FormFile("file")
 	if err != nil {
 		// 如果获取文件失败，返回错误信息
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid file"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "文件无效"})
 		return
 	}
 	defer file.Close() // 确保文件在操作完成后关闭
@@ -96,7 +96,7 @@ func importRconCommands(c *gin.Context) {
 		parts := strings.Split(line, ",") // 使用逗号分隔行内容
 		if len(parts) < 2 {
 			// 如果分隔后的部分少于2个，返回文件格式错误
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid file format"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "文件格式无效"})
 			return
 		}
 		placeholder := ""
@@ -117,7 +117,7 @@ func importRconCommands(c *gin.Context) {
 
 	if err := scanner.Err(); err != nil {
 		// 如果读取文件出错，返回错误信息
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Error reading file"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "读取文件时出错"})
 		return
 	}
 

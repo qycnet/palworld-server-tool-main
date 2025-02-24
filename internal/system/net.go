@@ -57,5 +57,5 @@ func GetLocalIP() (string, error) {
 	}
 
 	// 如果未找到本地IP地址，返回错误
-	return "", errors.New("cannot find local IP address")
+	return "", errors.New("找不到本地 IP 地址")
 }

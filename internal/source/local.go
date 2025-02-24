@@ -16,7 +16,7 @@ func CopyFromLocal(src, way string) (string, error) {
 	// 检查src是否为目录
 	isDir, err := system.CheckIsDir(src)
 	if err != nil {
-		logger.Errorf("error checking if %s is a directory: %v\n", src, err)
+		logger.Errorf("error 检查目录错误 如果 %s 是一个目录: %v\n", src, err)
 	}
 
 	// 获得Level.sav路径
@@ -25,14 +25,14 @@ func CopyFromLocal(src, way string) (string, error) {
 		// 如果src是目录，获取Level.sav文件路径
 		levelPath, err = system.GetLevelSavFilePath(src)
 		if err != nil {
-			return "", errors.New("error finding Level.sav: \n" + err.Error())
+			return "", errors.New("error 查找Level.sav错误: \n" + err.Error())
 		}
 	} else {
 		// 如果src不是目录，检查文件名是否为Level.sav
 		if filepath.Base(src) == "Level.sav" {
 			levelPath = src
 		} else {
-			return "", errors.New("specified file is not Level.sav and source is not a directory")
+			return "", errors.New("指定的文件不是Level.sav且源不是目录")
 		}
 	}
 

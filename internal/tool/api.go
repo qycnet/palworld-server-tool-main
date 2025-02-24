@@ -45,7 +45,7 @@ func GetLatestTag() (string, error) {
 	}
 	// 检查是否有标签
 	if len(tags) == 0 {
-		return "", fmt.Errorf("no tags found")
+		return "", fmt.Errorf("未找到标签")
 	}
 	// 返回最新的标签名称
 	return tags[0].Name, nil
@@ -86,5 +86,5 @@ func GetLatestTagFromGitee() (string, error) {
 	}
 
 	// 如果没有找到标签，返回错误
-	return "", fmt.Errorf("no tags found")
+	return "", fmt.Errorf("未找到标签")
 }

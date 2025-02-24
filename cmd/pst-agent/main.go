@@ -42,7 +42,7 @@ func main() {
 		// 从本地复制 Level.sav 文件
 		levelFile, err := source.CopyFromLocal(savedDir, "agent")
 		if err != nil {
-			logger.Errorf("Failed to get directory include Level.sav: %v\n", err)
+			logger.Errorf("无法获取目录包含Level.sav: %v\n", err)
 			os.Exit(1)
 		}
 		// 获取缓存目录
@@ -53,7 +53,7 @@ func main() {
 		cacheFile := cacheDir + ".zip"
 		err = system.ZipDir(cacheDir, cacheFile)
 		if err != nil {
-			logger.Errorf("Failed to create zip: %v\n", err)
+			logger.Errorf("无法创建 zip: %v\n", err)
 			c.Redirect(http.StatusFound, "/404")
 			return
 		}
@@ -65,7 +65,7 @@ func main() {
 	})
 
 	// 打印日志，表示 PST-Agent 正在监听端口
-	logger.Infof("PST-Agent Listening on port %d\n", port)
+	logger.Infof("PST 代理侦听端口 %d\n", port)
 
 	// 创建一个信号通道，监听系统信号
 	sigChan := make(chan os.Signal, 1)
@@ -74,7 +74,7 @@ func main() {
 	// 启动一个 goroutine 运行 Gin 服务器
 	go func() {
 		if err := r.Run(":" + strconv.Itoa(port)); err != nil {
-			logger.Errorf("Failed to start agent: %v\n", err)
+			logger.Errorf("无法启动 Agent: %v\n", err)
 		}
 	}()
 
@@ -82,5 +82,5 @@ func main() {
 	<-sigChan
 
 	// 打印日志，表示 PST-Agent 已优雅停止
-	logger.Info("PST-Agent gracefully stopped\n")
+	logger.Info("PST 代理正常停止\n")
 }

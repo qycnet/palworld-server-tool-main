@@ -58,7 +58,7 @@ func callApi(method string, api string, param []byte) ([]byte, error) {
 	}
 	// 检查HTTP响应状态码是否为200 OK
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("rest: %d %s", resp.StatusCode, b)
+		return nil, fmt.Errorf("休息: %d %s", resp.StatusCode, b)
 	}
 	return b, nil
 }
@@ -67,6 +67,7 @@ type ResponseInfo struct {
 	Version     string `json:"version"`
 	ServerName  string `json:"servername"`
 	Description string `json:"description"`
+	Worldguid string `json:"worldguid"`
 }
 
 func Info() (map[string]string, error) {
@@ -92,6 +93,8 @@ func Info() (map[string]string, error) {
 		"version": data.Version,
 		// 将API返回的服务器名称添加到结果map中
 		"name":    data.ServerName,
+		// 将API返回的世界指南添加到结果map中
+		"worldguid":    data.Worldguid,
 	}
 	// 返回结果map和nil错误
 	return result, nil
@@ -103,6 +106,7 @@ type ResponseMetrics struct {
 	ServerFrameTime  float64 `json:"serverframetime"`
 	MaxPlayerNum     int     `json:"maxplayernum"`
 	Uptime           int     `json:"uptime"`
+	Days             int     `json:"days"`
 }
 
 func Metrics() (map[string]interface{}, error) {
@@ -129,11 +133,13 @@ func Metrics() (map[string]interface{}, error) {
 		// 当前玩家数量
 		"current_player_num": data.CurrentPlayerNum,
 		// 服务器帧时间
-		"server_frame_time":  data.ServerFrameTime,
+		"server_frame_time":  float64(int64(data.ServerFrameTime*100+0.5)) / 100,
 		// 最大玩家数量
 		"max_player_num":     data.MaxPlayerNum,
 		// 服务器运行时间
 		"uptime":             data.Uptime,
+		// 服务器运行天数
+		"days":               data.Days,
 	}
 	return result, nil
 }
@@ -204,7 +210,7 @@ func getPlayerUid(playerId string) string {
 	// 如果playerId的长度小于8
 	if len(playerId) < 8 {
 		// 记录错误日志
-		logger.Errorf("Parse PlayerId fail: %s\n", playerId)
+		logger.Errorf("解析 PlayerId 失败: %s\n", playerId)
 		// 返回空字符串
 		return ""
 	}
@@ -215,7 +221,7 @@ func getPlayerUid(playerId string) string {
 	// 如果转换失败
 	if err != nil {
 		// 记录错误日志
-		logger.Errorf("Parse PlayerId fail: %s\n", err)
+		logger.Errorf("解析 PlayerId 失败: %s\n", err)
 		// 返回空字符串
 		return ""
 	}

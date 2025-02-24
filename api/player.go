@@ -195,7 +195,7 @@ func kickPlayer(c *gin.Context) {
 		// 如果错误为没有记录的错误
 		if err == service.ErrNoRecord {
 			// 返回404状态码，提示玩家未找到
-			c.JSON(http.StatusNotFound, gin.H{"error": "Player not found"})
+			c.JSON(http.StatusNotFound, gin.H{"error": "未找到玩家"})
 			return
 		}
 		// 返回400状态码，提示错误详情
@@ -238,7 +238,7 @@ func banPlayer(c *gin.Context) {
 		// 如果错误是未找到记录
 		if err == service.ErrNoRecord {
 			// 返回404错误，表示未找到玩家
-			c.JSON(http.StatusNotFound, gin.H{"error": "Player not found"})
+			c.JSON(http.StatusNotFound, gin.H{"error": "未找到玩家"})
 			return
 		}
 		// 返回400错误，并输出错误信息
@@ -282,7 +282,7 @@ func unbanPlayer(c *gin.Context) {
 	if err != nil {
 		// 如果没有找到玩家记录
 		if err == service.ErrNoRecord {
-			c.JSON(http.StatusNotFound, gin.H{"error": "Player not found"})
+			c.JSON(http.StatusNotFound, gin.H{"error": "未找到玩家"})
 			return
 		}
 		// 如果出现其他错误

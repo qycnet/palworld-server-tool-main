@@ -2,4 +2,4 @@ package service
 
 import "errors"
 
-var ErrNoRecord = errors.New("record not found")
+var ErrNoRecord = errors.New("未找到记录")

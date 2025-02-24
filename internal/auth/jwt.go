@@ -36,7 +36,8 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 		} else {
 			// 如果请求头既不是 Bearer 开头也不是 JWT 开头
 			// 则返回未授权状态，并附带错误信息
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized - token missing"})
+			//c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized - token missing"})
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "未授权 - 令牌缺失"})
 			return
 		}
 
@@ -45,7 +46,7 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 			// 判断 token 的签名方法是否为 HMAC
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				// 如果不是，则返回错误
-				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+				return nil, fmt.Errorf("意外的签名方法: %v", token.Header["alg"])
 			}
 			// 返回密钥
 			return SecretKey, nil
@@ -54,7 +55,8 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 		// 如果解析 token 时出现错误
 		if err != nil {
 			// 则返回未授权状态，并附带错误信息
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized - invalid token"})
+			//c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized - invalid token"})
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "未授权 - 令牌无效"})
 			return
 		}
 
@@ -64,7 +66,8 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 			c.Set("claims", claims)
 		} else {
 			// 如果无效，则返回未授权状态，并附带错误信息
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized - invalid claims"})
+			//c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized - invalid claims"})
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "未授权 - 无效的声明"})
 			return
 		}
 

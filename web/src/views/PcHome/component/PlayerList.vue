@@ -1,32 +1,53 @@
 <script setup>
+// 导入ApiService用于API请求
 import ApiService from "@/service/api";
+// 导入pageStore用于页面状态管理
 import pageStore from "@/stores/model/page.js";
+// 从vue导入ref, onMounted, computed等响应式API
 import { ref, onMounted, computed } from "vue";
+// 导入dayjs库用于日期处理
 import dayjs from "dayjs";
+// 导入vue-i18n用于国际化
 import { useI18n } from "vue-i18n";
+// 导入skill.json技能数据
 import skillMap from "@/assets/skill.json";
+// 从naive-ui导入NAvatar和NTag组件
 import { NAvatar, NTag } from "naive-ui";
+// 导入PlayerDetail子组件
 import PlayerDetail from "./PlayerDetail.vue";
+// 导入playerToGuildStore和whitelistStore用于玩家和白名单状态管理
 import playerToGuildStore from "@/stores/model/playerToGuild";
 import whitelistStore from "@/stores/model/whitelist";
 
+// 使用国际化功能
 const { t, locale } = useI18n();
 
+// 定义接收的props
 const props = defineProps(["showWhitelistPlayer"]);
+// 计算属性，用于获取showWhitelistPlayer的值
 const showWhitelistPlayer = computed(() => props.showWhitelistPlayer);
 
+// 响应式变量，用于判断是否为暗色模式
 const isDarkMode = ref(
   window.matchMedia("(prefers-color-scheme: dark)").matches
 );
 
+// 计算属性，获取页面宽度
 const pageWidth = computed(() => pageStore().getScreenWidth());
+// 计算属性，判断是否为小屏幕
 const smallScreen = computed(() => pageWidth.value < 1024);
 
+// 响应式变量，用于加载玩家列表的状态
 const loadingPlayer = ref(false);
+// 响应式变量，用于加载玩家详情的状态
 const loadingPlayerDetail = ref(false);
+// 响应式变量，存储玩家列表
 const playerList = ref([]);
+// 响应式变量，存储玩家详情信息
 const playerInfo = ref(null);
+// 响应式变量，存储玩家好友列表
 const playerPalsList = ref([]);
+// 响应式变量，存储技能类型列表
 const skillTypeList = ref([]);
 
 // 获取玩家列表
@@ -53,6 +74,7 @@ const getPlayerInfo = async (player_uid) => {
   });
 };
 
+// 点击事件处理函数，用于获取玩家详情信息
 const clickGetPlayerInfo = async (id) => {
   if (playerInfo.value.player_uid !== id) {
     loadingPlayerDetail.value = true;
@@ -61,6 +83,7 @@ const clickGetPlayerInfo = async (id) => {
   }
 };
 
+// 监听showWhitelistPlayer的变化，用于获取对应的玩家详情信息
 watch(
   () => showWhitelistPlayer.value,
   async (newVal) => {
@@ -74,6 +97,7 @@ watch(
 
 // 白名单
 const whiteList = computed(() => whitelistStore().getWhitelist());
+// 计算属性，判断玩家是否在白名单中
 const isWhite = computed(() => (player) => {
   if (player) {
     return whiteList.value.some((whitelistItem) => {
@@ -88,6 +112,7 @@ const isWhite = computed(() => (player) => {
   }
 });
 
+// 生命周期钩子，组件挂载时执行
 onMounted(async () => {
   loadingPlayerDetail.value = true;
   loadingPlayer.value = true;
@@ -108,6 +133,7 @@ onMounted(async () => {
 const getUserAvatar = () => {
   return new URL("@/assets/avatar.webp", import.meta.url).href;
 };
+// 获取技能类型列表的函数
 const getSkillTypeList = () => {
   if (skillMap[locale.value]) {
     return Object.values(skillMap[locale.value]).map((item) => item.name);
@@ -115,9 +141,11 @@ const getSkillTypeList = () => {
     return [];
   }
 };
+// 判断玩家是否在线的函数
 const isPlayerOnline = (last_online) => {
   return dayjs() - dayjs(last_online) < 80000;
 };
+// 格式化显示玩家最后在线时间的函数
 const displayLastOnline = (last_online) => {
   if (dayjs(last_online).year() < 1970) {
     return "Unknown";
@@ -128,26 +156,31 @@ const displayLastOnline = (last_online) => {
 <template>
   <div class="paler-list h-full">
     <n-layout has-sider class="h-full">
-      <n-layout-sider
+      <!-- 侧边栏布局 -->
+	  <n-layout-sider
         :width="smallScreen ? 360 : 400"
         content-style="padding: 24px;"
         :native-scrollbar="false"
         bordered
         class="relative"
       >
-        <n-list hoverable clickable>
+        <!-- 玩家列表 -->
+		<n-list hoverable clickable>
           <n-list-item
             v-for="player in playerList"
             :key="player.player_uid"
             style="padding: 12px 8px"
             @click="clickGetPlayerInfo(player.player_uid)"
           >
-            <template #prefix>
+            <!-- 玩家头像 -->
+			<template #prefix>
               <n-avatar :src="getUserAvatar()" round></n-avatar>
             </template>
+			<!-- 玩家信息 -->
             <div>
               <div class="flex">
-                <n-tag
+                <!-- 玩家在线状态 -->
+				<n-tag
                   :bordered="false"
                   size="small"
                   :type="
@@ -161,9 +194,11 @@ const displayLastOnline = (last_online) => {
                       : $t("status.offline")
                   }}
                 </n-tag>
+				<!-- 玩家等级 -->
                 <n-tag class="ml-2" type="primary" size="small" round>
                   Lv.{{ player.level }}
                 </n-tag>
+				<!-- 白名单标签 -->
                 <n-tag
                   v-if="isWhite(player)"
                   class="ml-2"
@@ -177,10 +212,12 @@ const displayLastOnline = (last_online) => {
                 >
                   {{ $t("status.whitelist") }}
                 </n-tag>
+				<!-- 玩家昵称 -->
                 <span class="flex-1 pl-2 font-bold line-clamp-1">{{
                   player.nickname
                 }}</span>
               </div>
+			  <!-- 最后在线时间 -->
               <n-tag :bordered="false" round size="small" class="mt-2">
                 {{ $t("status.last_online") }}:
                 {{ displayLastOnline(player.last_online) }}
@@ -188,6 +225,7 @@ const displayLastOnline = (last_online) => {
             </div>
           </n-list-item>
         </n-list>
+		<!-- 加载中提示 -->
         <n-spin
           size="small"
           v-if="loadingPlayer"
@@ -196,12 +234,14 @@ const displayLastOnline = (last_online) => {
           <template #description> 加载中... </template>
         </n-spin>
       </n-layout-sider>
+	  <!-- 玩家详情区域 -->
       <n-layout :native-scrollbar="false" class="relative">
         <player-detail
           :playerInfo="playerInfo"
           :playerPalsList="playerPalsList"
           :whiteList="whiteList"
         ></player-detail>
+		<!-- 加载中提示 -->
         <n-spin
           size="small"
           v-if="loadingPlayerDetail"

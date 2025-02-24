@@ -8,7 +8,7 @@ def decode(
 ) -> dict[str, Any]:
     # 检查类型名称是否为"MapProperty"
     if type_name != "MapProperty":
-        raise Exception(f"Expected MapProperty, got {type_name}")
+        raise Exception(f"预期的 MapProperty(地图属性), got {type_name}")
     # 从reader中读取属性值
     value = reader.property(type_name, size, path, nested_caller_path=path)
     # Decode the raw bytes and replace the raw data
@@ -107,7 +107,7 @@ def decode_bytes(
 
     # 如果reader没有到达文件末尾，则抛出异常
     if not reader.eof():
-        raise Exception("Warning: EOF not reached")
+        raise Exception("警告：未达到 EOF")
 
     # 返回group_data字典
     return group_data
@@ -119,7 +119,7 @@ def encode(
     # 检查property_type是否为"MapProperty"
     if property_type != "MapProperty":
         # 如果不是，抛出异常
-        raise Exception(f"Expected MapProperty, got {property_type}")
+        raise Exception(f"预期的 MapProperty(地图属性), got {property_type}")
     # 删除properties字典中的"custom_type"键
     del properties["custom_type"]
     # 获取properties字典中"value"键对应的值

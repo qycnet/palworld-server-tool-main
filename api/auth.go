@@ -40,7 +40,7 @@ func loginHandler(c *gin.Context) {
 	// 检查传入的密码是否正确
 	if loginInfo.Password != correctPassword {
 		// 如果密码不正确，返回401错误码
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "incorrect password"})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "密码错误"})
 		return
 	}
 
@@ -52,7 +52,7 @@ func loginHandler(c *gin.Context) {
 	tokenString, err := token.SignedString(auth.SecretKey)
 	// 如果签署失败，返回400错误码
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "could not generate token"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "无法生成令牌"})
 		return
 	}
 	// 返回生成的JWT令牌

@@ -13,7 +13,7 @@ import (
 
 func DownloadFromHttp(url, way string) (string, error) {
 	// 打印日志信息，表示开始从指定URL下载文件
-	logger.Infof("downloading sav.zip from %s\n", url)
+	logger.Infof("下载 sav.zip %s\n", url)
 	// 发送HTTP GET请求获取文件
 	resp, err := http.Get(url)
 	if err != nil {
@@ -64,6 +64,6 @@ func DownloadFromHttp(url, way string) (string, error) {
 	// 构建Level.sav文件的路径
 	levelFilePath := filepath.Join(absPath, "Level.sav")
 	// 打印日志信息，表示文件下载和解压完成
-	logger.Info("sav.zip downloaded and extracted\n")
+	logger.Info("sav.zip 下载和提取\n")
 	return levelFilePath, nil
 }

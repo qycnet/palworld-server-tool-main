@@ -20,6 +20,7 @@ type ServerMetrics struct {
 	ServerFrameTime  float64 `json:"server_frame_time"`
 	MaxPlayerNum     int     `json:"max_player_num"`
 	Uptime           int     `json:"uptime"`
+	Days             int     `json:"days"`
 }
 
 type BroadcastRequest struct {
@@ -126,6 +127,8 @@ func getServerMetrics(c *gin.Context) {
 		MaxPlayerNum:     metrics["max_player_num"].(int),
 		// 服务器运行时间
 		Uptime:           metrics["uptime"].(int),
+		// 服务器运行天数
+		Days:             metrics["days"].(int),
 	})
 }
 

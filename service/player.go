@@ -14,26 +14,46 @@ func PutPlayers(db *bbolt.DB, players []database.Player) error {
 	return db.Update(func(tx *bbolt.Tx) error {
 		// 获取名为 "players" 的 bucket
 		b := tx.Bucket([]byte("players"))
+		// get existing players
+		existingPlayers := make(map[string]database.Player)
+		err := b.ForEach(func(k, v []byte) error {
+			var player database.Player
+			if err := json.Unmarshal(v, &player); err != nil {
+				return err
+			}
+			existingPlayers[player.PlayerUid] = player
+			return nil
+		})
+		if err != nil {
+			return err
+		}
+
+		// build new players map
+		newPlayers := make(map[string]database.Player)
 		for _, p := range players {
 			// 获取当前玩家的数据
-			existingPlayerData := b.Get([]byte(p.PlayerUid))
-			if existingPlayerData != nil {
-				var existingPlayer database.Player
-				// 将现有的玩家数据反序列化为结构体
-				if err := json.Unmarshal(existingPlayerData, &existingPlayer); err != nil {
-					return err
-				}
-				// 如果现有玩家的 SteamId 不为空，则保留其 SteamId
-				if existingPlayer.SteamId != "" {
+			newPlayers[p.PlayerUid] = p
+		}
+
+		// process new and existing players
+		for _, p := range players {
+			existingPlayer, exists := existingPlayers[p.PlayerUid]
+
+			if exists {
+				if p.SteamId == "" {
 					p.SteamId = existingPlayer.SteamId
 				}
 				// 保留现有玩家的 IP 和 Ping
 				p.Ip = existingPlayer.Ip
 				p.Ping = existingPlayer.Ping
+				p.LocationX = existingPlayer.LocationX
+				p.LocationY = existingPlayer.LocationY
 			}
 			// 如果玩家需要保存最后在线时间，则解析时间字符串
 			if p.SaveLastOnline != "" {
-				p.LastOnline, _ = time.Parse(time.RFC3339, p.SaveLastOnline)
+				if parsedTime, err := time.Parse(time.RFC3339, p.SaveLastOnline); err == nil {
+					p.LastOnline = parsedTime
+				}
 			}
 			// 将玩家数据序列化为 JSON
 			v, err := json.Marshal(p)
@@ -45,6 +65,16 @@ func PutPlayers(db *bbolt.DB, players []database.Player) error {
 				return err
 			}
 		}
+		
+		// delete old players
+		for uid := range existingPlayers {
+			if _, exists := newPlayers[uid]; !exists {
+				if err := b.Delete([]byte(uid)); err != nil {
+					return err
+				}
+			}
+		}
+		
 		return nil
 	})
 }
@@ -259,7 +289,7 @@ func RemoveWhitelist(db *bbolt.DB, player database.PlayerW) error {
 		// 如果bucket不存在，返回错误
 		if b == nil {
 			// bucket不存在
-			return errors.New("whitelist bucket does not exist")
+			return errors.New("白名单 bucket 不存在")
 		}
 
 		// 在bucket中查找玩家对应的key
@@ -271,7 +301,7 @@ func RemoveWhitelist(db *bbolt.DB, player database.PlayerW) error {
 		// 如果未找到对应的key，返回错误
 		if key == nil {
 			// 玩家未在白名单中找到
-			return errors.New("player not found in whitelist")
+			return errors.New("未在白名单中找到玩家")
 		}
 
 		// 从bucket中删除对应的key

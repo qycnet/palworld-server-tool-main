@@ -39,6 +39,7 @@ type Config struct {
 		DecodePath     string `mapstructure:"decode_path"`
 		SyncInterval   int    `mapstructure:"sync_interval"`
 		BackupInterval int    `mapstructure:"backup_interval"`
+		BackupKeepDays int    `mapstructure:"backup_keep_days"`
 	} `mapstructure:"save"`
 	Manage struct {
 		KickNonWhitelist bool `mapstructure:"kick_non_whitelist"`
@@ -62,10 +63,12 @@ func Init(cfgFile string, conf *Config) {
 	if err != nil {
 		// 如果配置文件未找到，记录警告日志
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			logger.Warn("config file not found, try to read from env\n")
+			//logger.Warn("config file not found, try to read from env\n")
+			logger.Warn("找不到配置文件，请尝试从 env 读取\n")
 		} else {
 			// 如果配置文件找到但出现其他错误，记录panic日志
-			logger.Panic("config file was found but another error was produced\n")
+			//logger.Panic("config file was found but another error was produced\n")
+			logger.Panic("找到配置文件，但产生另一个错误\n")
 		}
 	}
 
@@ -82,6 +85,7 @@ func Init(cfgFile string, conf *Config) {
 
 	viper.SetDefault("save.sync_interval", 600)
 	viper.SetDefault("save.backup_interval", 14400)
+	viper.SetDefault("save.backup_keep_days", 7)
 
 	// 设置环境变量前缀和替换器
 	viper.SetEnvPrefix("")
@@ -92,6 +96,7 @@ func Init(cfgFile string, conf *Config) {
 	err = viper.Unmarshal(conf)
 	if err != nil {
 		// 如果解析失败，记录panic日志
-		logger.Panicf("Unable to decode config into struct, %s", err)
+		//logger.Panicf("Unable to decode config into struct, %s", err)
+		logger.Panicf("无法将配置解码到结构体, %s", err)
 	}
 }

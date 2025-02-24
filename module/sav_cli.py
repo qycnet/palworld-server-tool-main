@@ -1,4 +1,4 @@
-import os
+import sys
 import json
 import shutil
 import time
@@ -27,6 +27,9 @@ if __name__ == "__main__":
         output = args.output
         if not args.output.endswith(".json"):
             output = args.output + ".json"
+    if not os.path.exists(args.file):
+        log(f"文件不存在: {args.file}", "ERROR")
+        sys.exit(1)
 
     convert_sav(args.file)
     filetime = os.stat(args.file).st_mtime
@@ -34,7 +37,7 @@ if __name__ == "__main__":
     # 同路径下的Players文件夹
     dir_path = os.path.join(os.path.dirname(args.file), "Players")
 
-    players = structure_player(dir_path)
+    players = structure_player(dir_path, filetime=filetime)
     guilds = structure_guild(filetime)
 
     # Add last_online to players
@@ -56,7 +59,8 @@ if __name__ == "__main__":
     else:
         player_url = urljoin(args.request, "player")
         guild_url = urljoin(args.request, "guild")
-        log(f"Put players to {player_url} with Players: {len(players)}")
+        # 记录将玩家信息发送到指定URL的操作，并记录玩家的数量
+        log(f"将玩家信息发送到 {player_url} 并记录玩家数量: {len(players)}")
         player_res = requests.put(
             player_url,
             headers={"Authorization": f"Bearer {args.token}"},
@@ -64,9 +68,11 @@ if __name__ == "__main__":
             timeout=10,
         )
         if player_res.status_code != 200:
-            log(f"Put Players data error: {player_res.text}")
+            # 记录发送玩家数据时的错误信息
+            log(f"发送玩家数据错误: {player_res.text}")
 
-        log(f"Put guilds to {guild_url} with Guilds: {len(guilds)}")
+        # 记录将工会信息发送到指定URL的操作，并记录工会数量
+        log(f"将工会信息发送到 {guild_url} 并记录工会数量: {len(guilds)}")
         guild_res = requests.put(
             guild_url,
             headers={"Authorization": f"Bearer {args.token}"},
@@ -74,7 +80,8 @@ if __name__ == "__main__":
             timeout=10,
         )
         if guild_res.status_code != 200:
-            log(f"Put Guilds data error: {guild_res.text}")
+            # 记录发送工会数据时的错误信息
+            log(f"发送工会数据错误: {guild_res.text}")
 
     try:
         if args.clear:
@@ -86,4 +93,5 @@ if __name__ == "__main__":
     except FileNotFoundError:
         pass
 
-    log(f"Done in {round(time.time() - start, 3)}s")
+    # 记录操作的完成时间，并计算操作耗时（以秒为单位）
+    log(f"完成时间 {round(time.time() - start, 3)}s")
