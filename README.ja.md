@@ -189,7 +189,9 @@ mkdir -p pst && tar -xzf pst_v_linux_x86_64.tar.gz -C pst
      sync_interval: 120
      # Sav Backup Interval Sec アーカイブ自動バックアップ間隔です、秒単位
      backup_interval: 14400
-
+     # Sav Backup Keep Days アーカイブ自動バックアップを保持する日数です、日単位
+     backup_keep_days: 7
+	 
    # Automation Config 自動化管理関連
    manage:
      # プレイヤーがホワイトリストにない場合に自動的にキックするかどうか
@@ -313,6 +315,8 @@ save:
   sync_interval: 120
   # Sav Backup Interval Sec アーカイブ自動バックアップ間隔です、秒単位
   backup_interval: 14400
+  # Sav Backup Keep Days アーカイブ自動バックアップを保持する日数です、日単位
+  backup_keep_days: 7
 
 # Automation Config 自動化管理関連
 manage:
@@ -424,6 +428,7 @@ touch pst.db
 |      SAVE\_\_DECODE_PATH      |     "/app/sav_cli"      |    文字列    |              ⚠️ コンテナ内蔵、変更禁止、存档解析ツールのエラーになります               |
 |     SAVE\_\_SYNC_INTERVAL     |           600           |     数値     |                          プレイヤーの存档データを同期する間隔                          |
 |    SAVE\_\_BACKUP_INTERVAL    |          14400          |     数値     |                           アーカイブ自動バックアップ間隔です                           |
+|   SAVE\_\_BACKUP_KEEP_DAYS    |            7            |     数値     |                      アーカイブ自動バックアップを保持する日数です                      |
 | MANAGE\_\_KICK_NON_WHITELIST  |          false          | ブール値です |            プレイヤーがホワイトリストにない場合に自動的にキックするかどうか            |
 
 #### Agent デプロイメント
@@ -509,8 +514,9 @@ touch pst.db
 |      SAVE\_\_DECODE_PATH      |     "/app/sav_cli"      |    文字列    |                  ⚠️ コンテナ内蔵、変更禁止、存档解析ツールのエラーになります                  |
 |     SAVE\_\_SYNC_INTERVAL     |           600           |     数値     |                             プレイヤーの存档データを同期する間隔                              |
 |    SAVE\_\_BACKUP_INTERVAL    |          14400          |     数値     |                              アーカイブ自動バックアップ間隔です                               |
-| MANAGE\_\_KICK_NON_WHITELIST  |          false          | ブール値です |               プレイヤーがホワイトリストにない場合に自動的にキックするかどうか                |
 
+| MANAGE\_\_KICK_NON_WHITELIST  |          false          | ブール値です |               プレイヤーがホワイトリストにない場合に自動的にキックするかどうか                |
+|   SAVE\_\_BACKUP_KEEP_DAYS    |            7            |     数値     |                         アーカイブ自動バックアップを保持する日数です                          |
 #### k8s-pod からの存档同期
 
 v0.5.3 から、agent なしでクラスタ内のゲームサーバーの存档を同期することがサポートされています。

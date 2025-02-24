@@ -94,8 +94,8 @@ func main() {
 	}
 	logger.Info("Starting PalWorld Server Tool...\n")
 	logger.Infof("Version: %s\n", version)
-	logger.Infof("Listening on http://127.0.0.1:%d or http://%s:%d\n", viper.GetInt("web.port"), localIp, viper.GetInt("web.port"))
-	logger.Infof("Swagger on http://127.0.0.1:%d/swagger/index.html\n", viper.GetInt("web.port"))
+	logger.Infof("正在监听 http://127.0.0.1:%d 和 http://%s:%d\n", viper.GetInt("web.port"), localIp, viper.GetInt("web.port"))
+	logger.Infof("API文档访问地址 http://127.0.0.1:%d/swagger/index.html\n", viper.GetInt("web.port"))
 
 	go task.Schedule(db)
 	defer task.Shutdown()
@@ -106,16 +106,16 @@ func main() {
 	go func() {
 		if viper.GetBool("web.tls") {
 			if err := router.RunTLS(fmt.Sprintf(":%d", viper.GetInt("web.port")), viper.GetString("web.cert_path"), viper.GetString("web.key_path")); err != nil {
-				logger.Errorf("Server exited with TLS error: %v\n", err)
+				logger.Errorf("服务器因 TLS 错误而退出: %v\n", err)
 			}
 		} else {
 			if err := router.Run(fmt.Sprintf(":%d", viper.GetInt("web.port"))); err != nil {
-				logger.Errorf("Server exited with error: %v\n", err)
+				logger.Errorf("服务器退出并出现错误: %v\n", err)
 			}
 		}
 	}()
 
 	<-sigChan
 
-	logger.Info("Server gracefully stopped\n")
+	logger.Info("服务器正常停止\n")
 }
