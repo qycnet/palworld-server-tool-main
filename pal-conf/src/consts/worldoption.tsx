@@ -335,7 +335,7 @@ export const DEFAULT_WORLDOPTION = {
                             value: "",
                           },
                         },
-						bIsRandomizerPalLevelRandom: {
+                        bIsRandomizerPalLevelRandom: {
                           Bool: {
                             value: false,
                           },

@@ -49,7 +49,7 @@
         "Difficulty": "难度",
         "RandomizerType": "随机器类型",
         "RandomizerSeed": "随机种子",
-		"bIsRandomizerPalLevelRandom": "Pal等级的随机化",
+        "bIsRandomizerPalLevelRandom": "Pal等级的随机化",
         "DayTimeSpeedRate": "白天流逝速度",
         "NightTimeSpeedRate": "夜间流逝速度",
         "ExpRate": "经验值倍率",

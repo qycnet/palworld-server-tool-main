@@ -1,4 +1,5 @@
 <script setup>
+// 从@vicons/material导入图标组件
 import {
   AdminPanelSettingsOutlined,
   SupervisedUserCircleRound,
@@ -10,6 +11,7 @@ import {
   CloudDownloadOutlined,
   PublicRound,
 } from "@vicons/material";
+// 从@vicons/ionicons5导入图标组件
 import {
   GameController,
   LanguageSharp,
@@ -18,64 +20,114 @@ import {
   ArchiveOutline,
   Settings,
 } from "@vicons/ionicons5";
+// 从@vicons/carbon导入图标组件
 import { GuiManagement } from "@vicons/carbon";
+// 从@vicons/fa导入图标组件
 import { BroadcastTower } from "@vicons/fa";
-import { computed, onMounted, ref } from "vue";
+// 从vue导入响应式API和生命周期钩子
+import { computed, onMounted, ref, watch, h } from "vue";
+
+// 从naive-ui导入UI组件
 import { NTag, NButton, NIcon, useMessage, useDialog } from "naive-ui";
+
+// 从vue-i18n导入国际化API
 import { useI18n } from "vue-i18n";
+
+// 导入自定义的API服务
 import ApiService from "@/service/api";
+
+// 导入Vuex或Pinia状态管理库的store
 import pageStore from "@/stores/model/page.js";
+import whitelistStore from "@/stores/model/whitelist";
+import playerToGuildStore from "@/stores/model/playerToGuild";
+import userStore from "@/stores/model/user";
+
+// 导入第三方库
 import dayjs from "dayjs";
+
+// 导入静态资源
 import palMap from "@/assets/pal.json";
 import itemMap from "@/assets/items.json";
 import skillMap from "@/assets/skill.json";
+
+// 导入Vue组件
 import PlayerList from "./component/PlayerList.vue";
 import GuildList from "./component/GuildList.vue";
 import MapView from "./component/MapView.vue";
-import whitelistStore from "@/stores/model/whitelist";
-import playerToGuildStore from "@/stores/model/playerToGuild";
-import { watch } from "vue";
-import userStore from "@/stores/model/user";
-import { h } from "vue";
-
+// 使用国际化API获取当前的语言环境和翻译函数
 const { t, locale } = useI18n();
 
+// 使用naive-ui的消息和对话框API
 const message = useMessage();
 const dialog = useDialog();
 
+// 定义全局常量
 const PALWORLD_TOKEN = "palworld_token";
 
+// 计算属性：获取页面宽度
 const pageWidth = computed(() => pageStore().getScreenWidth());
+
+// 计算属性：判断是否为小屏幕
 const smallScreen = computed(() => pageWidth.value < 1024);
 
+// 响应式数据：加载状态
 const loading = ref(false);
+
+// 响应式数据：服务器信息
 const serverInfo = ref({});
+
+// 响应式数据：服务器指标
 const serverMetrics = ref({});
+
+// 响应式数据：当前显示的内容 玩家/工会/地图（players或guilds或map）
 const currentDisplay = ref("players");
+
+// 响应式数据：玩家列表
 const playerList = ref([]);
+
+// 响应式数据：在线玩家列表
 const onlinePlayerList = ref([]);
+
+// 响应式数据：工会列表
 const guildList = ref([]);
+
+// 响应式数据：玩家信息
 const playerInfo = ref({});
+
+// 响应式数据：玩家的PAL列表
 const playerPalsList = ref([]);
+
+// 响应式数据：工会信息
 const guildInfo = ref({});
+
+// 响应式数据：技能类型列表
 const skillTypeList = ref([]);
+
+// 响应式数据：语言选项列表
 const languageOptions = ref([]);
 
+// 响应式数据：登录状态
 const isLogin = ref(false);
+
+// 响应式数据：认证令牌
 const authToken = ref("");
 
+// 响应式数据：是否开启暗色模式
 const isDarkMode = ref(
   window.matchMedia("(prefers-color-scheme: dark)").matches
 );
 
+// 更新暗色模式的函数
 const updateDarkMode = (e) => {
   isDarkMode.value = e.matches;
 };
 
+// 获取暗色模式颜色的函数
 const getDarkModeColor = () => {
   return isDarkMode.value ? "#fff" : "#000";
 };
 
+// 获取用户头像URL的函数
 const getUserAvatar = () => {
   return new URL("../../assets/avatar.webp", import.meta.url).href;
 };
@@ -316,7 +368,7 @@ const removeRconCommand = async (uuid) => {
 };
 
 // 控制中心（下拉菜单）
-// 包含：白名单管理、RCON 命令、游戏内广播、关闭服务器
+// 包含：白名单管理、RCON 命令、游戏内广播、关闭服务器、退出管理员登录
 const renderIcon = (icon, color = "#666") => {
   return () => {
     return h(
@@ -391,6 +443,21 @@ const controlCenterOption = [
     key: "shutdown",
     icon: renderIcon(SettingsPowerRound, "#cc2d48"),
   },
+  {
+    label: () => {
+      return h(
+        "div",
+        {
+          style: { color: "#cc2d48" },
+        },
+        {
+          default: () => t("button.quitpst"),
+        }
+      );
+    },
+    key: "quitpst",
+    icon: renderIcon(SettingsPowerRound, "#cc2d48"),
+  },
 ];
 const handleSelectControlCenter = (key) => {
   if (key === "palconf") {
@@ -403,6 +470,8 @@ const handleSelectControlCenter = (key) => {
     handleStartBrodcast();
   } else if (key === "shutdown") {
     handleShutdown();
+  } else if (key === "quitpst") {
+    handleStartQuitpst();
   } else {
     message.error("错误");
   }
@@ -525,6 +594,34 @@ const handleBroadcast = async () => {
     broadcastText.value = "";
   } else {
     message.error(t("message.broadcastfail", { err: data.value?.error }));
+  }
+};
+
+// 退出登录
+const handleStartQuitpst = () => {
+  if (checkAuthToken()) {
+    dialog.warning({
+	   title: t("message.warn"),
+	   content: t("message.Signoutprompst"),
+	   positiveText: t("button.confirm"),
+	   negativeText: t("button.cancel"),
+	   onPositiveClick: async () => {
+	       const token = localStorage.removeItem(PALWORLD_TOKEN);
+           userStore().setIsLogin(false, nall);
+           isLogin.value = false;
+		   if (token === false && isLogin.value === false) {
+               message.success(t("message.quitpstsuccess"));
+	           showLoginModal.value = true;
+			   return;
+           } else {
+             message.error(t("message.quitpstfail"));
+           }
+	   },
+	   onNegativeClick: () => {},
+    });
+  } else {
+    message.error(t("message.requireauth"));
+    showLoginModal.value = true;
   }
 };
 
@@ -807,11 +904,13 @@ onMounted(async () => {
       class="flex justify-between items-center p-3"
     >
       <n-space class="flex items-center">
-        <span
+        <!-- 显示标题，根据语言环境动态显示 -->
+		<span
           class="line-clamp-1"
           :class="smallScreen ? 'text-lg' : 'text-2xl'"
           >{{ $t("title") }}</span
         >
+		<!-- 显示服务器工具版本信息，如果有新版本则显示'new'标签 -->
         <n-badge
           v-if="serverToolInfo?.version"
           :value="hasNewVersion ? 'new' : ''"
@@ -825,6 +924,7 @@ onMounted(async () => {
             >{{ serverToolInfo.version }}</n-tag
           >
         </n-badge>
+		<!-- 显示服务器信息，包括名称和版本，使用工具提示显示更多信息 -->
         <n-tooltip trigger="hover">
           <template #trigger>
             <n-tag type="default" :size="smallScreen ? 'medium' : 'large'">{{
@@ -836,6 +936,7 @@ onMounted(async () => {
           <div>
             <p>{{ $t("item.serverFps") }}: {{ serverMetrics?.server_fps }}</p>
             <p>{{ $t("item.serverUptime") }}: {{ serverMetrics?.uptime }}(s)</p>
+            <p>{{ $t("item.serverDays") }}: {{ serverMetrics?.days }}</p>
             <p>
               {{ $t("item.serverFrameTime") }}:
               {{ serverMetrics?.server_frame_time }}(ms)
@@ -848,7 +949,8 @@ onMounted(async () => {
       </n-space>
 
       <n-space>
-        <n-dropdown
+        <!-- 下拉菜单，用于选择语言 -->
+		<n-dropdown
           trigger="hover"
           :options="languageOptions"
           @select="handleSelectLanguage"
@@ -860,7 +962,8 @@ onMounted(async () => {
           </n-button>
         </n-dropdown>
 
-        <n-button
+        <!-- 登录按钮或已认证标签，根据登录状态动态显示 -->
+		<n-button
           type="primary"
           secondary
           strong
@@ -889,6 +992,9 @@ onMounted(async () => {
         <n-layout style="height: calc(100vh - 64px)">
           <n-layout-header class="p-3 flex justify-between h-16" bordered>
             <n-button-group :size="smallScreen ? 'medium' : 'large'">
+			<!-- 未登录隐藏玩家按钮 -->
+			<!-- <n-space v-if="isLogin" class="button.players"> -->
+			<!-- 玩家按钮，根据当前显示状态设置按钮类型 -->
               <n-button
                 @click="toPlayers"
                 :type="currentDisplay === 'players' ? 'primary' : 'tertiary'"
@@ -903,6 +1009,11 @@ onMounted(async () => {
                 </template>
                 {{ $t("button.players") }}
               </n-button>
+			  <!-- </n-space> -->
+			  
+			<!-- 未登录隐藏公会按钮 -->
+			<!-- <n-space v-if="isLogin" class="button.guilds"> -->
+			<!-- 公会按钮，根据当前显示状态设置按钮类型 -->
               <n-button
                 @click="toGuilds()"
                 :type="currentDisplay === 'guilds' ? 'primary' : 'tertiary'"
@@ -917,7 +1028,11 @@ onMounted(async () => {
                 </template>
                 {{ $t("button.guilds") }}
               </n-button>
-              <n-button
+			<!-- </n-space> -->
+			
+			<!-- 地图按钮，根据当前显示状态设置按钮类型 -->
+              <!-- <n-space class="button.map"> -->
+			  <n-button
                 @click="toMap()"
                 :type="currentDisplay === 'map' ? 'primary' : 'tertiary'"
                 secondary
@@ -931,19 +1046,27 @@ onMounted(async () => {
                 </template>
                 {{ $t("button.map") }}
               </n-button>
+			  <!-- </n-space> -->
             </n-button-group>
+			
+			<!-- 状态标签，显示玩家数量和在线数量 -->
             <n-space>
+			<!-- 玩家数量标签 -->
               <n-tag type="info" round size="large">{{
                 $t("status.player_number", { number: playerList?.length })
               }}</n-tag>
+			<!-- 在线数量标签 -->
               <n-tag type="success" round size="large">{{
                 $t("status.online_number", {
                   number: serverMetrics?.current_player_num,
                 })
               }}</n-tag>
             </n-space>
+			
+			<!-- 登录后的操作按钮和控制中心下拉菜单 -->
             <n-space v-if="isLogin" class="flex items-center">
-              <n-button
+              <!-- 备份按钮 -->
+			  <n-button
                 :size="smallScreen ? 'medium' : 'large'"
                 type="success"
                 secondary
@@ -958,6 +1081,7 @@ onMounted(async () => {
                 </template>
                 {{ $t("button.backup") }}
               </n-button>
+			  <!-- RCON按钮 -->
               <n-button
                 :size="smallScreen ? 'medium' : 'large'"
                 type="primary"
@@ -973,6 +1097,7 @@ onMounted(async () => {
                 </template>
                 {{ $t("button.rcon") }}
               </n-button>
+			  <!-- 控制中心下拉菜单 -->
               <n-dropdown
                 trigger="click"
                 size="large"
@@ -994,6 +1119,7 @@ onMounted(async () => {
                   {{ $t("button.controlCenter") }}</n-button
                 >
               </n-dropdown>
+			  <!--注释掉的按钮-->
               <!-- <n-button
                 :size="smallScreen ? 'medium' : 'large'"
                 type="default"
@@ -1056,6 +1182,7 @@ onMounted(async () => {
               </n-button> -->
             </n-space>
           </n-layout-header>
+		  <!-- 内容区域，根据当前显示状态显示不同的组件 -->
           <div class="overflow-hidden" style="height: calc(100% - 64px)">
             <player-list
               v-if="currentDisplay === 'players'"
@@ -1069,7 +1196,7 @@ onMounted(async () => {
       </div>
     </div>
   </div>
-  <!-- login modal -->
+  <!-- 登录模态框 -->
   <n-modal
     v-model:show="showLoginModal"
     class="custom-card"
@@ -1084,7 +1211,9 @@ onMounted(async () => {
     :segmented="segmented"
   >
     <div>
+	  <!-- 描述性文本 -->
       <span class="block pb-2">{{ $t("message.authdesc") }}</span>
+	  <!-- 密码输入框 -->
       <n-input
         type="password"
         show-password-on="click"
@@ -1094,7 +1223,8 @@ onMounted(async () => {
     </div>
     <template #footer>
       <div class="flex justify-end">
-        <n-button
+        <!-- 取消按钮 -->
+		<n-button
           type="tertiary"
           @click="
             () => {
@@ -1104,6 +1234,7 @@ onMounted(async () => {
           "
           >{{ $t("button.cancel") }}</n-button
         >
+		<!-- 确认按钮，带有一定的边距 -->
         <n-button class="ml-3 w-40" type="primary" @click="handleLogin">{{
           $t("button.confirm")
         }}</n-button>
@@ -1126,7 +1257,8 @@ onMounted(async () => {
     :segmented="segmented"
   >
     <div>
-      <n-input
+      <!-- 输入框用于输入广播文本 -->
+	  <n-input
         type="text"
         show-password-on="click"
         v-model:value="broadcastText"
@@ -1134,7 +1266,8 @@ onMounted(async () => {
     </div>
     <template #footer>
       <div class="flex justify-end">
-        <n-button
+        <!-- 取消按钮，点击后关闭模态框并清空广播文本 -->
+		<n-button
           type="tertiary"
           @click="
             () => {
@@ -1144,6 +1277,7 @@ onMounted(async () => {
           "
           >{{ $t("button.cancel") }}</n-button
         >
+		<!-- 确认按钮，点击后处理广播逻辑 -->
         <n-button class="ml-3 w-40" type="primary" @click="handleBroadcast">{{
           $t("button.confirm")
         }}</n-button>
@@ -1151,7 +1285,7 @@ onMounted(async () => {
     </template>
   </n-modal>
 
-  <!-- custom rcon drawer -->
+  <!-- 自定义RCON抽屉组件 -->
   <n-modal
     v-model:show="showRconAddModal"
     class="custom-card"
@@ -1165,9 +1299,12 @@ onMounted(async () => {
     :bordered="false"
     :segmented="segmented"
   >
-    <n-tabs default-value="import" size="large" justify-content="space-evenly">
-      <n-tab-pane name="import" :tab="$t('button.import')">
-        <n-upload
+    <!-- 标签页组件，用于切换导入和添加RCON命令的视图 -->
+	<n-tabs default-value="import" size="large" justify-content="space-evenly">
+      <!-- 导入标签页 -->
+	  <n-tab-pane name="import" :tab="$t('button.import')">
+        <!-- 文件上传组件，用于导入RCON文件 -->
+		<n-upload
           multiple
           directory-dnd
           action="/api/rcon/import"
@@ -1177,7 +1314,8 @@ onMounted(async () => {
           @error="handleImportRconError"
         >
           <n-upload-dragger>
-            <div style="margin-bottom: 12px">
+            <!-- 拖拽区域内容 -->
+			<div style="margin-bottom: 12px">
               <n-icon size="48" :depth="3">
                 <ArchiveOutline />
               </n-icon>
@@ -1192,7 +1330,8 @@ onMounted(async () => {
         </n-upload>
       </n-tab-pane>
       <n-tab-pane name="add" :tab="$t('button.add')">
-        <n-input
+        <!-- 输入框组件，用于输入RCON命令、备注和占位符 -->
+		<n-input
           v-model:value="newRconCommand"
           size="large"
           round
@@ -1205,6 +1344,7 @@ onMounted(async () => {
           round
           :placeholder="$t('input.remark')"
         ></n-input>
+		<!-- 按钮组件，用于添加RCON命令 -->
         <n-input
           class="mt-5"
           v-model:value="newRconPlaceholder"
@@ -1225,13 +1365,16 @@ onMounted(async () => {
       </n-tab-pane>
     </n-tabs>
   </n-modal>
+  <!-- 抽屉组件，用于显示RCON命令详情 -->
   <n-drawer v-model:show="showRconDrawer" :width="502" placement="right">
     <n-drawer-content :title="t('modal.rcon')">
-      <template #footer>
+      <!-- 抽屉底部内容，包含一个添加RCON命令的按钮 -->
+	  <template #footer>
         <n-button type="primary" strong secondary @click="handleAddRconCommand">
           {{ $t("button.addRcon") }}
         </n-button>
       </template>
+	  <!-- 玩家选择器 -->
       <div class="flex w-full items-center">
         <n-select
           :placeholder="$t('input.selectPlayer')"
@@ -1239,7 +1382,8 @@ onMounted(async () => {
           filterable
           :options="rconPlayerOptions"
         />
-        <!-- <n-button
+		<!-- 复制Steam64 -->
+        <n-button
           class="ml-2"
           type="primary"
           strong
@@ -1248,6 +1392,7 @@ onMounted(async () => {
         >
           {{ $t("button.copysid") }}
         </n-button>
+		<!-- 复制玩家ID -->
         <n-button
           class="ml-2"
           type="primary"
@@ -1256,8 +1401,9 @@ onMounted(async () => {
           @click="copyText(rconSelectedPlayer?.split('-')[0])"
         >
           {{ $t("button.copypid") }}
-        </n-button> -->
+        </n-button>
       </div>
+	  <!-- 玩家ID和Steam64显示 -->
       <div class="flex w-full items-center mt-3 justify-between">
         <n-text
           >PlayerID: {{ rconSelectedPlayer?.split("-")[0] || "-" }}</n-text
@@ -1265,14 +1411,16 @@ onMounted(async () => {
         <n-text>Steam64: {{ rconSelectedPlayer?.split("-")[1] || "-" }}</n-text>
       </div>
 
-      <div class="flex w-full items-center mt-3">
+      <!-- 项目选择器 -->
+	  <div class="flex w-full items-center mt-3">
         <n-select
           :placeholder="$t('input.selectItem')"
           v-model:value="rconSelectedItem"
           filterable
           :options="rconItemOptions"
         />
-        <!-- <n-button
+		<!-- 复制物品ID -->
+        <n-button
           class="ml-2"
           type="primary"
           strong
@@ -1280,19 +1428,28 @@ onMounted(async () => {
           @click="copyText(rconSelectedItem)"
         >
           {{ $t("button.copyitem") }}
-        </n-button> -->
+        </n-button>
       </div>
+	  <!-- 项目ID显示 -->
       <div class="flex w-full items-center mt-3 justify-between">
-        <n-text>ID: {{ rconSelectedItem || "-" }}</n-text>
+        <!-- 显示项目ID，如果rconSelectedItem为空则显示"-" -->
+		<n-text>ID: {{ rconSelectedItem || "-" }}</n-text>
       </div>
 
       <div class="flex w-full items-center mt-3">
-        <n-select
+        <!-- 下拉选择框，用于选择项目 -->
+		<n-select
           :placeholder="$t('input.selectPal')"
           v-model:value="rconSelectedPal"
           filterable
           :options="rconPalOptions"
         />
+		
+		<!-- 
+         注释：原本存在一个按钮用于复制选中的项目ID，
+         但此功能目前被禁用或待实现，因此注释掉相关代码。
+         如果需要重新启用，可以取消以下代码的注释。
+        -->
         <!-- <n-button
           class="ml-2"
           type="primary"
@@ -1302,11 +1459,25 @@ onMounted(async () => {
         >
           {{ $t("button.copypal") }}
         </n-button> -->
+		<!-- 复制帕鲁ID -->
+		<n-button
+          class="ml-2"
+          type="primary"
+          strong
+          secondary
+          @click="copyText(rconSelectedPal)"
+        >
+          {{ $t("button.copypal") }}
+        </n-button>
+		
       </div>
+	  <!-- ID 显示区域，如果 rconSelectedPal 为空则显示 "-" -->
       <div class="flex w-full items-center mt-3 justify-between">
         <n-text>ID: {{ rconSelectedPal || "-" }}</n-text>
       </div>
+	  <!-- 如果没有 rconCommands，则显示空内容提示 -->
       <n-empty class="mt-3" v-if="rconCommands.length == 0"> </n-empty>
+	  <!-- 可折叠的命令列表区域 -->
       <n-collapse class="mt-3">
         <n-collapse-item
           v-for="rconCommand in rconCommands"
@@ -1314,19 +1485,23 @@ onMounted(async () => {
           :title="rconCommand.command"
           :name="rconCommand.uuid"
         >
-          <template #header-extra> {{ rconCommand.remark }} </template>
-          <n-input-group>
+          <!-- 命令的额外说明信息 -->
+		  <template #header-extra> {{ rconCommand.remark }} </template>
+          <!-- 输入框和按钮组合区域 -->
+		  <n-input-group>
             <n-input
               round
               :placeholder="rconCommand.placeholder"
               v-model:value="rconCommandsExtra[rconCommand.uuid]"
             >
-              <template #prefix>
+              <!-- 输入框前缀，显示命令和占位符信息 -->
+			  <template #prefix>
                 <n-text>{{
                   rconCommand.command + (rconCommand.placeholder ? "  +" : "")
                 }}</n-text>
               </template>
             </n-input>
+			<!-- 执行按钮，点击后发送命令 -->
             <n-button
               type="primary"
               ghost
@@ -1336,6 +1511,7 @@ onMounted(async () => {
               {{ $t("button.execute") }}
             </n-button>
           </n-input-group>
+		  <!-- 删除按钮，点击后移除命令 -->
           <n-button
             class="mt-3"
             style="width: 100%"
@@ -1372,8 +1548,10 @@ onMounted(async () => {
     :segmented="segmented"
   >
     <div>
-      <n-empty v-if="whiteList.length == 0"> </n-empty>
-      <n-virtual-list
+      <!-- 当白名单列表为空时显示空状态 -->
+	  <n-empty v-if="whiteList.length == 0"> </n-empty>
+      <!-- 使用虚拟列表来渲染白名单项，提高性能 -->
+	  <n-virtual-list
         v-else
         ref="virtualListInst"
         style="height: 320px"
@@ -1389,16 +1567,19 @@ onMounted(async () => {
             <n-grid>
               <n-gi span="19">
                 <n-input-group>
-                  <n-input
+                  <!-- 玩家昵称输入框 -->
+				  <n-input
                     v-model:value="item.name"
                     :style="{ width: '33%' }"
                     :placeholder="$t('input.nickname')"
                   />
+				  <!-- 玩家UID输入框 -->
                   <n-input
                     v-model:value="item.player_uid"
                     :style="{ width: '33%' }"
                     :placeholder="$t('input.player_uid')"
                   />
+				  <!-- Steam ID输入框 -->
                   <n-input
                     v-model:value="item.steam_id"
                     :style="{ width: '33%' }"
@@ -1409,7 +1590,8 @@ onMounted(async () => {
               <n-gi span="5">
                 <div class="flex justify-end mr-3">
                   <n-space v-if="item.player_uid || item.steam_id">
-                    <n-button
+                    <!-- 查看玩家按钮 -->
+					<n-button
                       strong
                       secondary
                       type="primary"
@@ -1419,6 +1601,7 @@ onMounted(async () => {
                         <n-icon><RemoveRedEyeTwotone /></n-icon>
                       </template>
                     </n-button>
+					<!-- 删除白名单项按钮 -->
                     <n-button
                       @click="removeWhiteList(item)"
                       strong
@@ -1440,11 +1623,13 @@ onMounted(async () => {
     <template #footer>
       <div class="flex justify-end">
         <n-space>
-          <n-button type="primary" @click="handleAddNewWhiteList">
+          <!-- 添加新白名单项按钮 -->
+		  <n-button type="primary" @click="handleAddNewWhiteList">
             {{ $t("button.addNew") }}
           </n-button>
 
-          <n-button
+          <!-- 取消按钮 -->
+		  <n-button
             type="tertiary"
             @click="
               () => {
@@ -1455,7 +1640,8 @@ onMounted(async () => {
             {{ $t("button.cancel") }}
           </n-button>
 
-          <n-button
+          <!-- 保存按钮，当白名单为空时禁用 -->
+		  <n-button
             :disabled="whiteList.length === 0"
             @click="putWhiteList"
             strong
@@ -1469,6 +1655,7 @@ onMounted(async () => {
     </template>
   </n-modal>
   <!-- backup modal -->
+  <!-- 备份模态框 -->
   <n-modal
     v-model:show="backupModal"
     class="custom-card"
@@ -1485,16 +1672,21 @@ onMounted(async () => {
     :segmented="segmented"
   >
     <div>
-      <n-empty description="empty" v-if="backupList.length == 0"> </n-empty>
+      <!-- 当没有备份列表时显示空状态 -->
+	  <n-empty description="empty" v-if="backupList.length == 0"> </n-empty>
+	  <!-- 当有备份列表时显示内容 -->
       <div class="flex flex-col item mlr-3 mb-3 p-1" v-else>
-        <n-date-picker
+        <!-- 日期选择器，用于选择备份的时间范围 -->
+		<n-date-picker
           class="mb-4"
           v-model:value="range"
           type="datetimerange"
           @confirm="getBackupListWithRange"
         />
+		<!-- 滚动条容器，用于包裹数据表格 -->
         <n-scrollbar style="max-height: 320px">
-          <n-data-table
+          <!-- 数据表格，用于显示备份列表 -->
+		  <n-data-table
             :columns="backupColumns"
             :data="backupList"
             :bordered="false"
@@ -1502,10 +1694,12 @@ onMounted(async () => {
         </n-scrollbar>
       </div>
     </div>
+	<!-- 模态框底部操作区域 -->
     <template #footer>
       <div class="flex justify-end">
         <n-space>
-          <n-button
+          <!-- 关闭按钮，用于关闭模态框 -->
+		  <n-button
             type="tertiary"
             @click="
               () => {

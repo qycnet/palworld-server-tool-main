@@ -49,7 +49,7 @@
         "Difficulty": "Difficulty",
         "RandomizerType": "Randomizer Type",
         "RandomizerSeed": "Randomizer Seed",
-		"bIsRandomizerPalLevelRandom": "Randomization of PAL levels",
+        "bIsRandomizerPalLevelRandom": "Randomization of PAL levels",
         "DayTimeSpeedRate": "Day Time Speed Rate",
         "NightTimeSpeedRate": "Night Time Speed Rate",
         "ExpRate": "Exp Rate",

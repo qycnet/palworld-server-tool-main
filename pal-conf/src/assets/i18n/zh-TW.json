@@ -49,7 +49,7 @@
         "Difficulty": "遊戲難度",
         "RandomizerType": "隨機器類型",
         "RandomizerSeed": "隨機種子",
-		"bIsRandomizerPalLevelRandom": "Pal等級的隨機化",
+        "bIsRandomizerPalLevelRandom": "Pal等級的隨機化",
         "DayTimeSpeedRate": "白天流逝速度",
         "NightTimeSpeedRate": "夜晚流逝速度",
         "ExpRate": "經驗值倍率",

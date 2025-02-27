@@ -49,7 +49,7 @@
         "Difficulty": "Ajusta a dificuldade geral do jogo.",
         "RandomizerType": "Tipo de Aleatorizador",
         "RandomizerSeed": "Semente do Aleatorizador",
-		"bIsRandomizerPalLevelRandom": "Aleatorização dos níveis de PAL",
+        "bIsRandomizerPalLevelRandom": "Aleatorização dos níveis de PAL",
         "DayTimeSpeedRate": "Modifica a velocidade do tempo de jogo durante o dia.",
         "NightTimeSpeedRate": "Modifica a velocidade do tempo de jogo durante a noite.",
         "ExpRate": "Altera a taxa de ganho de experiência para jogadores e criaturas.",
