@@ -108,6 +108,20 @@ export const ENTRIES: Record<string, Entry> = {
     type: "boolean",
     desc: "Is use Randomization of PAL grades",
   },
+  bAllowGlobalPalboxExport: {
+    name: "Whether it is permissible to preserve the genetic sequence of Palu through a transboundary Palu terminal",
+    id: "bAllowGlobalPalboxExport",
+    defaultValue: "False",
+    type: "boolean",
+    desc: "Whether it is permissible to preserve the genetic sequence of Palu through a transboundary Palu terminal",
+  },
+  bAllowGlobalPalboxImport: {
+    name: "Whether it is permissible to restore Palu by gene sequences in transboundary Palu terminals",
+    id: "bAllowGlobalPalboxImport",
+    defaultValue: "False",
+    type: "boolean",
+    desc: "Whether it is permissible to restore Palu by gene sequences in transboundary Palu terminals",
+  },
   DayTimeSpeedRate: {
     name: "Day Time Speed Rate",
     id: "DayTimeSpeedRate",
@@ -451,12 +465,12 @@ export const ENTRIES: Record<string, Entry> = {
     range: [30, 3600],
     desc: "Auto save span",
   },
-  AllowConnectPlatform: {
+  CrossplayPlatforms: {
     name: "Allow Connect Platform",
-    id: "AllowConnectPlatform",
-    defaultValue: "Steam",
+    id: "CrossplayPlatforms",
+    defaultValue: "(Steam,Xbox,PS5,Mac)",
     type: "select",
-    options: ["Steam", "Xbox"],
+    options: ["Steam", "Xbox", "PS5", "Mac"],
     desc: "Allow connect platform",
   },
   LogFormatType: {

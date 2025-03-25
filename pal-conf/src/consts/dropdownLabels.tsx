@@ -21,7 +21,7 @@ export const DeathPenaltyLabels = [
 
 // 定义允许连接的平台标签的常量数组
 // 这些标签描述了允许哪些平台连接到游戏服务器
-export const AllowConnectPlatformLabels = [
+export const CrossplayPlatformsLabels = [
     {
         name: "Steam",       // Steam平台
         desc: "Only allow Steam to connect", // 描述：只允许Steam平台连接
@@ -29,6 +29,14 @@ export const AllowConnectPlatformLabels = [
     {
         name: "Xbox",        // Xbox平台
         desc: "Only allow Xbox to connect",  // 描述：只允许Xbox平台连接
+    },
+    {
+        name: "PS5",        // PS5平台
+        desc: "Only allow PS5 to connect",  // 描述：只允许PS5平台连接
+    },
+    {
+        name: "Mac",        // Mac平台
+        desc: "Only allow Mac to connect",  // 描述：只允许Mac平台连接
     },
 ] as const; // 使用as const断言这些值在初始化后不会被修改
 

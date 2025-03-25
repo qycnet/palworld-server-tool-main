@@ -416,7 +416,7 @@ function App() {
     if (entry.type === "select") {
       return (
         <DropDown
-          dKey={entry.id as "DeathPenalty" | "AllowConnectPlatform" | "LogFormatType"}
+          dKey={entry.id as "DeathPenalty" | "CrossplayPlatforms" | "LogFormatType"}
           label={entryValue as LabelValue}
           onLabelChange={(labelName: string) => {
             onStateChanged(entry.id)({

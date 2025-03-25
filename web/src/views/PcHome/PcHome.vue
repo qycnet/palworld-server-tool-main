@@ -213,7 +213,7 @@ const getPlayerList = async () => {
   playerList.value = data.value;
   rconPlayerOptions.value = data.value.map((item) => {
     return {
-      label: `${item.nickname}(${item.player_uid})`,
+      label: `${item.nickname}(${item.player_uid})(${item.steam_id})`,
       value: `${item.player_uid}-${item.steam_id}`,
     };
   });
@@ -1388,7 +1388,7 @@ onMounted(async () => {
           type="primary"
           strong
           secondary
-          @click="copyText(rconSelectedPlayer?.split('-')[1])"
+          @click="copyText('steam_' + (rconSelectedPlayer?.split('-')[1]))"
         >
           {{ $t("button.copysid") }}
         </n-button>

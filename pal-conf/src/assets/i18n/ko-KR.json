@@ -49,6 +49,8 @@
         "Difficulty": "난이도",
         "RandomizerType": "랜덤화 유형",
         "RandomizerSeed": "랜덤화 시드",
+		"bAllowGlobalPalboxExport": "국경을 초월한 팔루 말단을 통해 팔루의 유전자 염기서열을 보존하는 것이 허용되는지 여부",
+		"bAllowGlobalPalboxImport": "국경을 초월한 팔루 말단의 유전자 염기서열에 의해 팔루를 복원하는 것이 허용되는지 여부",
         "bIsRandomizerPalLevelRandom": "PAL 등급의 무작위화",
         "DayTimeSpeedRate": "낮 시간 속도 배율",
         "NightTimeSpeedRate": "밤 시간 속도 배율",
@@ -95,7 +97,7 @@
         "PalEggDefaultHatchingTime": "팰 알의 기본 부화 시간 설정",
         "WorkSpeedRate": "작업 속도 배율",
         "AutoSaveSpan": "자동 저장 간격",
-        "AllowConnectPlatform": "플랫폼 연결 허용",
+        "CrossplayPlatforms": "플랫폼 연결 허용",
         "LogFormatType": "로그 형식 유형",
         "bIsMultiplay": "멀티플레이 모드",
         "bIsPvP": "PvP 모드",
@@ -138,9 +140,11 @@
           "ItemAndEquipment": "아이템 및 장비만 드롭",
           "All": "장비, 팰, 인벤토리 전부 드롭"
         },
-        "AllowConnectPlatform": {
+        "CrossplayPlatforms": {
           "Steam": "Steam만 연결 허용",
-          "Xbox": "Xbox만 연결 허용"
+          "Xbox": "Xbox만 연결 허용",
+          "PS5": "PS5만 연결 허용",
+          "Mac": "Mac만 연결 허용"
         },
         "LogFormatType": {
           "Text": "텍스트 형식을 사용하여 로그 기록",

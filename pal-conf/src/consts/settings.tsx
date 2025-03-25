@@ -8,11 +8,13 @@ export const ServerSettings = [
   "ServerPlayerMaxNum",
   "bIsUseBackupSaveData",
   "AutoSaveSpan",
-  "AllowConnectPlatform",
+  "CrossplayPlatforms",
   "LogFormatType",
   "RandomizerType",
   "RandomizerSeed",
   "bIsRandomizerPalLevelRandom",
+  "bAllowGlobalPalboxExport",
+  "bAllowGlobalPalboxImport",
 ];
 
 export const InGameSettings = [
@@ -92,7 +94,7 @@ export const AdvancedSettings = [
 export const EntryIdToEnumName: Record<string, string> = {
   DeathPenalty: "EPalOptionWorldDeathPenalty",
   Difficulty: "EPalOptionWorldDifficulty",
-  AllowConnectPlatform: "EPalOptionWorldAllowConnectPlatform",
+  CrossplayPlatforms: "EPalOptionWorldCrossplayPlatforms",
   LogFormatType: "EPalOptionWorldLogFormatType",
   RandomizerType: "EPalRandomizerType",
 }

@@ -50,6 +50,8 @@
         "RandomizerType": "Tipo de Aleatorizador",
         "RandomizerSeed": "Semilla del Aleatorizador",
         "bIsRandomizerPalLevelRandom": "Aleatorización de niveles PAL",
+		"bAllowGlobalPalboxExport": "Whether it is permissible to preserve the genetic sequence of Palu through a transboundary Palu terminaln",
+		"bAllowGlobalPalboxImport": "Whether it is permissible to restore Palu by gene sequences in transboundary Palu terminals",
         "DayTimeSpeedRate": "Ratio de Velocidad del Tiempo de Día",
         "NightTimeSpeedRate": "Ratio de Velocidad del Tiempo de Noche",
         "ExpRate": "Ratio de Experiencia",
@@ -95,7 +97,7 @@
         "PalEggDefaultHatchingTime": "Tiempo Predeterminado de Eclosión de Huevos de Pal",
         "WorkSpeedRate": "Ratio de Velocidad de Trabajo",
         "AutoSaveSpan": "Intervalo de guardado automático",
-        "AllowConnectPlatform": "Permitir Conectar Plataforma",
+        "CrossplayPlatforms": "Permitir Conectar Plataforma",
         "LogFormatType": "Tipo de Formato de Registro",
         "bIsMultiplay": "Es Multijugador",
         "bIsPvP": "Es JcJ",
@@ -138,9 +140,11 @@
           "ItemAndEquipment": "Pérdida de objetos y equipo",
           "All": "Pérdida de todos los objetos, equipo y Pal (en inventario)"
         },
-        "AllowConnectPlatform": {
+        "CrossplayPlatforms": {
           "Steam": "Permitir solo la conexión de Steam",
-          "Xbox": "Permitir solo la conexión de Xbox"
+          "Xbox": "Permitir solo la conexión de Xbox",
+          "PS5": "Permitir solo la conexión de PS5",
+          "Mac": "Permitir solo la conexión de Mac"
         },
         "LogFormatType": {
           "Text": "Usar formato de texto para registrar",

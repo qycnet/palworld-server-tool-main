@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useTranslation, Trans } from 'react-i18next';
 import { ChevronDown } from "lucide-react"
 
-import { DeathPenaltyLabels, AllowConnectPlatformLabels, LogFormatTypeLabels, RandomizerTypeLabels } from "@/consts/dropdownLabels"
+import { DeathPenaltyLabels, CrossplayPlatformsLabels, LogFormatTypeLabels, RandomizerTypeLabels } from "@/consts/dropdownLabels"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import {
@@ -26,9 +26,9 @@ import {
 } from "@/components/ui/tooltip"
 import { I18nStr } from "@/i18n";
 
-type Labels = typeof DeathPenaltyLabels | typeof AllowConnectPlatformLabels | typeof LogFormatTypeLabels | typeof RandomizerTypeLabels;
+type Labels = typeof DeathPenaltyLabels | typeof CrossplayPlatformsLabels | typeof LogFormatTypeLabels | typeof RandomizerTypeLabels;
 export type LabelValue = Labels[number]['name'];
-type Key =  'DeathPenalty' | 'AllowConnectPlatform' | 'LogFormatType' | 'RandomizerType';
+type Key =  'DeathPenalty' | 'CrossplayPlatforms' | 'LogFormatType' | 'RandomizerType';
 
 /**
  * 从对象中根据键名获取对应的值，如果键不存在则返回默认值。
@@ -59,7 +59,7 @@ export function DropDown(props: {
     const { dKey, label, onLabelChange } = props;
     const labels = {
       DeathPenalty: DeathPenaltyLabels,
-      AllowConnectPlatform: AllowConnectPlatformLabels,
+      CrossplayPlatforms: CrossplayPlatformsLabels,
       LogFormatType: LogFormatTypeLabels,
       RandomizerType: RandomizerTypeLabels
     }[dKey] as Labels;

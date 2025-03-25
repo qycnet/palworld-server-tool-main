@@ -50,6 +50,8 @@
         "RandomizerType": "隨機器類型",
         "RandomizerSeed": "隨機種子",
         "bIsRandomizerPalLevelRandom": "Pal等級的隨機化",
+		"bAllowGlobalPalboxExport": "是否允許通過跨界帕魯終端保存帕魯的基因序列",
+		"bAllowGlobalPalboxImport": "是否允許通過跨界帕魯終端中的基因序列復原帕魯",
         "DayTimeSpeedRate": "白天流逝速度",
         "NightTimeSpeedRate": "夜晚流逝速度",
         "ExpRate": "經驗值倍率",
@@ -95,7 +97,7 @@
         "PalEggDefaultHatchingTime": "巨大蛋孵化所需時間(小時)",
         "WorkSpeedRate": "工作速度倍率",
         "AutoSaveSpan": "自動保存間隔",
-        "AllowConnectPlatform": "允許連接平台",
+        "CrossplayPlatforms": "允許連接平台",
         "LogFormatType": "日誌格式類型",
         "bIsMultiplay": "啟用多人遊戲",
         "bIsPvP": "啟用PvP",
@@ -138,9 +140,11 @@
           "ItemAndEquipment": "掉落所有道具",
           "All": "掉落所有道具及隊伍內帕魯"
         },
-        "AllowConnectPlatform": {
+        "CrossplayPlatforms": {
           "Steam": "允許Steam連接",
-          "Xbox": "允許Xbox連接"
+          "Xbox": "允許Xbox連接",
+          "PS5": "允許PS5連接",
+          "Mac": "允許Mac連接"
         },
         "LogFormatType": {
           "Text": "使用文本格式記錄日誌",

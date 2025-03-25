@@ -340,6 +340,16 @@ export const DEFAULT_WORLDOPTION = {
                             value: false,
                           },
                         },
+                        bAllowGlobalPalboxExport: {
+                          Bool: {
+                            value: false,
+                          },
+                        },
+                        bAllowGlobalPalboxImport: {
+                          Bool: {
+                            value: false,
+                          },
+                        },
                         DayTimeSpeedRate: {
                           Float: {
                             value: 4.590592,
@@ -471,11 +481,18 @@ export const DEFAULT_WORLDOPTION = {
                             enum_type: "EPalOptionWorldDeathPenalty",
                           },
                         },
-                        AllowConnectPlatform: {
+                        CrossplayPlatforms: {
                           Enum: {
-                            value: "EPalOptionWorldAllowConnectPlatform::Steam",
-                            enum_type: "EPalOptionWorldAllowConnectPlatform",
-                          },
+							value: {
+								"values": [
+									"EPalOptionWorldCrossplayPlatforms::Steam",
+							    	"EPalOptionWorldCrossplayPlatforms::Xbox",
+							    	"EPalOptionWorldCrossplayPlatforms::PS5",
+							    	"EPalOptionWorldCrossplayPlatforms::Mac"
+								]
+							},	
+                            enum_type: "EPalOptionWorldCrossplayPlatforms",
+                          }
                         },
                         LogFormatType: {
                           Enum: {

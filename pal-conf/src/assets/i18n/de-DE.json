@@ -50,6 +50,8 @@
         "RandomizerType": "Zufallstyp",
         "RandomizerSeed": "Zufallskeim",
         "bIsRandomizerPalLevelRandom": "Randomisierung der PAL-Noten",
+		"bAllowGlobalPalboxExport": "Zur Zulässigkeit, die genetische Sequenz von Palu durch ein grenzüberschreitendes Palu-Terminal zu erhalten",
+		"bAllowGlobalPalboxImport": "Ob es zulässig ist, Palu durch Gensequenzen in grenzüberschreitenden Palu-Terminals wiederherzustellen",
         "DayTimeSpeedRate": "Zeit Geschwindigkeit am Tag",
         "NightTimeSpeedRate": "Zeit Geschwindigkeit bei Nacht",
         "ExpRate": "Exp Rate",
@@ -95,7 +97,7 @@
         "PalEggDefaultHatchingTime": "Standard-Schlüpfzeit der Pal Eier",
         "WorkSpeedRate": "Arbeitsgeschwindigkeitsrate",
         "AutoSaveSpan": "Automatisches Speicherintervall",
-        "AllowConnectPlatform": "Verbindung zur Plattform zulassen",
+        "CrossplayPlatforms": "Verbindung zur Plattform zulassen",
         "LogFormatType": "Protokollformattyp",
         "bIsMultiplay": "Ist Mehrspieler",
         "bIsPvP": "Ist PvP",
@@ -138,9 +140,11 @@
           "ItemAndEquipment": "Verlorener Gegenstand und Ausrüstung",
           "All": "Alle Gegenstände, Ausrüstung, Pal (im Inventar) verloren"
         },
-        "AllowConnectPlatform": {
-          "Steam": "Nur Steam darf sich verbinden",
-          "Xbox": "Nur Xbox darf sich verbinden"
+        "CrossplayPlatforms": {
+		  "Steam": "Nur Steam darf sich verbinden",
+          "Xbox": "Nur Xbox darf sich verbinden",
+		  "PS5": "Nur PS5 darf sich verbinden",
+          "Mac": "Nur Mac darf sich verbinden"
         },
         "LogFormatType": {
           "Text": "Textformat zum Protokollieren verwenden",

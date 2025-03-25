@@ -49,6 +49,8 @@
         "Difficulty": "Difficulty",
         "RandomizerType": "Randomizer Type",
         "RandomizerSeed": "Randomizer Seed",
+		"bAllowGlobalPalboxExport": "Whether it is permissible to preserve the genetic sequence of Palu through a transboundary Palu terminaln",
+		"bAllowGlobalPalboxImport": "Whether it is permissible to restore Palu by gene sequences in transboundary Palu terminals",
         "bIsRandomizerPalLevelRandom": "Randomization of PAL levels",
         "DayTimeSpeedRate": "Day Time Speed Rate",
         "NightTimeSpeedRate": "Night Time Speed Rate",
@@ -95,7 +97,7 @@
         "PalEggDefaultHatchingTime": "Pal Egg Default Hatching Time",
         "WorkSpeedRate": "Work Speed Rate",
         "AutoSaveSpan": "Auto Save Span",
-        "AllowConnectPlatform": "Allow Connect Platform",
+        "CrossplayPlatforms": "Allow Connect Platform",
         "LogFormatType": "Log Format Type",
         "bIsMultiplay": "Is Multiplay",
         "bIsPvP": "Is PvP",
@@ -138,9 +140,11 @@
           "ItemAndEquipment": "Lost item and equipment",
           "All": "Lost All item, equipment, pal (in inventory)"
         },
-        "AllowConnectPlatform": {
+        "CrossplayPlatforms": {
           "Steam": "Only allow Steam to connect",
-          "Xbox": "Only allow Xbox to connect"
+          "Xbox": "Only allow Xbox to connect",
+          "PS5": "Only allow PS5 to connect",
+          "Mac": "Only allow Mac to connect"
         },
         "LogFormatType": {
           "Text": "Use Text format to log",
