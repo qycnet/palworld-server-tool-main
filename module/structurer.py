@@ -144,6 +144,13 @@ def skip_encode(
         writer.write(properties["value"])
         # 返回结构体值长度
         return len(properties["value"])
+    elif property_type == "SetProperty":
+         del properties["custom_type"]
+         del properties["skip_type"]
+         writer.fstring(properties["set_type"])
+         writer.optional_guid(properties.get("id", None))
+         writer.write(properties["value"])
+         return len(properties["value"])
 
     # 如果属性类型不是ArrayProperty、MapProperty或StructProperty
     else:
@@ -221,6 +228,10 @@ SKP_PALWORLD_CUSTOM_PROPERTIES[".worldSaveData.RandomizerSaveData"] = (
     skip_decode,
     skip_encode,
 )
+SKP_PALWORLD_CUSTOM_PROPERTIES[".worldSaveData.InLockerCharacterInstanceIDArray"] = (
+     skip_decode,
+     skip_encode,
+ )
 
 
 def convert_sav(file):
