@@ -13,8 +13,6 @@ export const ServerSettings = [
   "RandomizerType",
   "RandomizerSeed",
   "bIsRandomizerPalLevelRandom",
-  "bAllowGlobalPalboxExport",
-  "bAllowGlobalPalboxImport",
 ];
 
 export const InGameSettings = [
@@ -82,6 +80,8 @@ export const AdvancedSettings = [
   "bBuildAreaLimit",
   "ServerReplicatePawnCullDistance",
   "bShowPlayerList",
+  "bAllowGlobalPalboxExport",
+  "bAllowGlobalPalboxImport",
   "RCONEnabled",
   "RCONPort",
   "RESTAPIEnabled",
@@ -94,7 +94,7 @@ export const AdvancedSettings = [
 export const EntryIdToEnumName: Record<string, string> = {
   DeathPenalty: "EPalOptionWorldDeathPenalty",
   Difficulty: "EPalOptionWorldDifficulty",
-  CrossplayPlatforms: "EPalOptionWorldCrossplayPlatforms",
   LogFormatType: "EPalOptionWorldLogFormatType",
   RandomizerType: "EPalRandomizerType",
+  CrossplayPlatforms: "EPalAllowConnectPlatform",
 }

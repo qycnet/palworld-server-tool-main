@@ -290,7 +290,7 @@ const FIXED_HEADER = {
   ],
 };
 
-export const DEFAULT_WORLDOPTION = {
+export const DEFAULT_WORLDOPTION_SAV = {
   magic: 828009552,
   gvas: {
     header: FIXED_HEADER,
@@ -342,12 +342,12 @@ export const DEFAULT_WORLDOPTION = {
                         },
                         bAllowGlobalPalboxExport: {
                           Bool: {
-                            value: false,
+                            value: true,
                           },
                         },
                         bAllowGlobalPalboxImport: {
                           Bool: {
-                            value: false,
+                            value: true,
                           },
                         },
                         DayTimeSpeedRate: {
@@ -465,6 +465,26 @@ export const DEFAULT_WORLDOPTION = {
                             value: 1.4391446,
                           },
                         },
+                        CoopPlayerMaxNum: {
+                          Int: {
+                            value: 4,
+                          },
+                        },
+                        CrossplayPlatforms: {
+                          Array: {
+                            array_type: "EnumProperty",
+                            value: {
+                              Base: {
+                                Enum: [
+                                  "EPalAllowConnectPlatform::Steam",
+                                  "EPalAllowConnectPlatform::Xbox",
+                                  "EPalAllowConnectPlatform::PS5",
+                                  "EPalAllowConnectPlatform::Mac",
+                                ]
+                              }
+                            }
+                          },
+                        },
                         EnemyDropItemRate: {
                           Float: {
                             value: 1.1134868,
@@ -481,18 +501,11 @@ export const DEFAULT_WORLDOPTION = {
                             enum_type: "EPalOptionWorldDeathPenalty",
                           },
                         },
-                        CrossplayPlatforms: {
+                        AllowConnectPlatform: {
                           Enum: {
-							value: {
-								"values": [
-									"EPalOptionWorldCrossplayPlatforms::Steam",
-							    	"EPalOptionWorldCrossplayPlatforms::Xbox",
-							    	"EPalOptionWorldCrossplayPlatforms::PS5",
-							    	"EPalOptionWorldCrossplayPlatforms::Mac"
-								]
-							},	
-                            enum_type: "EPalOptionWorldCrossplayPlatforms",
-                          }
+                            value: "EPalOptionWorldAllowConnectPlatform::Steam",
+                            enum_type: "EPalOptionWorldAllowConnectPlatform",
+                          },
                         },
                         LogFormatType: {
                           Enum: {
@@ -775,6 +788,6 @@ export const DEFAULT_WORLDOPTION = {
   },
 };
 
-export const VALID_WORLDOPTION_KEYS = Object.keys(
-  DEFAULT_WORLDOPTION.gvas.root.properties.OptionWorldData.Struct.value.Struct.Settings.Struct.value.Struct
-);
+export const DEFAULT_WORLDOPTION = DEFAULT_WORLDOPTION_SAV.gvas.root.properties.OptionWorldData.Struct.value.Struct.Settings.Struct.value.Struct;
+
+export const VALID_WORLDOPTION_KEYS = Object.keys(DEFAULT_WORLDOPTION);

@@ -18,6 +18,8 @@
     "easier": "Einfacher",
     "harder": "Schwerer",
     "drag": "Ziehen Sie die Dateien PalWorldSettings.ini oder WorldOption.sav hierher",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
     "toast": {
       "copied": "In die Zwischenablage kopiert",
       "copiedDescription": "Die Servereinstellungen wurden in Ihre Zwischenablage kopiert.",
@@ -49,9 +51,6 @@
         "Difficulty": "Schwierigkeit",
         "RandomizerType": "Zufallstyp",
         "RandomizerSeed": "Zufallskeim",
-        "bIsRandomizerPalLevelRandom": "Randomisierung der PAL-Noten",
-		"bAllowGlobalPalboxExport": "Zur Zulässigkeit, die genetische Sequenz von Palu durch ein grenzüberschreitendes Palu-Terminal zu erhalten",
-		"bAllowGlobalPalboxImport": "Ob es zulässig ist, Palu durch Gensequenzen in grenzüberschreitenden Palu-Terminals wiederherzustellen",
         "DayTimeSpeedRate": "Zeit Geschwindigkeit am Tag",
         "NightTimeSpeedRate": "Zeit Geschwindigkeit bei Nacht",
         "ExpRate": "Exp Rate",
@@ -131,7 +130,10 @@
         "bUseAuth": "Verwenden Sie Auth",
         "BanListURL": "URL der Verbotsliste",
         "SupplyDropSpan":"Meteorit- und Versorgungsabwurf-Intervall (Minuten)",
-        "ChatPostLimitPerMinute":"Chat-Post-Limit pro Minute"
+        "ChatPostLimitPerMinute":"Chat-Post-Limit pro Minute",
+        "bIsRandomizerPalLevelRandom": "Vollständig zufälliges Wild-Palu-Level",
+        "bAllowGlobalPalboxExport": "Globalen Palbox-Export zulassen",
+        "bAllowGlobalPalboxImport": "Globalen Palbox-Import zulassen"
       },
       "description": {
         "DeathPenalty": {
@@ -139,12 +141,6 @@
           "Item": "Verlorener Gegenstand ohne Ausrüstung",
           "ItemAndEquipment": "Verlorener Gegenstand und Ausrüstung",
           "All": "Alle Gegenstände, Ausrüstung, Pal (im Inventar) verloren"
-        },
-        "CrossplayPlatforms": {
-		  "Steam": "Nur Steam darf sich verbinden",
-          "Xbox": "Nur Xbox darf sich verbinden",
-		  "PS5": "Nur PS5 darf sich verbinden",
-          "Mac": "Nur Mac darf sich verbinden"
         },
         "LogFormatType": {
           "Text": "Textformat zum Protokollieren verwenden",

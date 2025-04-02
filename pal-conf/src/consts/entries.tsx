@@ -2,7 +2,7 @@ interface Entry {
   name: string;
   id: string;
   defaultValue: string;
-  type: "string" | "integer" | "float" | "boolean" | "select";
+  type: "string" | "integer" | "float" | "boolean" | "select" | "array";
   options?: string[];
   range?: [number, number];
   desc?: string;
@@ -102,25 +102,11 @@ export const ENTRIES: Record<string, Entry> = {
     desc: "Randomizer seed",
   },
   bIsRandomizerPalLevelRandom: {
-    name: "Is Use Randomization of PAL grades",
+    name: "Randomizer Pal Level Random",
     id: "bIsRandomizerPalLevelRandom",
     defaultValue: "False",
     type: "boolean",
-    desc: "Is use Randomization of PAL grades",
-  },
-  bAllowGlobalPalboxExport: {
-    name: "Whether it is permissible to preserve the genetic sequence of Palu through a transboundary Palu terminal",
-    id: "bAllowGlobalPalboxExport",
-    defaultValue: "False",
-    type: "boolean",
-    desc: "Whether it is permissible to preserve the genetic sequence of Palu through a transboundary Palu terminal",
-  },
-  bAllowGlobalPalboxImport: {
-    name: "Whether it is permissible to restore Palu by gene sequences in transboundary Palu terminals",
-    id: "bAllowGlobalPalboxImport",
-    defaultValue: "False",
-    type: "boolean",
-    desc: "Whether it is permissible to restore Palu by gene sequences in transboundary Palu terminals",
+    desc: "Randomizer pal level random",
   },
   DayTimeSpeedRate: {
     name: "Day Time Speed Rate",
@@ -397,7 +383,7 @@ export const ENTRIES: Record<string, Entry> = {
     id: "BaseCampMaxNumInGuild",
     defaultValue: "3",
     type: "integer",
-    range: [1, 10],
+    range: [1, 50],
     desc: "Base camp max num in guild",
   },
   BaseCampWorkerMaxNum: {
@@ -466,12 +452,11 @@ export const ENTRIES: Record<string, Entry> = {
     desc: "Auto save span",
   },
   CrossplayPlatforms: {
-    name: "Allow Connect Platform",
+    name: "Crossplay Platforms",
     id: "CrossplayPlatforms",
-    defaultValue: "(Steam,Xbox,PS5,Mac)",
-    type: "select",
-    options: ["Steam", "Xbox", "PS5", "Mac"],
-    desc: "Allow connect platform",
+    defaultValue: "Steam,Xbox,PS5,Mac",
+    type: "array",
+    desc: "Crossplay platforms",
   },
   LogFormatType: {
     name: "Log Format Type",
@@ -725,5 +710,19 @@ export const ENTRIES: Record<string, Entry> = {
     type: "float",
     range: [5000, 15000],
     desc: "Pal sync distance from player",
+  },
+  bAllowGlobalPalboxExport:{
+    name: "Allow Global Palbox Export",
+    id: "bAllowGlobalPalboxExport",
+    defaultValue: "True",
+    type: "boolean",
+    desc: "Allow global palbox export",
+  },
+  bAllowGlobalPalboxImport:{
+    name: "Allow Global Palbox Import",
+    id: "bAllowGlobalPalboxImport",
+    defaultValue: "True",
+    type: "boolean",
+    desc: "Allow global palbox import",
   },
 };

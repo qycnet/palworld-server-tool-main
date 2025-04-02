@@ -18,6 +18,8 @@
     "easier": "更简单",
     "harder": "更难",
     "drag": "拖拽 PalWorldSettings.ini 或 WorldOption.sav 到这里",
+    "cancel": "取消",
+    "confirm": "确定",
     "toast": {
       "copied": "已复制到剪贴板",
       "copiedDescription": "服务器设置已复制到您的剪贴板。",
@@ -49,9 +51,6 @@
         "Difficulty": "难度",
         "RandomizerType": "随机器类型",
         "RandomizerSeed": "随机种子",
-        "bIsRandomizerPalLevelRandom": "Pal等级的随机化",
-		"bAllowGlobalPalboxExport": "是否允许通过跨界帕鲁终端保存帕鲁的基因序列",
-		"bAllowGlobalPalboxImport": "是否允许通过跨界帕鲁终端中的基因序列复原帕鲁",
         "DayTimeSpeedRate": "白天流逝速度",
         "NightTimeSpeedRate": "夜间流逝速度",
         "ExpRate": "经验值倍率",
@@ -131,7 +130,10 @@
         "bUseAuth": "使用授权",
         "BanListURL": "封禁列表 URL",
         "SupplyDropSpan":"陨石或空投的间隔（分钟）",
-        "ChatPostLimitPerMinute":"每分钟聊天限制数"
+        "ChatPostLimitPerMinute":"每分钟聊天限制数",
+        "bIsRandomizerPalLevelRandom": "完全随机野外帕鲁等级",
+        "bAllowGlobalPalboxExport":"允许通过跨界帕鲁终端保存帕鲁的基因序列",
+        "bAllowGlobalPalboxImport":"允许通过跨界帕鲁终端的基因序列复原帕鲁"
       },
       "description": {
         "DeathPenalty": {
@@ -139,12 +141,6 @@
           "Item": "丢失非装备物品",
           "ItemAndEquipment": "丢失物品和装备",
           "All": "丢失所有物品、装备、帕鲁（在背包中的）"
-        },
-        "CrossplayPlatforms": {
-          "Steam": "允许 Steam 连接",
-          "Xbox": "允许 Xbox 连接",
-          "PS5": "允许 PS5 连接",
-          "Mac": "允许 Mac 连接"
         },
         "LogFormatType": {
           "Text": "使用文本格式记录日志",

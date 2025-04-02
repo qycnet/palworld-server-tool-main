@@ -12,6 +12,7 @@ import zh_TW from "./assets/i18n/zh-TW.json";
 import de_DE from "./assets/i18n/de-DE.json";
 import pt_BR from "./assets/i18n/pt-BR.json";
 import es_ES from "./assets/i18n/es-ES.json";
+import fr_FR from "./assets/i18n/fr-FR.json";
 
 type I18nStr = typeof en_US.translation;
 
@@ -21,7 +22,7 @@ const initConfig = {
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default
   },
-  resources: { en_US, zh_CN, ja_JP, ko_KR, zh_TW, de_DE, pt_BR, es_ES },
+  resources: { en_US, zh_CN, ja_JP, ko_KR, zh_TW, de_DE, pt_BR, es_ES, fr_FR },
 };
 
 i18n
@@ -38,13 +39,6 @@ export default i18n;
 
 export const I18nStr = key2Path(en_US.translation);
 
-/**
- * 将嵌套对象转换为扁平化对象，键名由父级键名拼接而成。
- *
- * @param obj 需要转换的嵌套对象
- * @param parentKey 父级键名，默认为空字符串
- * @returns 扁平化后的对象
- */
 function key2Path(obj: ResourceLanguage, parentKey = ""): I18nStr {
   const result: ResourceLanguage = {};
   Object.entries(obj).forEach(([key, value]) => {

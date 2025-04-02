@@ -18,6 +18,8 @@
     "easier": "아주 쉬움",
     "harder": "매우 어려움",
     "drag": "여기에 PalWorldSettings.ini 또는 WorldOption.sav 파일을 드래그 할 수 있습니다.",
+    "cancel": "취소",
+    "confirm": "확인",
     "toast": {
       "copied": "클립보드에 복사되었습니다.",
       "copiedDescription": "서버 설정이 클립보드에 복사되었습니다.",
@@ -49,9 +51,6 @@
         "Difficulty": "난이도",
         "RandomizerType": "랜덤화 유형",
         "RandomizerSeed": "랜덤화 시드",
-		"bAllowGlobalPalboxExport": "국경을 초월한 팔루 말단을 통해 팔루의 유전자 염기서열을 보존하는 것이 허용되는지 여부",
-		"bAllowGlobalPalboxImport": "국경을 초월한 팔루 말단의 유전자 염기서열에 의해 팔루를 복원하는 것이 허용되는지 여부",
-        "bIsRandomizerPalLevelRandom": "PAL 등급의 무작위화",
         "DayTimeSpeedRate": "낮 시간 속도 배율",
         "NightTimeSpeedRate": "밤 시간 속도 배율",
         "ExpRate": "경험치 배율",
@@ -131,7 +130,10 @@
         "bUseAuth": "서버 인증",
         "BanListURL": "서버 밴 리스트의 URL",
         "SupplyDropSpan":"운석 및 보급 투하 간격 (분)",
-        "ChatPostLimitPerMinute":"분당 채팅 제한 수"
+        "ChatPostLimitPerMinute":"분당 채팅 제한 수",
+        "bIsRandomizerPalLevelRandom": "완전히 무작위 야생 팔루 레벨",
+        "bAllowGlobalPalboxExport": "국경 간 팔루 터미널을 통해 팔루의 유전자 서열을 저장할 수 있음",
+        "bAllowGlobalPalboxImport": "국경 간 팔루 터미널의 유전자 서열로부터 팔루를 복원할 수 있음"
       },
       "description": {
         "DeathPenalty": {
@@ -139,12 +141,6 @@
           "Item": "아이템만 드롭",
           "ItemAndEquipment": "아이템 및 장비만 드롭",
           "All": "장비, 팰, 인벤토리 전부 드롭"
-        },
-        "CrossplayPlatforms": {
-          "Steam": "Steam만 연결 허용",
-          "Xbox": "Xbox만 연결 허용",
-          "PS5": "PS5만 연결 허용",
-          "Mac": "Mac만 연결 허용"
         },
         "LogFormatType": {
           "Text": "텍스트 형식을 사용하여 로그 기록",

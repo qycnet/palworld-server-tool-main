@@ -2,7 +2,7 @@
   "translation": {
     "unknown": "Unknown",
     "title": "Palworld Server Configuration Generator",
-    "introduction": "Edit the values and the output below will update in real-time.WeChat 13232132162",
+    "introduction": "Edit the values and the output below will update in real-time.",
     "serverSettings": "Server Settings",
     "ingameSettings": "In-Game Settings",
     "advancedSettings": "Advanced Settings",
@@ -18,6 +18,8 @@
     "easier": "Easier",
     "harder": "Harder",
     "drag": "Drag PalWorldSettings.ini or WorldOption.sav files here",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
     "toast": {
       "copied": "Copied to clipboard",
       "copiedDescription": "The server settings have been copied to your clipboard.",
@@ -30,7 +32,7 @@
       "invalid": "Invalid settings",
       "invalidDescription": "The settings you pasted are invalid.",
       "missing": "Some entries are missing",
-      "missingDescription": "The settings you pasted have been loaded. But some settings are missing.",
+      "missingDescription": "The settings you pasted have been loaded. But some settings are missing.WeChat 13232132162",
       "invalidFile": "Invalid file",
       "invalidFileDescription": "The file you uploaded is invalid.",
       "savFileLoaded": "File loaded",
@@ -49,9 +51,6 @@
         "Difficulty": "Difficulty",
         "RandomizerType": "Randomizer Type",
         "RandomizerSeed": "Randomizer Seed",
-		"bAllowGlobalPalboxExport": "Whether it is permissible to preserve the genetic sequence of Palu through a transboundary Palu terminaln",
-		"bAllowGlobalPalboxImport": "Whether it is permissible to restore Palu by gene sequences in transboundary Palu terminals",
-        "bIsRandomizerPalLevelRandom": "Randomization of PAL levels",
         "DayTimeSpeedRate": "Day Time Speed Rate",
         "NightTimeSpeedRate": "Night Time Speed Rate",
         "ExpRate": "Exp Rate",
@@ -131,7 +130,10 @@
         "bUseAuth": "Use Auth",
         "BanListURL": "Ban List URL",
         "SupplyDropSpan":"Interval for supply drop or meteorite (minutes)",
-        "ChatPostLimitPerMinute":"Chat Post Limit Per Minute"
+        "ChatPostLimitPerMinute":"Chat Post Limit Per Minute",
+        "bIsRandomizerPalLevelRandom": "Is Randomizer Pal Level Random",
+        "bAllowGlobalPalboxExport":"Allow Global Palbox Export",
+        "bAllowGlobalPalboxImport":"Allow Global Palbox Import"
       },
       "description": {
         "DeathPenalty": {
@@ -139,12 +141,6 @@
           "Item": "Lost item without equipment",
           "ItemAndEquipment": "Lost item and equipment",
           "All": "Lost All item, equipment, pal (in inventory)"
-        },
-        "CrossplayPlatforms": {
-          "Steam": "Only allow Steam to connect",
-          "Xbox": "Only allow Xbox to connect",
-          "PS5": "Only allow PS5 to connect",
-          "Mac": "Only allow Mac to connect"
         },
         "LogFormatType": {
           "Text": "Use Text format to log",

@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useTranslation, Trans } from 'react-i18next';
 import { ChevronDown } from "lucide-react"
 
-import { DeathPenaltyLabels, CrossplayPlatformsLabels, LogFormatTypeLabels, RandomizerTypeLabels } from "@/consts/dropdownLabels"
+import { DeathPenaltyLabels, LogFormatTypeLabels, RandomizerTypeLabels } from "@/consts/dropdownLabels"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import {
@@ -26,32 +26,15 @@ import {
 } from "@/components/ui/tooltip"
 import { I18nStr } from "@/i18n";
 
-type Labels = typeof DeathPenaltyLabels | typeof CrossplayPlatformsLabels | typeof LogFormatTypeLabels | typeof RandomizerTypeLabels;
+type Labels = typeof DeathPenaltyLabels | typeof LogFormatTypeLabels | typeof RandomizerTypeLabels;
 export type LabelValue = Labels[number]['name'];
-type Key =  'DeathPenalty' | 'CrossplayPlatforms' | 'LogFormatType' | 'RandomizerType';
+type Key =  'DeathPenalty' | 'LogFormatType' | 'RandomizerType';
 
-/**
- * 从对象中根据键名获取对应的值，如果键不存在则返回默认值。
- *
- * @param dict 要从中获取值的对象。
- * @param key 要获取值的键名。
- * @param defaultValue 如果键不存在时返回的默认值。
- * @returns 返回对应键名的值或默认值。
- */
 function get<T>(dict: Record<string, T>, key: string, defaultValue: T): T {
     return Object.prototype.hasOwnProperty.call(dict, key) ? dict[key] : defaultValue;
 }
 
-/**
- * 下拉菜单组件
- *
- * @param props 组件属性
- * @param props.dKey 唯一标识，用于选择对应的标签集合
- * @param props.label 当前选中的标签值
- * @param props.onLabelChange 标签改变时的回调函数
- * @returns 下拉菜单组件
- */
-export function DropDown(props: {
+export function SelectInput(props: {
     dKey: Key;
     label: LabelValue;
     onLabelChange: (label: string) => void;
@@ -59,7 +42,6 @@ export function DropDown(props: {
     const { dKey, label, onLabelChange } = props;
     const labels = {
       DeathPenalty: DeathPenaltyLabels,
-      CrossplayPlatforms: CrossplayPlatformsLabels,
       LogFormatType: LogFormatTypeLabels,
       RandomizerType: RandomizerTypeLabels
     }[dKey] as Labels;
@@ -107,7 +89,7 @@ export function DropDown(props: {
                                     <CommandGroup>
                                         {labels.map((label) => (
                                             <CommandItem
-                                                key={label.name}
+                                                key={`select-${dKey}-${label.name}`}
                                                 value={label.name}
                                                 onSelect={() => {
                                                     setOpen(false);

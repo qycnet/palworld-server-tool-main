@@ -7,19 +7,6 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-/**
- * 创建一个文本输入框组件
- *
- * @param props 组件属性
- * @param props.id 输入框的id
- * @param props.name 输入框的名称
- * @param props.value 输入框的初始值
- * @param props.onChange 输入框内容变化时的回调函数
- * @param props.type 输入框的类型（可选），默认为'text'
- * @param props.disabled 是否禁用输入框（可选），默认为false
- * @param props.multiline 是否为多行输入框（可选），默认为false
- * @returns 返回创建的输入框组件
- */
 function TextInput(props: {
     id: string;
     name: string;

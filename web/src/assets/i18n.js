@@ -4,6 +4,7 @@ const messages = {
   en: {
     title: "PalWorld Server Tool",
     modal: {
+      customPal: "Custom Palu",
       auth: "Auth",
       broadcast: "Publish Broadcast",
       whitelist: "Whitelist",
@@ -22,6 +23,7 @@ const messages = {
       whitelist: "Whitelist",
     },
     message: {
+      customPalDesc: "Go to Custom Palu",
       warn: "Warning",
       success: "Success",
       fail: "Fail",
@@ -73,6 +75,7 @@ const messages = {
       downloadsuccess: "Download success!",
     },
     button: {
+      customPal: "Custom Pal",
       auth: "Admin Mode",
       players: "Players",
       guilds: "Guilds",
@@ -165,6 +168,7 @@ const messages = {
   zh: {
     title: "幻兽帕鲁服务器工具",
     modal: {
+      customPal: "定制帕鲁",
       auth: "管理认证",
       broadcast: "发布游戏内广播",
       whitelist: "白名单管理",
@@ -183,6 +187,7 @@ const messages = {
       whitelist: "白名单",
     },
     message: {
+      customPalDesc: "前往定制帕鲁",
       warn: "警告",
       success: "成功",
       fail: "失败",
@@ -236,6 +241,7 @@ const messages = {
       downloadsuccess: "下载成功!",
     },
     button: {
+      customPal: "定制帕鲁",
       auth: "管理模式",
       players: "玩家",
       guilds: "公会",
@@ -329,6 +335,7 @@ const messages = {
   ja: {
     title: "パルワールドサーバーツール",
     modal: {
+      customPal: "カスタムパル",
       auth: "ログイン",
       broadcast: "全体メッセージ配信",
       whitelist: "ホワイトリスト",
@@ -346,6 +353,7 @@ const messages = {
       online_number: "オンライン: {number}",
     },
     message: {
+      customPalDesc: "カスタマイズされたパルに行く",
       warn: "警告",
       success: "成功",
       fail: "失敗",
@@ -398,6 +406,7 @@ const messages = {
       downloadsuccess: "ダウンロードに成功しました！",
     },
     button: {
+      customPal: "カスタムパル",
       auth: "管理者モード",
       players: "プレイヤー",
       guilds: "ギルド",

@@ -18,6 +18,8 @@
     "easier": "Más fácil",
     "harder": "Más difícil",
     "drag": "Arrastre los archivos PalWorldSettings.ini o WorldOption.sav aquí",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
     "toast": {
       "copied": "Copiado al portapapeles",
       "copiedDescription": "La configuración del servidor se ha copiado en su portapapeles.",
@@ -49,9 +51,6 @@
         "Difficulty": "Dificultad",
         "RandomizerType": "Tipo de Aleatorizador",
         "RandomizerSeed": "Semilla del Aleatorizador",
-        "bIsRandomizerPalLevelRandom": "Aleatorización de niveles PAL",
-		"bAllowGlobalPalboxExport": "Whether it is permissible to preserve the genetic sequence of Palu through a transboundary Palu terminaln",
-		"bAllowGlobalPalboxImport": "Whether it is permissible to restore Palu by gene sequences in transboundary Palu terminals",
         "DayTimeSpeedRate": "Ratio de Velocidad del Tiempo de Día",
         "NightTimeSpeedRate": "Ratio de Velocidad del Tiempo de Noche",
         "ExpRate": "Ratio de Experiencia",
@@ -131,7 +130,10 @@
         "bUseAuth": "Usar Autenticación",
         "BanListURL": "URL de Lista de Prohibidos",
         "SupplyDropSpan":"Intervalo de meteoritos y entrega de suministros (minutos)",
-        "ChatPostLimitPerMinute":"Límite de mensajes por minuto"
+        "ChatPostLimitPerMinute":"Límite de mensajes por minuto",
+        "bIsRandomizerPalLevelRandom": "Nivel de Palu salvaje completamente aleatorio",
+        "bAllowGlobalPalboxExport": "Permitir exportación global de Palbox",
+        "bAllowGlobalPalboxImport": "Permitir importación global de Palbox"
       },
       "description": {
         "DeathPenalty": {
@@ -139,12 +141,6 @@
           "Item": "Pérdida de objetos sin equipo",
           "ItemAndEquipment": "Pérdida de objetos y equipo",
           "All": "Pérdida de todos los objetos, equipo y Pal (en inventario)"
-        },
-        "CrossplayPlatforms": {
-          "Steam": "Permitir solo la conexión de Steam",
-          "Xbox": "Permitir solo la conexión de Xbox",
-          "PS5": "Permitir solo la conexión de PS5",
-          "Mac": "Permitir solo la conexión de Mac"
         },
         "LogFormatType": {
           "Text": "Usar formato de texto para registrar",

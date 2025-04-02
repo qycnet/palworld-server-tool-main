@@ -18,6 +18,8 @@
     "easier": "更簡單",
     "harder": "更困難",
     "drag": "將 PalWorldSettings.ini 或 WorldOption.sav 檔案拖放到這裡",
+    "cancel": "取消",
+    "confirm": "確定",
     "toast": {
       "copied": "已複製到剪貼簿",
       "copiedDescription": "伺服器設定已複製到您的剪貼簿。",
@@ -49,9 +51,6 @@
         "Difficulty": "遊戲難度",
         "RandomizerType": "隨機器類型",
         "RandomizerSeed": "隨機種子",
-        "bIsRandomizerPalLevelRandom": "Pal等級的隨機化",
-		"bAllowGlobalPalboxExport": "是否允許通過跨界帕魯終端保存帕魯的基因序列",
-		"bAllowGlobalPalboxImport": "是否允許通過跨界帕魯終端中的基因序列復原帕魯",
         "DayTimeSpeedRate": "白天流逝速度",
         "NightTimeSpeedRate": "夜晚流逝速度",
         "ExpRate": "經驗值倍率",
@@ -131,7 +130,10 @@
         "bUseAuth": "使用驗證",
         "BanListURL": "封禁列表來源",
         "SupplyDropSpan":"隕石或空投的間隔（分鐘）",
-        "ChatPostLimitPerMinute":"每分鐘聊天限制數"
+        "ChatPostLimitPerMinute":"每分鐘聊天限制數",
+        "bIsRandomizerPalLevelRandom": "完全隨機野外帕魯等級",
+        "bAllowGlobalPalboxExport": "允許透過跨界帕魯終端保存帕魯的基因序列",
+        "bAllowGlobalPalboxImport": "允許透過跨界帕魯終端的基因序列復原帕魯"
       },
       "description": {
         "DeathPenalty": {
@@ -139,12 +141,6 @@
           "Item": "掉落裝備以外的道具",
           "ItemAndEquipment": "掉落所有道具",
           "All": "掉落所有道具及隊伍內帕魯"
-        },
-        "CrossplayPlatforms": {
-          "Steam": "允許Steam連接",
-          "Xbox": "允許Xbox連接",
-          "PS5": "允許PS5連接",
-          "Mac": "允許Mac連接"
         },
         "LogFormatType": {
           "Text": "使用文本格式記錄日誌",

@@ -18,6 +18,8 @@
     "easier": "イージー",
     "harder": "ハード",
     "drag": "PalWorldSettings.ini や WorldOption.sav をここにドラッグしてください",
+    "cancel": "キャンセル",
+    "confirm": "確定",
     "toast": {
       "copied": "コピーしました",
       "copiedDescription": "サーバーの設定をクリップボードにコピーしました。",
@@ -49,9 +51,6 @@
         "Difficulty": "難易度",
         "RandomizerType": "ランダマイザータイプ",
         "RandomizerSeed": "ランダマイザーシード",
-        "bIsRandomizerPalLevelRandom": "PALレベルのランダム化",
-		"bAllowGlobalPalboxExport": "越境パルターミナルを通じてパルの遺伝子配列を保存することが許可されるかどうか",
-		"bAllowGlobalPalboxImport": "越境パルターミナルにおける遺伝子配列によるパルの復元が許可されるかどうか",
         "DayTimeSpeedRate": "昼の経過速度",
         "NightTimeSpeedRate": "夜の経過速度",
         "ExpRate": "経験値の入手倍率",
@@ -131,7 +130,10 @@
         "bUseAuth": "認証を使用する",
         "BanListURL": "BANリストURL",
         "SupplyDropSpan":"隕石・補給物資の投下間隔（分）",
-        "ChatPostLimitPerMinute":"1分間のチャット投稿制限数"
+        "ChatPostLimitPerMinute":"1分間のチャット投稿制限数",
+        "bIsRandomizerPalLevelRandom": "完全にランダムな野生パルのレベル",
+        "bAllowGlobalPalboxExport": "クロスボーダーパル端末を通じてパルの遺伝子配列を保存可能にする",
+        "bAllowGlobalPalboxImport": "クロスボーダーパル端末の遺伝子配列からパルを復元可能にする"
       },
       "description": {
         "DeathPenalty": {
@@ -139,12 +141,6 @@
           "Item": "装備品以外のアイテム",
           "ItemAndEquipment": "全ての装備品とアイテム",
           "All": "全ての装備品とアイテムと手持ちのパル"
-        },
-        "CrossplayPlatforms": {
-          "Steam": "Steamのみ接続を許可",
-          "Xbox": "Xboxのみ接続を許可",
-          "PS5": "PS5のみ接続を許可",
-          "Mac": "Macのみ接続を許可"
         },
         "LogFormatType": {
           "Text": "テキスト形式を使用してログを記録",

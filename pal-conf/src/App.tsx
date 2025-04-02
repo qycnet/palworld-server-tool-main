@@ -14,13 +14,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge"
 // UI Icons
 import { Languages, AlertCircle, FileUp } from "lucide-react";
 import ReactCountryFlag from "react-country-flag";
 
 // App Components
 import { TextInput } from "./components/textInput";
-import { DropDown } from "./components/dropdown";
+import { SelectInput } from "./components/selectInput";
+import { MultiSelectInput } from "./components/multiSelectInput";
 import { SliderInput } from "./components/sliderInput";
 import { SwitchInput } from "./components/switchInput";
 import { Input } from "./components/ui/input";
@@ -30,13 +34,15 @@ import * as LosslessJSON from "lossless-json";
 import { analyzeFile, writeFile } from "./lib/save";
 
 // Constants
+import { configVersion } from '../package.json';
 import { ENTRIES } from "./consts/entries";
-import { DEFAULT_WORLDOPTION, VALID_WORLDOPTION_KEYS } from "./consts/worldoption";
+import { DEFAULT_WORLDOPTION_SAV, VALID_WORLDOPTION_KEYS, DEFAULT_WORLDOPTION } from "./consts/worldoption";
 import { AdvancedSettings, InGameSettings, ServerSettings, EntryIdToEnumName } from "./consts/settings";
 
 // Types
-import { Gvas } from "./types/gvas";
-import { LabelValue } from "./components/dropdown";
+import { Gvas, WorldOption, WorldOptionEntry } from "./types/gvas";
+import { LabelValue } from "./components/selectInput";
+import { LabelValues } from "./components/multiSelectInput";
 
 interface ChangeEvent<T> {
   target: {
@@ -62,6 +68,8 @@ function App() {
   const [fileMode, setFileMode] = useState<FileMode>(FileMode.INI);
   const [openedAccordion, setOpenedAccordion] = useState(SettingCategory.ServerSettings);
   const [showUploadPrompt, setShowUploadPrompt] = useState(false);
+  const [pasteDialogOpen, setPasteDialogOpen] = useState(false);
+  const [pasteContent, setPasteContent] = useState("");
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const tabRef = useRef<HTMLInputElement>(null);
@@ -72,26 +80,18 @@ function App() {
     }
   }, [openedAccordion]);
 
-  /**
-   * 处理状态变化事件的函数。
-   *
-   * @param id 状态项的标识
-   * @returns 一个处理状态变化事件的回调函数
-   */
   const onStateChanged = (id: string) => (e: ChangeEvent<string>) => {
     setEntries((prevEntries) => ({ ...prevEntries, [id]: `${e.target.value}` }));
   };
 
-  /**
-   * 将ENTRIES对象中的条目序列化为INI格式的字符串
-   *
-   * @returns 返回序列化后的INI格式字符串
-   */
   const serializeEntriesToIni = () => {
     const resultList: string[] = [];
     Object.values(ENTRIES).forEach((entry) => {
       const entryValue = entries[entry.id] ?? entry.defaultValue;
       switch (entry.type) {
+        case "array":
+          resultList.push(`${entry.id}=(${entryValue})`);
+          break;
         case "select":
         case "boolean":
         case "integer":
@@ -110,18 +110,12 @@ function App() {
     return resultList.join(",");
   };
 
-  /**
-   * 从给定的设置文本中反序列化条目。
-   *
-   * @param settingsText 包含设置条目的文本字符串。
-   * @returns 无返回值。
-   */
   const deserializeEntriesFromIni = (settingsText: string) => {
     if (!settingsText) {
       toast.error(t(I18nStr.toast.invalid), { description: t(I18nStr.toast.invalidDescription) });
       return;
     }
-    const settingsTextList = settingsText.trim().split("\n");
+    const settingsTextList = settingsText.trim().split(/\r\n|\r|\n/);
     let loadedEntriesNum = 0;
     let erroredLinesNum = 0;
     settingsTextList.forEach((line) => {
@@ -131,12 +125,19 @@ function App() {
         let start = 0;
         let end = 0;
         let quotation = false;
+        let bracket = false;
         for (const char of optionSettings) {
           if (char === '"') {
             quotation = !quotation;
           }
+          if (char === '(') {
+            bracket = true;
+          }
+          if (char === ')') {
+            bracket = false;
+          }
           end++;
-          if (char === "," && false === quotation) {
+          if (char === "," && false === quotation && false === bracket) {
             optionSettingsList.push(optionSettings.substring(start, end - 1));
             start = end;
           }
@@ -145,7 +146,7 @@ function App() {
         optionSettingsList.push(optionSettings.substring(start, end));
         const newEntries = { ...entries };
         optionSettingsList.forEach((optionSetting) => {
-          // console.log(optionSetting)
+          // console.log(optionSetting);
           const equalSignIndex = optionSetting.indexOf("=");
           const optionSettingName = optionSetting.slice(0, equalSignIndex);
           let optionSettingValue = optionSetting.slice(equalSignIndex + 1);
@@ -163,6 +164,9 @@ function App() {
             }
             if (entry.type === "boolean") {
               optionSettingValue = optionSettingValue.toLowerCase() === "true" ? "True" : "False";
+            }
+            if (entry.type === "array") {
+              optionSettingValue = optionSettingValue.trim().replace(/^\(|\)$/g, "");
             }
             newEntries[entry.id] = optionSettingValue;
             loadedEntriesNum++;
@@ -194,17 +198,12 @@ function App() {
     }
   };
 
-  /**
-   * 将ENTRIES对象中的条目序列化为GVAS JSON格式
-   *
-   * @returns 返回包含序列化条目的GVAS JSON对象
-   */
-  const serializeEntriesToGvasJson = () => {
-    const gvasJson: Record<string, unknown> = {};
+  const serializeEntriesToWorldOptionJson = () => {
+    const worldOptionJson: Partial<Record<keyof WorldOption, WorldOptionEntry>> = {};
     Object.values(ENTRIES).forEach((entry) => {
       const entryValue = entries[entry.id] ?? entry.defaultValue;
-      let dictValue = {};
-      if (!(entry.id in DEFAULT_WORLDOPTION.gvas.root.properties.OptionWorldData.Struct.value.Struct.Settings.Struct.value.Struct)) {
+      let dictValue = {} as WorldOptionEntry;
+      if (!(entry.id in DEFAULT_WORLDOPTION)) {
         return;
       }
       if (entryValue === entry.defaultValue) {
@@ -216,6 +215,20 @@ function App() {
           Enum: {
             value: `${enumType}::${entryValue}`,
             enum_type: enumType,
+          },
+        };
+      } else if (entry.type === "array" && entry.id in EntryIdToEnumName) {
+        const enumType = EntryIdToEnumName[entry.id];
+        const enums = entryValue.trim() === "" ? []
+          : entryValue.split(",").map((e) => `${enumType}::${e}`);
+        dictValue = {
+          Array: {
+            array_type: "EnumProperty",
+            value: {
+              Base: {
+                Enum: enums
+              }
+            }
           },
         };
       } else if (entry.type === "boolean") {
@@ -249,16 +262,11 @@ function App() {
           },
         };
       }
-      gvasJson[entry.id] = dictValue;
+      worldOptionJson[entry.id as keyof WorldOption] = dictValue;
     });
-    return gvasJson;
+    return worldOptionJson;
   };
 
-  /**
-   * 从 GvasJson 反序列化条目
-   *
-   * @param gvas Gvas 对象
-   */
   const deserializeEntriesFromGvasJson = (gvas: Gvas) => {
     if (!gvas) {
       toast.error(t(I18nStr.toast.invalidFile), {
@@ -266,21 +274,26 @@ function App() {
       });
       return;
     }
-    const gvasJson: Record<string, unknown> = gvas.root.properties.OptionWorldData.Struct.value.Struct.Settings.Struct.value.Struct;
+    const worldOptionStructDictJson = gvas.root.properties.OptionWorldData.Struct.value.Struct.Settings.Struct.value.Struct;
     const newEntries = { ...entries };
-    Object.entries(gvasJson).forEach(([key, value]) => {
+    Object.entries(worldOptionStructDictJson).forEach(([key, value]) => {
       if (key in ENTRIES) {
         const entry = ENTRIES[key];
-        const valueRecord = value as Record<string, { value: string }>;
+        // const valueRecord = value as Record<string, { value: string, array_type?: string }>;
+        const valueRecord = value ;
         let entryValue: number | boolean | string | undefined = undefined;
         if ("Enum" in valueRecord) {
           entryValue = valueRecord.Enum.value.split("::")[1];
-        } else if ("Int" in valueRecord || "Float" in valueRecord) {
-          entryValue = valueRecord.Int?.value ?? valueRecord.Float?.value;
+        } else if ("Int" in valueRecord ) {
+          entryValue = valueRecord.Int.value;
+        } else if ("Float" in valueRecord) {
+          entryValue = valueRecord.Float?.value;
         } else if ("Bool" in valueRecord) {
           entryValue = valueRecord.Bool.value ? "True" : "False";
         } else if ("Str" in valueRecord) {
           entryValue = valueRecord.Str.value;
+        } else if ("Array" in valueRecord && valueRecord.Array.array_type === "EnumProperty") {
+          entryValue = valueRecord.Array.value.Base.Enum.map((e: string) => e.split("::")[1]).join(",");
         }
         newEntries[entry.id] = entryValue?.toString() ?? entry.defaultValue;
       }
@@ -288,13 +301,7 @@ function App() {
     setEntries(newEntries);
   };
 
-  /**
-   * 打开文件
-   *
-   * @param f 要打开的文件对象
-   * @returns Promise<void>
-   */
-  const openFile = async (f: File) => {
+  const openSavFile = async (f: File) => {
     const result = await analyzeFile(f, (e) => {
       console.error(e);
       toast.error(t(I18nStr.toast.invalidFile), {
@@ -308,19 +315,16 @@ function App() {
     }
     // console.log(result);
     // console.log('magic: ' + result.magic);
-    const gvas: Gvas = result.gvas ?? DEFAULT_WORLDOPTION.gvas;
+    const gvas: Gvas = result.gvas ?? DEFAULT_WORLDOPTION_SAV.gvas;
     toast.success(t(I18nStr.toast.savFileLoaded), {
       description: t(I18nStr.toast.savFileLoadedDescription),
     });
     deserializeEntriesFromGvasJson(gvas);
   };
 
-  /**
-   * 保存文件函数
-   */
   const saveFile = () => {
-    const gvasToSave: Gvas = LosslessJSON.parse(LosslessJSON.stringify(DEFAULT_WORLDOPTION.gvas)!) as Gvas;
-    gvasToSave.root.properties.OptionWorldData.Struct.value.Struct.Settings.Struct.value.Struct = serializeEntriesToGvasJson();
+    const gvasToSave: Gvas = LosslessJSON.parse(LosslessJSON.stringify(DEFAULT_WORLDOPTION_SAV.gvas)!) as Gvas;
+    gvasToSave.root.properties.OptionWorldData.Struct.value.Struct.Settings.Struct.value.Struct = serializeEntriesToWorldOptionJson() as WorldOption;
     writeFile(
       {
         magic: 828009552,
@@ -341,11 +345,6 @@ function App() {
     );
   };
 
-  /**
-   * 处理文件输入事件
-   *
-   * @param e React的ChangeEvent事件对象，包含HTMLInputElement类型的目标元素
-   */
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
@@ -383,7 +382,7 @@ function App() {
       setFileMode(FileMode.INI);
       return;
     }
-    openFile(file)
+    openSavFile(file)
       .then(() => {
         // console.log("File opened");
         if (fileInputRef.current) {
@@ -399,13 +398,6 @@ function App() {
       });
   };
 
-  /**
-   * 生成输入框组件
-   *
-   * @param id 组件的唯一标识符
-   * @param disabled 是否禁用输入框
-   * @returns 返回生成的输入框组件
-   */
   const genInput = (id: string, disabled = false) => {
     const entry = ENTRIES[id];
     if (!entry) {
@@ -415,12 +407,28 @@ function App() {
     const entryValue = entries[entry.id] ?? entry.defaultValue;
     if (entry.type === "select") {
       return (
-        <DropDown
-          dKey={entry.id as "DeathPenalty" | "CrossplayPlatforms" | "LogFormatType"}
+        <SelectInput
+          key={id}
+          dKey={entry.id as "DeathPenalty" | "LogFormatType" | "RandomizerType"}
           label={entryValue as LabelValue}
           onLabelChange={(labelName: string) => {
             onStateChanged(entry.id)({
               target: { value: labelName },
+            });
+          }}
+        />
+      );
+    }
+    if (entry.type === "array") {
+      const labelValues = (entryValue.trim() === "" ? [] : entryValue.split(",")) as LabelValues;
+      return (
+        <MultiSelectInput
+          key={id}
+          dKey={entry.id as "CrossplayPlatforms"}
+          selectedLabels={labelValues}
+          onLabelsChange={(labelNames: string[]) => {
+            onStateChanged(entry.id)({
+              target: { value: labelNames.join(",") },
             });
           }}
         />
@@ -493,30 +501,51 @@ function App() {
   const settingsText =
     fileMode === FileMode.INI
       ? `[/Script/Pal.PalGameWorldSettings]\nOptionSettings=(${serializeEntriesToIni()})`
-      : LosslessJSON.stringify(serializeEntriesToGvasJson(), null, 4) ?? "";
+      : LosslessJSON.stringify(serializeEntriesToWorldOptionJson(), null, 4) ?? "";
 
-  /**
-   * 将文本复制到剪贴板
-   */
   const copyToClipboard = () => {
-    navigator.clipboard
-      .writeText(settingsText)
+    const copyText = (text: string) => {
+      if (navigator.clipboard) {
+        return navigator.clipboard.writeText(text);
+      } else if (document.queryCommandSupported?.('copy')) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        
+        try {
+          document.execCommand('copy');
+          return Promise.resolve();
+        } catch (e) {
+          // console.error(e);
+          return Promise.reject(e);
+        } finally {
+          document.body.removeChild(textarea);
+        }
+      }
+      return Promise.reject(new Error('Copy failed'));
+    };
+
+    copyText(settingsText)
       .then(() => toast.success(t(I18nStr.toast.copied), { description: t(I18nStr.toast.copiedDescription) }))
       .catch(() => toast.error(t(I18nStr.toast.copyFailed), { description: t(I18nStr.toast.copyFailedDescription) }));
   };
 
-  /**
-   * 从剪贴板读取文本并反序列化条目
-   */
   const readFromClipboard = () => {
-    navigator.clipboard
-      .readText()
-      .then((e) => deserializeEntriesFromIni(e))
-      .catch(() =>
-        toast.error(t(I18nStr.toast.loadFailed), {
-          description: t(I18nStr.toast.loadFailedDescription),
-        })
-      );
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .readText()
+        .then((e) => deserializeEntriesFromIni(e))
+        .catch(() => {
+          toast.error(t(I18nStr.toast.loadFailed), {
+            description: t(I18nStr.toast.loadFailedDescription),
+          })
+        });
+    } else {
+      setPasteDialogOpen(true);
+    }
   };
 
   useEffect(() => {
@@ -579,6 +608,17 @@ function App() {
             <CardTitle className="flex">
               <div className="leading-10">
                 <Trans i18nKey={I18nStr.title} />
+                <Badge variant="secondary" className="ml-2">
+                <a
+                  href="https://docs.palworldgame.com/settings-and-operation/configuration/"
+                  className="underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {configVersion}
+                </a>
+
+                </Badge>
               </div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -632,6 +672,10 @@ function App() {
                     <DropdownMenuRadioItem value="es_ES">
                       <ReactCountryFlag countryCode="ES" svg />
                       <div className="px-2"> Español </div>
+                    </DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="fr_FR">
+                      <ReactCountryFlag countryCode="FR" svg />
+                      <div className="px-2"> Français </div>
                     </DropdownMenuRadioItem>
                   </DropdownMenuRadioGroup>
                 </DropdownMenuContent>
@@ -738,7 +782,7 @@ function App() {
           <pre className="text-wrap break-all whitespace-pre-wrap text-sm text-gray-800 dark:text-gray-200">{settingsText}</pre>
         </div>
         <div className="w-full max-w-3xl flex justify-center pt-2">
-          2024-2025 @Bluefissure{" "}
+          2024-{`${new Date().getFullYear()}`} @Bluefissure
           <a
             href="http://pal-conf.apiqy.cn"
             className="pl-2 font-medium text-primary underline underline-offset-4 top-2"
@@ -747,8 +791,33 @@ function App() {
           >
             Github
           </a>
+          {__COMMIT_HASH__ && (`@${__COMMIT_HASH__}`)}
         </div>
       </main>
+      <Dialog open={pasteDialogOpen} onOpenChange={setPasteDialogOpen}>
+        <DialogContent>
+          <DialogTitle>{t(I18nStr.paste)}</DialogTitle>
+          <Textarea
+            value={pasteContent}
+            onChange={(e) => setPasteContent(e.target.value)}
+            className="min-h-[200px]"
+          />
+          <div className="flex justify-end gap-4">
+            <Button variant="outline" onClick={() => setPasteDialogOpen(false)}>
+              <Trans i18nKey={I18nStr.cancel} />
+            </Button>
+            <Button
+              onClick={() => {
+                deserializeEntriesFromIni(pasteContent);
+                setPasteDialogOpen(false);
+                setPasteContent("");
+              }}
+            >
+              <Trans i18nKey={I18nStr.confirm} />
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

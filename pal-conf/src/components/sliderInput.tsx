@@ -20,22 +20,6 @@ import { I18nStr } from "@/i18n";
  */
 type DifficultyType = "increasing" | "decreasing" | "independence"
 
-/**
- * SliderInput 组件用于创建一个滑块输入框组件。
- *
- * @param props 组件的属性
- * @param props.id 元素的唯一标识符
- * @param props.name 输入框的名称
- * @param props.value 当前的值
- * @param props.defaultValue 默认值
- * @param props.minValue 允许的最小值
- * @param props.maxValue 允许的最大值
- * @param props.step 步长
- * @param props.onValueChange 当值改变时触发的回调函数
- * @param props.type 输入框的类型，可选值为 'integer' 或 'float'，默认为 'float'
- * @param props.disabled 是否禁用输入框，默认为 false
- * @param props.difficultyType 难度类型，可选值为 'increasing' 或 'decreasing'，默认为 'independence'
- */
 function SliderInput(props: {
     id: string;
     name: string;

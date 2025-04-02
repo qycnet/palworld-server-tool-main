@@ -253,6 +253,35 @@ const rconItemOptions = ref([]);
 const rconSelectedPal = ref(null);
 const rconPalOptions = ref([]);
 const rconCommandsExtra = ref({});
+const showCustomPalModal = ref(false);
+
+const openCustomPalModal = () => {
+  showCustomPalModal.value = true;
+};
+
+const closeCustomPalModal = () => {
+  showCustomPalModal.value = false;
+};
+
+const goToCustomPalWebsite = () => {
+  window.open("http://givepal_j.apiqy.cn/", "_blank");
+};
+
+// 自定义帕鲁模态框
+const customPalModal = () => {
+  dialog.info({
+    title: t("modal.customPal"),
+    content: t("message.customPalDesc"),
+    positiveText: t("button.confirm"),
+    negativeText: t("button.cancel"),
+    onPositiveClick: () => {
+      goToCustomPalWebsite();
+    },
+    onNegativeClick: () => {
+      // 用户取消操作
+    }
+  });
+};
 const copyText = async (text) => {
   if (text == "" || text == null) {
     message.error(t("message.copyempty"));
@@ -1369,10 +1398,15 @@ onMounted(async () => {
   <n-drawer v-model:show="showRconDrawer" :width="502" placement="right">
     <n-drawer-content :title="t('modal.rcon')">
       <!-- 抽屉底部内容，包含一个添加RCON命令的按钮 -->
-	  <template #footer>
-        <n-button type="primary" strong secondary @click="handleAddRconCommand">
-          {{ $t("button.addRcon") }}
-        </n-button>
+      <template #footer>
+        <n-space>
+          <n-button type="primary" strong secondary @click="customPalModal">
+            {{ $t("button.customPal") }}
+          </n-button>
+          <n-button type="primary" strong secondary @click="handleAddRconCommand">
+            {{ $t("button.addRcon") }}
+          </n-button>
+        </n-space>
       </template>
 	  <!-- 玩家选择器 -->
       <div class="flex w-full items-center">

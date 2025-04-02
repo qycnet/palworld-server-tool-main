@@ -18,6 +18,8 @@
     "easier": "Mais fácil",
     "harder": "Mais difícil",
     "drag": "Arraste os arquivos PalWorldSettings.ini ou WorldOption.sav até aqui",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
     "toast": {
       "copied": "Copiado para a área de transferência",
       "copiedDescription": "As configurações do servidor foram copiadas para sua área de transferência.",
@@ -49,9 +51,6 @@
         "Difficulty": "Ajusta a dificuldade geral do jogo.",
         "RandomizerType": "Tipo de Aleatorizador",
         "RandomizerSeed": "Semente do Aleatorizador",
-        "bIsRandomizerPalLevelRandom": "Aleatorização dos níveis de PAL",
-		"bAllowGlobalPalboxExport": "Se é admissível preservar a sequência genética de Palu através de um terminal transfronteiriço de Palu",
-		"bAllowGlobalPalboxImport": "Se é permitido restaurar Palu por sequências de genes em terminais transfronteiriços de Palu",
         "DayTimeSpeedRate": "Modifica a velocidade do tempo de jogo durante o dia.",
         "NightTimeSpeedRate": "Modifica a velocidade do tempo de jogo durante a noite.",
         "ExpRate": "Altera a taxa de ganho de experiência para jogadores e criaturas.",
@@ -131,7 +130,10 @@
         "bUseAuth": "Habilita ou desabilita autenticação do servidor.",
         "BanListURL": "Define a URL para a lista de banidos do servidor.",
         "SupplyDropSpan":"Intervalo de queda de meteoritos e suprimentos (minutos)",
-        "ChatPostLimitPerMinute":"Limite de postagem de chat por minuto"
+        "ChatPostLimitPerMinute":"Limite de postagem de chat por minuto",
+        "bIsRandomizerPalLevelRandom": "Nível de Palu selvagem completamente aleatório",
+        "bAllowGlobalPalboxExport": "Permitir exportação global de Palbox",
+        "bAllowGlobalPalboxImport": "Permitir importação global de Palbox"
       },
       "description": {
         "DeathPenalty": {
@@ -139,12 +141,6 @@
           "Item": "Perder apenas itens do inventário",
           "ItemAndEquipment": "Perder itens do inventário e equipamento",
           "All": "Perder todos os itens, equipamentos, pals (no inventário)"
-        },
-        "CrossplayPlatforms": {
-          "Steam": "Permitir apenas a conexão do Steam",
-          "Xbox": "Permitir apenas a conexão do SteXboxam",
-          "PS5": "Permitir apenas a conexão do StePS5am",
-          "Mac": "Permitir apenas a conexão do SteMacam"
         },
         "LogFormatType": {
           "Text": "Usar formato de texto para log",
